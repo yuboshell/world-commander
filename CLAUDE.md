@@ -5,10 +5,18 @@ Natural-language-commanded strategy games under real-time compute budgets.
 Created 2026-06-10; its own git repo under `~/github/game-commander`.
 
 ## What's here
-- (describe the main files + how they fit together as the project takes shape)
+- `PROPOSAL.md` — the research agenda ("Command at the Speed of Thought"):
+  three-layer program (strategy / foresight / embodiment), Phase-1 wedge-paper
+  spec (real-time StarCraft II commander benchmark, KV-cache eviction evaluated
+  by win rate), prior-art map with verified links. Drafted 2026-06-10 for
+  discussion with Dr. Enmao Diao; he gets collaborator access to this repo.
+
+## Status
+- Proposal stage. No code yet. Next step: Yubo discusses the proposal with
+  Dr. Diao; outcomes get folded back into PROPOSAL.md before any build starts.
 
 ## Build & run
-- (the project's build / run / test command goes here)
+- (no build yet — proposal stage)
 
 ## Conventions
 - **Name things by engineering function**, not vendor SKU (the SKU is secondary).
