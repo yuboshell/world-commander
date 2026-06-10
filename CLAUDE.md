@@ -9,7 +9,10 @@ Created 2026-06-10; its own git repo under `~/github/game-commander`.
   three-layer program (strategy / foresight / embodiment), Phase-1 wedge-paper
   spec (real-time StarCraft II commander benchmark, KV-cache eviction evaluated
   by win rate), prior-art map with verified links. Drafted 2026-06-10 for
-  discussion with Dr. Enmao Diao; he gets collaborator access to this repo.
+  discussion with Dr. Enmao Diao. Canonical remote:
+  `DreamSoul-AI/game-commander` (private org repo — Diao sees it as org owner,
+  no invite needed; visible to all org members). A frozen v1 snapshot sits
+  archived at `yubohuangai/game-commander`.
 
 ## Status
 - Proposal stage. No code yet. Next step: Yubo discusses the proposal with
