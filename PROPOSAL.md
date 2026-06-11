@@ -32,6 +32,21 @@ The commander interface decomposes into a stack, each layer a publishable line o
 | Foresight | A compact entity-level world model answers the commander's counterfactual queries ("if the army pushes now, does the fight win?") | Phase 2-3 |
 | Embodiment | Units execute commands with generated motion at crowd scale on a consumer GPU | Phase 2-3 |
 
+## Roadmap: from arena to game
+
+The end state — a full commander-interface strategy game in the spirit of Age of Empires — is a product vision, years out, and not the deliverable. Its role is to fix the two constraints every paper inherits: an unpausable clock and a hard compute budget. The path toward it is a ladder of environments sharing one harness, one command protocol, and one evaluation philosophy; each rung isolates a measurable question that publishes on its own.
+
+| Rung | Environment | What it isolates |
+|---|---|---|
+| 0 | Command arena: color-tagged agents in a minimal room move in discrete directions under streamed language commands, no motion detail | Per-entity command grounding against the clock: grounding accuracy, utterance-to-action latency, deadline misses as command rate rises |
+| 1 | StarCraft II, clock unpaused | Strategic judgment under latency and KV-cache budgets (the Phase 1 wedge) |
+| 2 | Multi-user arena: several players command their own units from their own machines in one shared real-time world | Efficiency as competitiveness: matches between efficiency configurations (Phase 3) |
+| 3 | The commander game | Product north star, beyond the paper horizon |
+
+The arena costs weeks, not months: no game engineering, no motion data, agents that simply move. Single commands are trivially easy for any modern model — by design; the test is the stream. Difficulty rises along three axes: command rate, compositional addressing ("everyone except the yellow one, gather at the door"), and commands that depend on remembered state ("the one who was sitting earlier — move him west"). Building the arena first validates the streaming-command infrastructure and latency protocol that every later rung, including the wedge, reuses. It is also where the embodiment layer eventually lands: swap discrete moves for generated full-body motion at crowd scale, and the harness and metrics carry over unchanged.
+
+Rung 2 changes what latency means: in a competitive match it stops being a constraint to measure and becomes what decides the winner. The headline question — does a fast small commander beat a slow large one head-to-head? — turns the efficiency frontier into Elo-style ratings (chess's system for ranking players by match outcomes), an evaluation no static corpus can imitate. Multi-user play also surfaces the systems questions — per-client inference versus a shared server budget, fairness across heterogeneous player hardware — that extend the Phase 2 scheduling line.
+
 ## Phase 1: the wedge paper
 
 A benchmark and empirical study: can an LLM command at game speed, and which efficiency techniques preserve its judgment?
@@ -59,7 +74,21 @@ Whatever Phase 1 exposes as the bottleneck becomes the method work. Candidates: 
 
 ## Phase 3: toward the real interface
 
-Reintroduce the human. A voice-commanded mode (the commander speaks, agents execute) evaluated on intent throughput, cognitive load, and accessibility, extending what Adaptive Command began. In parallel, the foresight and embodiment layers mature: entity-level world models for in-game counterfactuals (cheaper, queryable analogues of [WHAM](https://www.nature.com/articles/s41586-025-08600-3)-style gameplay models), and crowd-scale language-conditioned motion generation under compute budgets, building on the real-time text-to-motion line ([MotionLCM](https://arxiv.org/pdf/2404.19759), [MotionStreamer](https://arxiv.org/pdf/2503.15451), [CrowdMoGen](https://yukangcao.github.io/CrowdMoGen/)). These layers align with motion-generation and character-world-model research directions in Yubo's prospective PhD work and are listed here as the agenda's growth surface rather than Phase 1 commitments.
+Reintroduce the human. A voice-commanded mode (the commander speaks, agents execute) evaluated on intent throughput, cognitive load, and accessibility, extending what Adaptive Command began — then humans, plural: the multi-user arena (roadmap rung 2), where matches between players turn efficiency into competitiveness. In parallel, the foresight and embodiment layers mature: entity-level world models for in-game counterfactuals (cheaper, queryable analogues of [WHAM](https://www.nature.com/articles/s41586-025-08600-3)-style gameplay models), and crowd-scale language-conditioned motion generation under compute budgets, building on the real-time text-to-motion line ([MotionLCM](https://arxiv.org/pdf/2404.19759), [MotionStreamer](https://arxiv.org/pdf/2503.15451), [CrowdMoGen](https://yukangcao.github.io/CrowdMoGen/)). These layers align with motion-generation and character-world-model research directions in Yubo's prospective PhD work and are listed here as the agenda's growth surface rather than Phase 1 commitments.
+
+## Paper inventory
+
+The program is research-first: the game is the north star, the papers are the milestones. The test each paper must pass is answering a question its community already cares about while caring nothing about the game; the budget-frontier evaluation is what passes it.
+
+| Paper | The question | Who cares, independent of the game |
+|---|---|---|
+| Real-time commander benchmark (the Phase 1 wedge) | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning researchers, whose methods are scored on static corpora today, never by win rate |
+| Game-state tokenizer (inside the wedge or standalone — open question 3) | Does byte-pair tokenization extend to entity and event streams, and what does a compact state code buy at equal win rate? | The tokenization-beyond-text program |
+| Command-arena benchmark (rung 0) | How does per-entity command grounding degrade as command rate rises against a hard clock? | Real-time agent and interactive-systems researchers |
+| Competitive-efficiency study (rung 2) | Does a fast small commander beat a slow large one head-to-head — Elo as a function of compute budget? | Inference-efficiency and agents communities; an evaluation-paradigm result |
+| Crowd motion under budget (embodiment layer) | Can language-commanded full-body crowds run in real time on one consumer GPU? | The motion-generation and graphics community |
+
+Benchmark papers live or die on adoption: open source, one-command install, credible baselines — the Phase 1 deliverables are scoped with that in mind.
 
 ## Why this collaboration
 
