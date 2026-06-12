@@ -57,7 +57,7 @@ Experimental variables.
 
 - KV-cache policy: full cache, [StreamingLLM](https://arxiv.org/abs/2309.17453)-style attention sinks, H2O (Zhang et al., 2023), SnapKV (Li et al., 2024), and [OBCache](https://arxiv.org/abs/2510.07651), treating the game-state stream as the long context.
 - Model scale and sparsity: open-weight models from 1B to 70B, plus structurally pruned variants (GISP, RESP) and quantized variants.
-- Architecture: monolithic commander versus a commander/executor split (slow strategic model, fast small executors), the architecture suggested by the DOOM result.
+- Architecture: monolithic commander versus a commander/executor split (slow strategic model, fast small executors), the architecture suggested by the DOOM result — and, in robotics, by vision-language-action models: [π0](https://arxiv.org/abs/2410.24164) pairs a slow vision-language backbone with a fast action expert controlling at up to 50 Hz, the analogy raised in the first discussion round.
 - State encoding: plain-text serialization versus a learned tokenizer over structured game state (see below).
 
 Metrics. Win rate against fixed built-in AI levels as a function of (decision latency budget, VRAM budget): an efficiency frontier rather than a single score. Secondary: actions issued per minute, decision deadline misses, tokens per decision.
@@ -99,6 +99,16 @@ The wedge paper needs two things at once: the efficiency-methods stack (cache ev
 - Environment engineering on StarCraft II is real work; mitigated by inheriting the TextStarCraft II stack rather than building from scratch.
 - The "KV eviction in closed-loop games" gap could be filled by others; the surveys already name it, so the wedge paper should move fast.
 - Latency results age as inference gets cheaper; the benchmark's framing (performance versus budget) remains meaningful regardless of which model currently wins.
+
+## Discussion log
+
+**2026-06-11 — first round with Dr. Diao (WeChat).** Direction endorsed. Three signals, folded back into the agenda:
+
+- Latency is the fight: large-model control is slow against the speed that mouse control demands. This is the wedge's thesis restated as a concern — the benchmark exists to measure exactly that gap and what closes it.
+- Architecture pointer: borrow from robot vision-language-action models (the [π0](https://arxiv.org/abs/2410.24164) line), where a slow vision-language backbone drives a fast action expert at real-time rates. Added to the Phase 1 architecture variable; a game is the cheaper, safer place to iterate on the same split.
+- "Essentially RL in a virtual world": the long arc runs through reinforcement learning, so RL literacy is a prerequisite to build. Phase 1 itself needs no RL training (off-the-shelf and pruned commanders, prompted), but learned commanders, the foresight layer, and any trained executor do. Near-term action: survey RL fundamentals and consult RL colleagues.
+
+Also from the exchange: for the motion-generation community, the program reads as "real-time control of multiple virtual characters" — the one-line translation of the embodiment layer for that audience.
 
 ## Open questions for discussion
 
