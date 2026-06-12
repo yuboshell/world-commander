@@ -1,0 +1,97 @@
+# Decisions
+
+Append-only log of project decisions: what was chosen, why, what was
+rejected and why it was rejected. Newest first. One entry per decision,
+written in the session the decision happens. Rationale recorded here is
+project-local; transferable lessons still go to memex at milestones.
+
+## 2026-06-12: documentation architecture: deck + proposal + decisions, one repo, one rule
+
+**Decision**: `PROPOSAL.md` stays the single comprehensive source of
+truth. `DECK.md`/`DECK.pdf` (Marp, Keynote-White style) is its clean,
+small mirror for presenting, sharing, and Yubo's own review. This file
+records decisions. Update rule: a session that substantively changes
+PROPOSAL.md updates the deck before committing; a decision made in
+conversation gets an entry here in the same session.
+**Why**: shareable at any moment; one clone, versioned together,
+org-visible; three files and one rule keeps the workflow from going
+clunky.
+**Rejected**: hosting the deck in the `~/report` weekly flow (that
+machinery targets the Prof. Cheng channel; this project's boundary rule
+keeps the lines separate); splitting the proposal into multiple files
+now (premature: split the Discussion log out only when it outgrows the
+document, around the 300-line mark).
+**Revisit when**: PROPOSAL.md passes ~300 lines, or per-audience deck
+variants become necessary.
+
+## 2026-06-11: RL framing scoped to literacy now, depth at Phase 2-3
+
+**Decision**: treat Dr. Diao's "essentially RL in a virtual world" as
+true of the substrate (PySC2 is an RL environment; win rate is a
+reward; memory probes test credit assignment) and of the long arc, not
+of Phase 1's method. Near-term action: RL literacy (Sutton & Barto
+early chapters, the U of A Coursera specialization, Spinning Up), not
+RL training.
+**Why**: Phase 1 trains nothing; its novelty is the efficiency
+frontier. Real-time RL is the reconciling frame: latency inside the
+decision problem.
+**Rejected**: reframing the wedge as an RL paper (wrong reviewers,
+wrong novelty claim).
+**Revisit when**: Phase 2 methods work begins (learned commanders or
+executors, foresight layer).
+
+## 2026-06-11: π0 analogy recorded as a Phase-1 variable, not the bet
+
+**Decision**: adopt Dr. Diao's robotics pointer (π0: slow
+vision-language backbone driving a fast action expert) as a second
+independent support for the commander/executor architecture variable,
+alongside the 1.3M-parameter DOOM result.
+**Why**: robotics and the DOOM result converged on the same split from
+different directions; a game iterates that split more cheaply than
+hardware. Note π0 is imitation-trained, not RL.
+**Rejected**: committing to the split as *the* architecture before the
+benchmark measures it against the monolithic commander.
+
+## 2026-06-11: arena v0 strips motion: discrete-direction agents only
+
+**Decision**: rung 0 of the roadmap uses colour-tagged abstract agents
+moving in discrete directions; full-body generated motion is deferred
+to the embodiment layer on the same harness.
+**Why**: removes the three heaviest risks at once (no
+per-entity-commanded crowd dataset exists; no rendering or motion
+engineering; no mushy motion-quality metrics). Difficulty relocates to
+the command stream: rate, compositional addressing, commands that
+depend on remembered state.
+**Rejected**: starting with realistic human crowds in a room (the
+original mental picture): right destination, wrong first step. The
+Cheng-facing motion rung arrives later with the harness and metrics
+unchanged.
+
+## 2026-06-10: proposal shared via the DreamSoul-AI org repo
+
+**Decision**: canonical repo `DreamSoul-AI/game-commander`; Dr. Diao
+reads it as org owner, no invitation; frozen v1 snapshot archived at
+`yubohuangai/game-commander`.
+**Why**: zero friction for Diao; visible to all org members by
+construction.
+**Rejected**: a memex branch (GitHub access is repo-level: a
+collaborator would see the whole knowledge base); a personal-repo
+invite (don't make Diao accept an invitation).
+
+## 2026-06-10: environment: StarCraft II, not OpenRA or microRTS
+
+**Decision**: build Phase 1 on the TextStarCraft II / LLM-PySC2 stack
+with the clock unpaused.
+**Why**: inherit working infrastructure; the strongest prior-art line
+lives there; the built-in AI ladder supplies fixed opponents.
+**Rejected**: OpenRA and microRTS (lighter engineering, but weaker
+baselines and far less recognizable to reviewers).
+
+## 2026-06-10: Phase 1 scope: benchmark + tokenizer; voice deferred
+
+**Decision**: the wedge is the benchmark/harness, the efficiency
+frontier, and the strategic-memory probes, with the game-state
+tokenizer module attached (inside the paper or standalone: still open).
+The human-in-the-loop voice study is deferred to Phase 3.
+**Why**: the narrow paper publishes fast; voice adds human-subjects
+machinery without sharpening the efficiency question.

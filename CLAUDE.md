@@ -6,17 +6,40 @@ Created 2026-06-10; its own git repo under `~/github/game-commander`.
 
 ## What's here
 - `PROPOSAL.md` — the research agenda ("Command at the Speed of Thought"):
-  three-layer program (strategy / foresight / embodiment), Phase-1 wedge-paper
-  spec (real-time StarCraft II commander benchmark, KV-cache eviction evaluated
-  by win rate), prior-art map with verified links. Drafted 2026-06-10 for
-  discussion with Dr. Enmao Diao. Canonical remote:
+  three-layer program (strategy / foresight / embodiment), four-rung
+  environment roadmap, Phase-1 wedge-paper spec (real-time StarCraft II
+  commander benchmark, KV-cache eviction evaluated by win rate), paper
+  inventory, prior-art map with verified links, discussion log. Drafted
+  2026-06-10 for discussion with Dr. Enmao Diao. Canonical remote:
   `DreamSoul-AI/game-commander` (private org repo — Diao sees it as org owner,
   no invite needed; visible to all org members). A frozen v1 snapshot sits
   archived at `yubohuangai/game-commander`.
+- `DECK.md` / `DECK.pdf` — the Marp slide deck: a clean, small mirror of
+  PROPOSAL.md for presenting and sharing at any time, and Yubo's own
+  review artifact. Style: Keynote-White (ported from the weekly-report
+  decks); no em-dashes anywhere (external audience), Canadian spelling,
+  self-contained slides, citations as Handle (Venue Year).
+- `DECISIONS.md` — append-only decision log: one entry per decision
+  (what / why / rejected / revisit-when), newest first.
+
+## Documentation workflow (the contract)
+- PROPOSAL.md is canonical. Any session that changes it substantively
+  must update DECK.md and re-render DECK.pdf before committing:
+  `marp DECK.md -o DECK.pdf --allow-local-files`
+  (verify dense slides visually: `pdftoppm -png -r 95 -f N -l N -singlefile DECK.pdf /tmp/slide`).
+- Any decision made in conversation gets a DECISIONS.md entry in the
+  same session.
+- Transferable lessons still get proposed for memex ingestion at
+  milestones; DECISIONS.md holds project-local rationale only.
 
 ## Status
-- Proposal stage. No code yet. Next step: Yubo discusses the proposal with
-  Dr. Diao; outcomes get folded back into PROPOSAL.md before any build starts.
+- Proposal stage. No code yet. First discussion round with Dr. Diao
+  (WeChat, 2026-06-11): direction endorsed; pointers to robot
+  vision-language-action architectures (π0) and to the long arc being
+  "RL in a virtual world". Outcomes folded into PROPOSAL.md (Discussion
+  log section).
+- Next: Yubo surveys RL fundamentals and consults RL colleagues; arena
+  v0 design comes after that.
 
 ## Build & run
 - (no build yet — proposal stage)
