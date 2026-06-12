@@ -5,6 +5,29 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-12: deck v2: figures, linked citations, glosses, RL slide, HTML channel
+
+**Decision**: per Yubo's review, the deck gains three figures (two
+credited PySC2 video stills from DeepMind: real gameplay and feature
+layers; one self-authored arena SVG with commands colour-keyed to
+agents); every citation is hyperlinked; the survey claim is pinpointed
+to §8.1 of the ACM CSUR 2026 survey with an exact quote; on-slide
+glosses added for no-op, DOOM, harness, grounding, generated motion,
+and wedge; a "Where this sits relative to RL" slide carries the
+round-1 framing (credited to Dr. Diao); "listen" joins the commander
+loop in both deck and PROPOSAL.md; author/pointer line moved from
+slide 1 to the final slide; `DECK.html` is now exported alongside the
+PDF (HTML plays GIF/video for future dynamic content). Rendering needs
+the `--html` flag, or layout divs are stripped.
+**Why**: games need showing, not describing; the deck must be
+self-contained for audiences that will include RL researchers Yubo
+consults; Diao's round-1 content belongs in the shareable artifact.
+**Rejected**: deleting the attribution line entirely (a standalone PDF
+needs provenance, so it moved to the last slide instead); embedding
+GIF/video now (no owned footage yet).
+**Revisit when**: arena v0 produces its own screenshots or clips to
+replace the borrowed PySC2 stills.
+
 ## 2026-06-12: documentation architecture: deck + proposal + decisions, one repo, one rule
 
 **Decision**: `PROPOSAL.md` stays the single comprehensive source of

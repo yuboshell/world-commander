@@ -1,5 +1,6 @@
 ---
 marp: true
+html: true
 paginate: true
 size: 16:9
 title: "Command at the Speed of Thought"
@@ -41,7 +42,10 @@ thead th { border-bottom: 1px solid #333 !important; font-weight: 600; }
 
 /* two-column scaffold; ratios set inline per slide */
 .columns { display: grid; gap: 26px; align-items: start; }
+.col-img { text-align: center; }
+.col-img img { max-width: 100%; }
 .caption { font-size: 0.74em; color: #444; line-height: 1.28; margin-top: 6px; text-align: left; }
+.credit  { font-size: 0.62em; color: #777; margin-top: 2px; }
 
 /* page number bottom-right as "current / total" */
 section::after {
@@ -63,21 +67,34 @@ section.tight h1 { font-size: 30px; }
 3. **Prior work and the open gap.**
 4. **The program**: three layers of research, four rungs of environments.
 5. **Phase 1**: the first benchmark paper.
-6. **Architecture, papers, collaboration, risks.**
-
-Yubo Huang, June 2026. Full proposal: `PROPOSAL.md` in this repository.
+6. **Architecture, reinforcement learning, papers, collaboration, risks.**
 
 ---
 
+<!-- _class: tight -->
 # Vision: the Commander Interface
+
+<div class="columns" style="grid-template-columns: 52% 45%">
+<div>
 
 In a real-time strategy (RTS) game, most player effort is micromanagement: drag-selecting units, hunting icons, sustaining hundreds of actions per minute. The strategic thinking that makes the genre rewarding gets a fraction of the player's attention. The rest is manual labour forced by the interface.
 
-The alternative division of work already exists in coding agents: the person speaks intent, agents execute, the person reviews and redirects. Applied to strategy games, the player becomes a commander: **watch, think, speak; subordinates execute.**
+The alternative division of work already exists in coding agents: the person speaks intent, agents execute, the person reviews and redirects. Applied to strategy games, the player becomes a commander: **watch, listen, think, speak; subordinates execute.**
 
-- The interface concept shipped in 2008: EndWar, a fully voice-commanded RTS, on a rigid 70-word grammar.
+- The interface concept shipped in 2008: [EndWar](https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar), a fully voice-commanded RTS, on a rigid 70-word grammar.
 - Language models removed the grammar limit: free-form commands are now understood.
 - What is still missing is **speed**: language models cannot yet act at game pace.
+
+</div>
+<div class="col-img">
+
+<img src="fig/sc2-minigames.jpg" style="max-height: 350px;">
+
+<div class="caption"><strong>Figure 1: what the player actually does.</strong> StarCraft II through DeepMind's PySC2 interface: economy, production, and unit control all run in parallel against the clock.</div>
+<div class="credit">Still: PySC2 mini-games video (DeepMind)</div>
+
+</div>
+</div>
 
 ---
 
@@ -88,7 +105,7 @@ The alternative division of work already exists in coding agents: the person spe
 The evaluation philosophy, shared by every part of the program:
 
 - Score systems by **performance as a function of latency budget and VRAM budget**: an efficiency frontier, not a single number.
-- The clock never pauses. A decision that arrives late is a no-op, exactly as it is for a human player.
+- The clock never pauses. A decision that arrives late is a **no-op** ("no operation": it simply has no effect, exactly as a move you thought of too late has no effect in a real match).
 
 This is the question that decides whether the commander interface is buildable at all.
 
@@ -97,13 +114,13 @@ This is the question that decides whether the commander interface is buildable a
 <!-- _class: tight -->
 # Prior Work, and the Gap
 
-**LLMs already play RTS through text.** TextStarCraft II (NeurIPS 2024): off-the-shelf models beat the level-5 built-in AI with chain-of-summarization prompting. Adaptive Command (arXiv 2025) adds a speech-interfaced strategic advisor for human players. Both sidestep real time by slowing or pausing the clock.
+**LLMs already play RTS through text.** [TextStarCraft II (NeurIPS 2024)](https://arxiv.org/abs/2312.11865): off-the-shelf models beat the level-5 built-in AI with chain-of-summarization prompting. [Adaptive Command (arXiv 2025)](https://arxiv.org/abs/2508.16580) adds a speech-interfaced strategic advisor for human players. Both sidestep real time by slowing or pausing the clock.
 
-**Efficiency is the named open problem.** The ACM Computing Surveys review of LLM game agents lists low-latency control and growing context cost as core challenges. A 1.3M-parameter specialist beats LLMs up to 92,000 times larger at real-time DOOM, deciding in 31 ms: general models do not currently survive contact with a game clock.
+**Efficiency is the named open problem.** The [survey of LLM game agents (ACM Computing Surveys 2026)](https://arxiv.org/abs/2404.02039) devotes §8.1, "Action Games: Low-Latency Response," to it: "the core challenge is low-latency response, which shapes agent design by requiring fast action and hybrid architectures that reconcile LLM reasoning with frame-level responsiveness." A [1.3M-parameter specialist (arXiv 2026)](https://arxiv.org/abs/2604.07385) beats LLMs up to 92,000 times larger at real-time DOOM (the classic 1993 first-person shooter, a standard real-time benchmark), deciding in 31 ms.
 
 **Efficiency methods are never evaluated where stakes are real.** KV-cache eviction (dropping old context to fit memory) is scored on perplexity and retrieval suites. No existing work evaluates eviction closed-loop inside a live game, where evicting the wrong memory loses the match minutes later.
 
-**The gap, in one line**: a streaming game is the natural stress test for efficient-inference methods, and nobody has run it. The gap is named in public surveys; speed decides who fills it.
+**The gap, in one line**: a streaming game is the natural stress test for efficient-inference methods, and nobody has run it. The gap is named in a public survey; speed decides who fills it.
 
 ---
 
@@ -113,7 +130,7 @@ This is the question that decides whether the commander interface is buildable a
 |---|---|---|
 | **Strategy** | An LLM commander reads the game-state stream and issues macro decisions under hard latency and KV-cache budgets | Phase 1 |
 | **Foresight** | A compact entity-level world model answers the commander's counterfactual queries: "if the army pushes now, does the fight win?" | Phase 2 to 3 |
-| **Embodiment** | Units execute commands with generated motion at crowd scale on a consumer GPU | Phase 2 to 3 |
+| **Embodiment** | Units execute commands with model-generated motion at crowd scale on a consumer GPU (generated: synthesized for the command by a motion model, not replayed animation clips) | Phase 2 to 3 |
 
 Each layer is a publishable line of work; all share the budget-frontier evaluation.
 
@@ -122,14 +139,28 @@ Each layer is a publishable line of work; all share the budget-frontier evaluati
 <!-- _class: tight -->
 # The Roadmap: Four Rungs, One Harness
 
+Harness: the shared scaffolding every rung runs inside: command protocol, unpausable clock, deadlines, metric logging.
+
 | Rung | Environment | What it isolates |
 |---|---|---|
-| 0 | **Command arena**: colour-tagged agents in a minimal room, moving in discrete directions under streamed language commands | Per-entity command grounding against the clock: grounding accuracy, utterance-to-action latency, deadline misses, as command rate rises |
+| 0 | **Command arena**: colour-tagged agents in a room move in discrete directions under streamed commands (Figure 2) | Per-entity command **grounding** against the clock (grounding: mapping words to the right agent and action) |
 | 1 | **StarCraft II, clock unpaused** | Strategic judgment under latency and KV-cache budgets: the Phase 1 paper |
-| 2 | **Multi-user arena**: several players command their own units from their own machines in one shared real-time world | Efficiency as competitiveness: does a fast small commander beat a slow large one head-to-head? |
+| 2 | **Multi-user arena**: several players command their own units in one shared real-time world | Efficiency as competitiveness: does a fast small commander beat a slow large one? |
 | 3 | **The commander game** | Product north star, beyond the paper horizon |
 
-The end-state game is a vision, not a deliverable: its role is to fix the two constraints every paper inherits, an unpausable clock and a hard compute budget. Each rung publishes on its own; the harness, command protocol, and metrics carry upward.
+The end-state game is a vision, not a deliverable: it fixes the two constraints every paper inherits: unpausable clock, hard compute budget. The harness, command protocol, and metrics carry up the ladder.
+
+---
+
+# Rung 0 Up Close: the Command Arena
+
+<div class="col-img">
+
+<img src="fig/arena.svg" style="max-height: 330px;">
+
+<div class="caption"><strong>Figure 2: the command arena.</strong> Colour-tagged agents under a streamed command clock; each command is colour-keyed to its agent. Single commands are trivially easy for any modern model, by design: the test is the stream. Measured: grounding accuracy, utterance-to-action latency, and deadline misses, as command rate rises.</div>
+
+</div>
 
 ---
 
@@ -140,7 +171,7 @@ The wedge: a deliberately narrow, fast first paper that opens the agenda behind 
 
 **Experimental variables**
 
-- KV-cache policy: full cache, StreamingLLM sinks, H2O, SnapKV, OBCache (ICML 2026)
+- KV-cache policy: full cache, [StreamingLLM](https://arxiv.org/abs/2309.17453) sinks, H2O, SnapKV, [OBCache (ICML 2026)](https://arxiv.org/abs/2510.07651)
 - Model scale and sparsity: 1B to 70B open-weight models, structurally pruned and quantized variants
 - Architecture: monolithic commander vs a commander/executor split
 - State encoding: plain text vs a learned tokenizer over structured game state
@@ -151,16 +182,44 @@ The wedge: a deliberately narrow, fast first paper that opens the agenda behind 
 
 ---
 
+<!-- _class: tight -->
 # Architecture: Slow Thinker, Fast Actors
+
+<div class="columns" style="grid-template-columns: 58% 39%">
+<div>
 
 The variable most likely to matter: **monolithic commander vs a commander/executor split**, a slow strategic model directing fast small executors.
 
 Two independent lines of support:
 
-- The DOOM result: a 1.3M-parameter specialist decides in 31 ms while far larger models miss the deadline. Small executors can hold the clock.
-- Robotics arrived at the same shape: π0 (arXiv 2024) pairs a slow vision-language backbone with a fast action expert controlling at up to 50 Hz. A game is the cheap, safe place to iterate on that split.
+- The [DOOM result](https://arxiv.org/abs/2604.07385): a 1.3M-parameter specialist decides in 31 ms while far larger models miss the deadline. Small executors can hold the clock.
+- Robotics arrived at the same shape: [π0 (arXiv 2024)](https://arxiv.org/abs/2410.24164) pairs a slow vision-language backbone with a fast action expert controlling at up to 50 Hz. A game is the cheap, safe place to iterate on that split.
 
-**State tokenization**: game state is a structured, non-text modality (entities, positions, events). Following Graph Tokenization (ICLR 2026), train a byte-pair tokenizer on replay corpora; measure tokens per decision and latency at equal win rate. A compact state code shrinks every downstream cost.
+**State tokenization**: game state is a structured, non-text modality (entities, positions, events; Figure 3). Following [Graph Tokenization (ICLR 2026)](https://www.diaoenmao.com), train a byte-pair tokenizer on replay corpora; measure tokens per decision and latency at equal win rate. A compact state code shrinks every downstream cost.
+
+</div>
+<div class="col-img">
+
+<img src="fig/sc2-featurelayers.jpg" style="max-height: 300px;">
+
+<div class="caption"><strong>Figure 3: game state is not text.</strong> PySC2 exposes StarCraft II as entity and terrain feature layers (right grid); serializing this to prose is the naive baseline the learned tokenizer competes against.</div>
+<div class="credit">Still: PySC2 video (DeepMind)</div>
+
+</div>
+</div>
+
+---
+
+<!-- _class: tight -->
+# Where This Sits Relative to Reinforcement Learning
+
+Dr. Diao's framing: "essentially RL in a virtual world." Precisely scoped:
+
+- **The substrate is RL.** PySC2 is a reinforcement-learning environment; win rate is a reward signal; the strategic-memory probes are a credit-assignment test (which earlier decision caused the eventual outcome?).
+- **Phase 1 trains nothing.** Off-the-shelf and pruned models, prompted. The novelty is the efficiency frontier, which no RL benchmark measures.
+- **The long arc is RL.** Learned executors, finetuned commanders, and the foresight world model arrive in Phase 2 to 3.
+- **The reconciling frame is real-time RL**: the environment does not pause and thinking time has a cost. This benchmark puts latency inside the decision problem.
+- A nuance from robotics: π0, the suggested architecture analogy, is itself imitation-trained (it learns from demonstrations, not from rewards). The near-term path is supervised; RL depth arrives with the later phases.
 
 ---
 
@@ -186,7 +245,9 @@ The test each paper must pass: it answers a question its community already cares
 **Risks**
 
 - Environment engineering is real work: mitigated by inheriting the TextStarCraft II stack.
-- The gap is named in public surveys and could be filled by others: the first paper rewards being first more than being perfect.
+- The gap is named in a [public survey](https://arxiv.org/abs/2404.02039) and could be filled by others: the first paper rewards being first more than being perfect.
 - Latency results age as inference gets cheaper: the framing, performance vs budget, remains meaningful regardless of which model currently wins.
 
 **Open questions**: venue and timing (ICLR vs NeurIPS 2027); whose GPUs run the frontier sweep; tokenizer inside the first paper or standalone; DreamSoul product interest beyond the papers.
+
+Full proposal, decisions log, and this deck: `DreamSoul-AI/game-commander`.

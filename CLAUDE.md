@@ -24,9 +24,13 @@ Created 2026-06-10; its own git repo under `~/github/game-commander`.
 
 ## Documentation workflow (the contract)
 - PROPOSAL.md is canonical. Any session that changes it substantively
-  must update DECK.md and re-render DECK.pdf before committing:
-  `marp DECK.md -o DECK.pdf --allow-local-files`
-  (verify dense slides visually: `pdftoppm -png -r 95 -f N -l N -singlefile DECK.pdf /tmp/slide`).
+  must update DECK.md and re-render both outputs before committing:
+  `marp DECK.md --html -o DECK.pdf --allow-local-files && marp DECK.md --html -o DECK.html --allow-local-files`
+  The `--html` flag is required — without it Marp strips the layout
+  `<div>`s and the two-column slides collapse. Verify dense slides
+  visually: `pdftoppm -png -r 95 -f N -l N -singlefile DECK.pdf /tmp/slide`.
+  PDF is the sharing format; DECK.html is for presenting (it plays
+  GIF/video once the project has its own footage).
 - Any decision made in conversation gets a DECISIONS.md entry in the
   same session.
 - Transferable lessons still get proposed for memex ingestion at
