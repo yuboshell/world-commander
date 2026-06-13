@@ -5,6 +5,17 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: cover slide de-teched to a storytelling hook
+
+**Decision**: on the title slide, replace the abstract-plus-research-
+question with a short storytelling hook (the problem + the vision). The
+cost/latency/memory framing and the formal research question move off the
+cover; the question now appears once, on slide 1.2.
+**Why**: Yubo's point — the cover is for background and storytelling, so
+the technical thesis is premature there; and the research question was
+near-verbatim duplicated between the cover and slide 1.2 (the redundancy
+the numbered structure is meant to remove).
+
 ## 2026-06-13: deck reorganized into a paper-style numbered structure
 
 **Decision**: restructure the deck into numbered sections, with muted
