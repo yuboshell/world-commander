@@ -5,6 +5,26 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: bigger content; command-station hero image on the title slide
+
+**Decision**: (1) increase deck content size for space efficiency — base
+font 24→27, dense-slide font 20→22, slide titles up, padding trimmed to
+34/50/36/50; verified no overflow on the densest slides (gap, Phase 1,
+paper inventory). (2) Replace the title-slide placeholder SVG diagram with
+a generated photoreal hero, `fig/command-station.png` (GPT Image 2): a
+player at a modern console commanding an Age-of-Empires-style battle by
+voice — headset, raised hand, blue-vs-amber armies on a curved screen,
+audio waveform on the desk. Rounded corners + subtle shadow; two-column
+title layout kept (text left, image right).
+**Why**: Yubo asked to make the content bigger and to add the generated
+image he liked. The command-station image shows the *interaction* (a
+player commanding by voice through a screen) — the project's actual idea —
+not just the game world, which is why it beats the earlier medieval-battle
+poster.
+**Rejected**: full-bleed title background with overlaid title text (bigger
+redesign; can revisit); deleting the vector hero (kept as `fig/hero.svg`,
+a clean fallback / content-slide option).
+
 ## 2026-06-13: hero — players and agents drawn as distinct species
 
 **Decision**: redraw so the real-human players and the virtual-character

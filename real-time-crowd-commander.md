@@ -12,13 +12,13 @@ section {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #1a1a1a;
   background: #ffffff;
-  font-size: 24px;
-  line-height: 1.36;
-  padding: 46px 56px 54px 56px;
+  font-size: 27px;
+  line-height: 1.34;
+  padding: 34px 50px 36px 50px;
   justify-content: flex-start !important;   /* top-align all slides, beat default theme */
 }
 h1 {                                   /* slide title: white bg, thin rule */
-  font-size: 33px;
+  font-size: 35px;
   font-weight: 600;
   color: #000;
   margin: 0 0 16px 0;
@@ -54,14 +54,14 @@ section::after {
 }
 
 /* dense slides */
-section.tight { font-size: 20px; line-height: 1.3; }
-section.tight h1 { font-size: 30px; }
+section.tight { font-size: 22px; line-height: 1.28; }
+section.tight h1 { font-size: 32px; }
 
 /* title slide: dense, top-aligned, title-plus-abstract beside a hero illustration */
 section.title { justify-content: flex-start !important; }
 section.title h1 { border-bottom: none; font-size: 42px; margin: 0 0 6px 0; padding: 0; }
 section.title .sub { font-size: 24px; color: #333; margin: 0 0 14px 0; }
-section.title .row { display: grid; grid-template-columns: 55% 42%; gap: 26px; align-items: center; padding-top: 14px; border-top: 1.5px solid #c9c9c9; }
+section.title .row { display: grid; grid-template-columns: 50% 48%; gap: 26px; align-items: center; padding-top: 14px; border-top: 1.5px solid #c9c9c9; }
 section.title .abstract { font-size: 21px; line-height: 1.4; margin: 0 0 14px 0; }
 section.title .q { font-size: 22px; font-weight: 600; border-left: 3px solid #333; padding-left: 14px; margin: 0 0 16px 0; line-height: 1.32; }
 section.title .by { font-size: 18px; color: #1a1a1a; margin: 0; }
@@ -92,7 +92,7 @@ section.title::after { content: "" !important; }
 </div>
 <div class="hero">
 
-<img src="fig/hero.svg" style="max-height: 380px;">
+<img src="fig/command-station.png" style="max-height: 408px; border-radius: 10px; box-shadow: 0 3px 16px rgba(0,0,0,0.22);">
 
 </div>
 </div>
