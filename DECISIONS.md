@@ -5,6 +5,18 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: closing slide de-pitched to "Open Questions"
+
+**Decision**: replace the "Why Now, Why Us, What's Next" closing slide
+with a plain "Open Questions" slide — the four decisions to make together
+(first-paper scope, compute envelope, venue/timing, product-vs-research).
+**Why**: Yubo found it redundant (the "be first" point was already on the
+gap slide; the collaboration rationale needn't be sold to the collaborator
+himself) and too promotional (grant/investor-pitch tone — wrong register
+for a working discussion with Dr. Diao). The open questions are the
+genuinely useful, collaborative way to end. The "why this collaboration"
+rationale still lives in PROPOSAL.md for any wider audience.
+
 ## 2026-06-13: kept the vector hero — new "multiplayer endgame" slide (Figure 4)
 
 **Decision**: instead of discarding the vector hero (`fig/hero.svg`) when

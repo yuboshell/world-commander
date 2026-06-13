@@ -269,16 +269,13 @@ The agenda is research-first: the game is the north star, the papers are the mil
 ---
 
 <!-- _class: tight -->
-# Why Now, Why Us, What's Next
+# Open Questions
 
-**Why now.** The opening is public, and the [TextStarCraft II](https://arxiv.org/abs/2312.11865) group, who already own the infrastructure, are the obvious ones to fill it. A benchmark that arrives second is just a worse copy. The first paper rewards being first over being perfect.
+The calls to make together:
 
-**Why this pairing.** The wedge needs two scarce things at once: deep efficiency methods (cache eviction, structured pruning, tokenization beyond text), which Dr. Diao's recent work supplies, and benchmark engineering with genuine RTS fluency. Interface groups lack the efficiency depth; efficiency groups test on static corpora. That combination is the niche.
+- **Scope of the first paper.** The benchmark alone, or the benchmark plus the learned state tokenizer?
+- **Compute.** The efficiency-frontier sweep multiplies models, budgets, and matches: what scale is realistic, and on which GPUs?
+- **Venue and timing.** A faster ICLR 2027 submission, or a stronger one at NeurIPS 2027?
+- **Beyond the papers.** Does the commander interface become a DreamSoul product, or stay a research line?
 
-**To discuss together.**
-
-- **Scope of the first paper**: the benchmark alone, or the benchmark plus the learned state tokenizer, the boldest methods bet?
-- **The compute envelope**: the frontier sweep multiplies models, budgets, and matches; what scale is realistic on our GPUs?
-- **Beyond the paper**: is the commander interface a DreamSoul product direction, or a pure research line?
-
-<p style="font-size:0.8em; color:#777; margin-top:10px;">Full proposal, decisions log, and this deck: <code>DreamSoul-AI/game-commander</code>.</p>
+<p style="font-size:0.8em; color:#777; margin-top:10px;">Full proposal and decisions log: <code>DreamSoul-AI/game-commander</code>.</p>
