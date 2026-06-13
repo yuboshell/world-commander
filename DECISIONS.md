@@ -5,6 +5,37 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-12: deck v3: rebuilt as a narrative, not an outline
+
+**Decision**: restructure the deck for storytelling over term-dumping.
+Slide 1 is now a title + authorship slide ("based on Yubo Huang's
+interest and insight, with guidance from Dr. Enmao Diao"), not an
+outline. Slide 2 is the personal ideation story (love RTS, strategy
+buried under manual labour, players should command). The arc:
+idea -> missing piece is speed + the question -> the gap -> three
+layers -> roadmap -> arena -> Phase 1 -> the architecture bet ->
+papers -> why now / why us / what's next. The dedicated
+reinforcement-learning slide is removed (that framing is for our
+discussion, lives in PROPOSAL.md's discussion log and DECISIONS.md, not
+the audience deck). The gap is reframed to state *what* it is
+(efficiency methods never tested closed-loop in a live game), with the
+survey as supporting citation, not the subject; survey now cited in
+standard form, "LLM Game Agents Survey (CSUR 2026)." The weak open-
+questions list is replaced by three substantive discussion points
+(first-paper scope, compute envelope, product-vs-research). Method
+names (StreamingLLM, OBCache, etc.) demoted to parenthetical examples
+rather than bulleted lists. 11 slides.
+**Why**: an ideation pitch persuades by narrative; a wall of acronyms
+on slide 1 repels. A reader cares what the gap is, not where it is
+named.
+**Rejected**: keeping the outline-first structure; an Age of Empires IV
+screenshot on the story slide (no license-clean source fetched; using a
+credited PySC2 still instead, bridged by caption). Render still needs
+the `--html` flag; title slide uses `_paginate: false` and
+`margin: 0 auto` to centre the authorship block.
+**Revisit when**: arena v0 yields own screenshots; or an audience
+beyond Diao needs a different framing.
+
 ## 2026-06-12: deck v2: figures, linked citations, glosses, RL slide, HTML channel
 
 **Decision**: per Yubo's review, the deck gains three figures (two
