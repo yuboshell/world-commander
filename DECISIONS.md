@@ -5,6 +5,19 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: removed the "Key Bet" architecture slide (medium-phase, redundant)
+
+**Decision**: cut the slide "The Key Bet: Slow Thinker, Fast Actors" (the
+commander/executor split, the π0 analogy, the DOOM result, the learned
+tokenizer). Deck 12 → 11 slides; the multiplayer figure renumbered 4 → 3.
+**Why**: Yubo's point — the architecture choice and the state tokenizer
+are already listed as Phase-1 variables on the Phase 1 slide ("the
+architecture; how game state is encoded"), so a whole slide elaborating
+them is redundant, and the deep treatment is Phase 1-2 *methods*, which
+over-weights medium-phase work in a deck whose focus is the near-term
+arena. The supporting points (DOOM, π0) stay in PROPOSAL.md;
+`fig/sc2-featurelayers.jpg` kept in the repo, just unused now.
+
 ## 2026-06-13: closing slide de-pitched to "Open Questions"
 
 **Decision**: replace the "Why Now, Why Us, What's Next" closing slide

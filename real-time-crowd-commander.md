@@ -214,34 +214,6 @@ The flagship of Phase 1, the **wedge**: a deliberately narrow, fast first paper 
 ---
 
 <!-- _class: tight -->
-# The Key Bet: Slow Thinker, Fast Actors
-
-<div class="columns" style="grid-template-columns: 57% 40%">
-<div>
-
-The benchmark's most interesting question is architectural: should one big model do everything, or should a slow strategic **commander** direct fast, small **executors**?
-
-Two independent clues say the split wins:
-
-- A [1.3M-parameter specialist](https://arxiv.org/abs/2604.07385) decides a real-time game in 31 ms, while models up to 92,000 times larger miss the deadline. Small and fast can hold the clock.
-- Robotics found the same shape: [π0 (2024)](https://arxiv.org/abs/2410.24164) pairs a slow vision-language brain with a fast action module running at 50 Hz. A game is a cheaper, safer place to test the idea.
-
-A second bet: game state is not really text, it is entities, positions, and events (Figure 3). Rather than writing it out as prose, learn a compact code for it, the way [recent work (ICLR 2026)](https://www.diaoenmao.com) tokenizes graphs. A smaller state code shrinks every cost downstream.
-
-</div>
-<div class="col-img">
-
-<img src="fig/sc2-featurelayers.jpg" style="max-height: 300px;">
-
-<div class="caption"><strong>Figure 3: game state is not text.</strong> PySC2 exposes StarCraft II as entity and terrain layers (right grid). Serializing this to prose is the naive baseline a learned tokenizer competes against.</div>
-<div class="credit">Still: PySC2 video (DeepMind)</div>
-
-</div>
-</div>
-
----
-
-<!-- _class: tight -->
 # What This Produces
 
 The agenda is research-first: the game is the north star, the papers are the milestones. Each must answer a question its community already cares about, while caring nothing about the game.
@@ -262,7 +234,7 @@ The agenda is research-first: the game is the north star, the papers are the mil
 
 <img src="fig/hero.svg" style="max-height: 384px;">
 
-<div class="caption"><strong>Figure 4: the multiplayer endgame.</strong> Several players each command their own army by voice in one shared, unpausable world. Latency stops being a number we measure and becomes what decides the match: does a fast small commander beat a slow large one? Efficiency, settled by Elo.</div>
+<div class="caption"><strong>Figure 3: the multiplayer endgame.</strong> Several players each command their own army by voice in one shared, unpausable world. Latency stops being a number we measure and becomes what decides the match: does a fast small commander beat a slow large one? Efficiency, settled by Elo.</div>
 
 </div>
 
