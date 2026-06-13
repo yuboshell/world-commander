@@ -5,6 +5,18 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: kept the vector hero — new "multiplayer endgame" slide (Figure 4)
+
+**Decision**: instead of discarding the vector hero (`fig/hero.svg`) when
+the command-station photo took the title slide, give it a dedicated slide
+before the closing — "Where It Leads: Players vs. Players" — with the SVG
+as Figure 4 and a caption on the competitive-efficiency idea (does a fast
+small commander beat a slow large one, settled by Elo). Deck now 12 slides.
+**Why**: Yubo likes both images; they are different styles (photoreal vs
+clean diagram), so both earn a place. The SVG's two-players-two-armies
+view finally *shows* the multiplayer endgame the deck previously only
+stated in words.
+
 ## 2026-06-13: bigger content; command-station hero image on the title slide
 
 **Decision**: (1) increase deck content size for space efficiency — base

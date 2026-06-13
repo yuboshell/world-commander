@@ -256,6 +256,18 @@ The agenda is research-first: the game is the north star, the papers are the mil
 
 ---
 
+# Where It Leads: Players vs. Players
+
+<div class="col-img">
+
+<img src="fig/hero.svg" style="max-height: 384px;">
+
+<div class="caption"><strong>Figure 4: the multiplayer endgame.</strong> Several players each command their own army by voice in one shared, unpausable world. Latency stops being a number we measure and becomes what decides the match: does a fast small commander beat a slow large one? Efficiency, settled by Elo.</div>
+
+</div>
+
+---
+
 <!-- _class: tight -->
 # Why Now, Why Us, What's Next
 

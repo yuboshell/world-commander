@@ -23,7 +23,7 @@
 </div>
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="2" style="--paginate:true;--class:tight;" data-marpit-pagination-total="11" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="2" style="--paginate:true;--class:tight;" data-marpit-pagination-total="12" data-size="16:9">
 <h1 id="the-idea-play-the-strategy-not-the-mouse">The Idea: Play the Strategy, Not the Mouse</h1>
 <div class="columns" style="grid-template-columns: 53% 44%">
 <div>
@@ -44,7 +44,7 @@
 </div>
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" lang="en-CA" data-marpit-pagination="3" style="--paginate:true;" data-marpit-pagination-total="11" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" lang="en-CA" data-marpit-pagination="3" style="--paginate:true;" data-marpit-pagination-total="12" data-size="16:9">
 <h1 id="the-missing-piece-speed">The Missing Piece: Speed</h1>
 <p>The commander interface is not a new dream. It shipped once: <a href="https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar">Tom Clancy's EndWar (2008)</a> was a fully voice-commanded strategy game. But it ran on a rigid 70-word grammar: players had to memorize exact phrases, and anything outside the script failed.</p>
 <p>Language models removed that limit. They understand free-form commands. What they cannot yet do is <strong>act at game pace</strong>: a model that takes seconds to answer is useless against an opponent moving every frame.</p>
@@ -54,14 +54,14 @@
 </blockquote>
 <p>Everything is judged one way: <strong>performance as a function of latency budget and memory budget</strong>, an efficiency frontier rather than a single score. The clock never pauses, so a decision that arrives late simply does not happen.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="4" style="--paginate:true;--class:tight;" data-marpit-pagination-total="11" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="4" style="--paginate:true;--class:tight;" data-marpit-pagination-total="12" data-size="16:9">
 <h1 id="the-gap-efficiency-untested-where-it-counts">The Gap: Efficiency, Untested Where It Counts</h1>
 <p>LLMs can already play real-time strategy through a text interface: <a href="https://arxiv.org/abs/2312.11865">TextStarCraft II (NeurIPS 2024)</a> beats the built-in AI. But systems like it slow or pause the clock to think, so the real-time question is sidestepped, not answered.</p>
 <p>And the methods that would make real time possible are tested in the wrong place. Take <strong>KV-cache eviction</strong> (dropping old context to fit a memory budget): it is scored on perplexity and document retrieval, never inside a live game, where evicting the wrong memory, the opponent's scouted tech switch, loses the match minutes later, with no perplexity number to warn you.</p>
 <p><strong>The gap, in one line</strong>: a streaming game is the most natural stress test for efficient inference, and nobody has run it. Context grows every second, old information matters unevenly, and the ground-truth metric, win or lose, is external and unforgiving.</p>
 <p>The field already feels the pressure: the <a href="https://arxiv.org/abs/2404.02039">LLM Game Agents Survey (CSUR 2026)</a> names low-latency control as a core open challenge. The opening is visible to everyone.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" lang="en-CA" data-marpit-pagination="5" style="--paginate:true;" data-marpit-pagination-total="11" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" lang="en-CA" data-marpit-pagination="5" style="--paginate:true;" data-marpit-pagination-total="12" data-size="16:9">
 <h1 id="the-three-jobs">The Three Jobs</h1>
 <p>The system needs three capabilities. They are separate lines of work that will run together in the end, and all three share one yardstick: performance as a function of latency and memory budget.</p>
 <table>
@@ -88,7 +88,7 @@
 </table>
 <p>This proposal is about the first job, <strong>Decide</strong>. Foresee and Embody are the growth surface, built later.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="6" style="--paginate:true;--class:tight;" data-marpit-pagination-total="11" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="6" style="--paginate:true;--class:tight;" data-marpit-pagination-total="12" data-size="16:9">
 <h1 id="the-plan-three-phases">The Plan: Three Phases</h1>
 <p>The three jobs are the <em>parts</em>. The three phases are the <em>order</em>: we build in increasingly complex environments, with one shared <strong>harness</strong> under all of them (the command protocol, the unpausable clock, deadline enforcement, metric logging), so the engineering transfers upward.</p>
 <table>
@@ -119,14 +119,14 @@
 </table>
 <p>The environments grow with the phases: <strong>a toy room → StarCraft II → multiplayer → a full game.</strong> The end-state game is the north star, not a deliverable: its role is to fix the two constraints every paper inherits, an unpausable clock and a hard compute budget.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" lang="en-CA" data-marpit-pagination="7" style="--paginate:true;" data-marpit-pagination-total="11" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" lang="en-CA" data-marpit-pagination="7" style="--paginate:true;" data-marpit-pagination-total="12" data-size="16:9">
 <h1 id="the-command-arena-where-phase-1-begins">The Command Arena: Where Phase 1 Begins</h1>
 <div class="col-img">
 <img src="fig/arena.svg" style="max-height: 330px;" />
 <div class="caption"><strong>Figure 2: Phase 1's warm-up testbed.</strong> Colour-tagged agents in a room, each command colour-keyed to its agent. One command is trivially easy for any modern model, by design: the test is the stream. Difficulty rises with command rate, with compositional orders ("everyone except the yellow one, gather at the door"), and with orders that depend on memory ("the one who was sitting earlier, move west"). It costs weeks, not months, and proves out the harness everything later reuses.</div>
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="8" style="--paginate:true;--class:tight;" data-marpit-pagination-total="11" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="8" style="--paginate:true;--class:tight;" data-marpit-pagination-total="12" data-size="16:9">
 <h1 id="phase-1-the-starcraft-ii-benchmark">Phase 1: the StarCraft II Benchmark</h1>
 <p>The flagship of Phase 1, the <strong>wedge</strong>: a deliberately narrow, fast first paper that splits the agenda open. It asks: can an LLM command at game speed, and which efficiency techniques preserve its judgment?</p>
 <p><strong>The setup.</strong> Build on the TextStarCraft II stack, but never pause the clock. Every decision carries a wall-clock deadline; the model runs under a fixed memory ceiling. A late decision does not happen.</p>
@@ -134,7 +134,7 @@
 <p><strong>What we measure.</strong> Win rate as a function of latency budget and memory budget. The headline result is a frontier, not one number.</p>
 <p><strong>The clever part: strategic-memory probes.</strong> Scripted matches winnable only by recalling something seen minutes earlier. They turn an invisible cache mistake into a visible lost game, a report card no perplexity benchmark can give.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="9" style="--paginate:true;--class:tight;" data-marpit-pagination-total="11" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="9" style="--paginate:true;--class:tight;" data-marpit-pagination-total="12" data-size="16:9">
 <h1 id="the-key-bet-slow-thinker-fast-actors">The Key Bet: Slow Thinker, Fast Actors</h1>
 <div class="columns" style="grid-template-columns: 57% 40%">
 <div>
@@ -153,7 +153,7 @@
 </div>
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="10" style="--paginate:true;--class:tight;" data-marpit-pagination-total="11" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="10" style="--paginate:true;--class:tight;" data-marpit-pagination-total="12" data-size="16:9">
 <h1 id="what-this-produces">What This Produces</h1>
 <p>The agenda is research-first: the game is the north star, the papers are the milestones. Each must answer a question its community already cares about, while caring nothing about the game.</p>
 <table>
@@ -199,7 +199,14 @@
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="11" style="--paginate:true;--class:tight;" data-marpit-pagination-total="11" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" lang="en-CA" data-marpit-pagination="11" style="--paginate:true;" data-marpit-pagination-total="12" data-size="16:9">
+<h1 id="where-it-leads-players-vs-players">Where It Leads: Players vs. Players</h1>
+<div class="col-img">
+<img src="fig/hero.svg" style="max-height: 384px;" />
+<div class="caption"><strong>Figure 4: the multiplayer endgame.</strong> Several players each command their own army by voice in one shared, unpausable world. Latency stops being a number we measure and becomes what decides the match: does a fast small commander beat a slow large one? Efficiency, settled by Elo.</div>
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="12" style="--paginate:true;--class:tight;" data-marpit-pagination-total="12" data-size="16:9">
 <h1 id="why-now-why-us-whats-next">Why Now, Why Us, What's Next</h1>
 <p><strong>Why now.</strong> The opening is public, and the <a href="https://arxiv.org/abs/2312.11865">TextStarCraft II</a> group, who already own the infrastructure, are the obvious ones to fill it. A benchmark that arrives second is just a worse copy. The first paper rewards being first over being perfect.</p>
 <p><strong>Why this pairing.</strong> The wedge needs two scarce things at once: deep efficiency methods (cache eviction, structured pruning, tokenization beyond text), which Dr. Diao's recent work supplies, and benchmark engineering with genuine RTS fluency. Interface groups lack the efficiency depth; efficiency groups test on static corpora. That combination is the niche.</p>
