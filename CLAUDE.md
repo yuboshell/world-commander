@@ -1,11 +1,11 @@
 # game-commander
 
-Natural-language-commanded strategy games under real-time compute budgets.
+Natural-language command of agent crowds in strategy games, under real-time compute budgets.
 
 Created 2026-06-10; its own git repo under `~/github/game-commander`.
 
 ## What's here
-- `PROPOSAL.md` — the research agenda ("Command at the Speed of Thought"):
+- `PROPOSAL.md` — the research agenda ("Commanding Crowds"):
   three-layer program (strategy / foresight / embodiment), four-rung
   environment roadmap, Phase-1 wedge-paper spec (real-time StarCraft II
   commander benchmark, KV-cache eviction evaluated by win rate), paper

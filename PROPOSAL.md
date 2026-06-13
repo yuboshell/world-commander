@@ -1,6 +1,6 @@
-# Command at the Speed of Thought
+# Commanding Crowds
 
-Natural-language-commanded strategy games under real-time compute budgets.
+Natural-language command of agent crowds in strategy games, under real-time compute budgets.
 
 Draft research agenda for discussion. Yubo Huang, 2026-06-10.
 

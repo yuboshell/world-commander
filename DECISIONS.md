@@ -5,6 +5,24 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-12: title changed to "Commanding Crowds"
+
+**Decision**: the proposal and deck are titled **Commanding Crowds**,
+subtitle "Natural-language command of agent crowds in strategy games,
+under real-time compute budgets." Applied across PROPOSAL.md, DECK.md,
+CLAUDE.md, README.md. The git repo and project slug stay
+`game-commander`.
+**Why**: the prior title, "Command at the Speed of Thought," named only
+the speed (the verb). The work is equally about the subject (who
+commands, in natural language, possibly several players) and the object
+(crowds of agents being controlled). "Commanding Crowds" carries the
+command-to-crowd relationship and spans every layer; the subtitle now
+names the object explicitly.
+**Rejected**: "Words to Armies" (vivid but less professional), plain
+"Game Commander" (Yubo's baseline; carries none of language/crowds/
+speed itself), "Crowds at the Speed of Thought" (object + speed, but
+keeps a tired riff). Chosen by Yubo from a four-way comparison.
+
 ## 2026-06-12: deck v3: rebuilt as a narrative, not an outline
 
 **Decision**: restructure the deck for storytelling over term-dumping.

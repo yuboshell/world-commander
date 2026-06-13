@@ -3,7 +3,7 @@ marp: true
 html: true
 paginate: true
 size: 16:9
-title: "Command at the Speed of Thought"
+title: "Commanding Crowds"
 ---
 
 <style>
@@ -69,9 +69,9 @@ section.title::after { content: "" !important; }
 <!-- _class: title -->
 <!-- _paginate: false -->
 
-# Command at the Speed of Thought
+# Commanding Crowds
 
-<p class="sub">Natural-language-commanded strategy games under real-time compute budgets</p>
+<p class="sub">Natural-language command of agent crowds in strategy games, under real-time compute budgets</p>
 
 <p class="by">This project proposal is based on Yubo Huang's interest and insight, with guidance from Dr. Enmao Diao.</p>
 

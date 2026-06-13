@@ -1,3 +1,3 @@
 # game-commander
 
-Natural-language-commanded strategy games under real-time compute budgets.
+Natural-language command of agent crowds in strategy games, under real-time compute budgets.
