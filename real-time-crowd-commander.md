@@ -92,7 +92,7 @@ section.title::after { content: "" !important; }
 </div>
 <div class="hero">
 
-<img src="fig/command-station.png" style="max-height: 408px; border-radius: 10px; box-shadow: 0 3px 16px rgba(0,0,0,0.22);">
+<img src="fig/command-station.png" style="max-height: 408px;">
 
 </div>
 </div>

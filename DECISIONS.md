@@ -26,8 +26,10 @@ paper inventory). (2) Replace the title-slide placeholder SVG diagram with
 a generated photoreal hero, `fig/command-station.png` (GPT Image 2): a
 player at a modern console commanding an Age-of-Empires-style battle by
 voice — headset, raised hand, blue-vs-amber armies on a curved screen,
-audio waveform on the desk. Rounded corners + subtle shadow; two-column
-title layout kept (text left, image right).
+audio waveform on the desk. Plain flat image (no drop shadow, no rounded
+corners — the initial shadow/rounding was removed as unnecessary
+decoration per the deck's clean/flat rule); two-column title layout kept
+(text left, image right).
 **Why**: Yubo asked to make the content bigger and to add the generated
 image he liked. The command-station image shows the *interaction* (a
 player commanding by voice through a screen) — the project's actual idea —
