@@ -28,10 +28,11 @@ h1 {                                   /* slide title: white bg, thin rule */
 h1 .sec { color: #b3b3b3; font-weight: 600; margin-right: 0.45em; }   /* paper-style section number */
 a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 strong { font-weight: 600; }
-ul, ol { margin: 0.25em 0; padding-left: 1.15em; }
-li { margin: 0.20em 0; }
-li > ul { margin-top: 0.18em; }
+ul, ol { margin: 0.3em 0; padding-left: 1.1em; }
+li { margin: 0.42em 0; }
+li > ul { margin-top: 0.3em; }
 p { margin: 0.5em 0; }
+blockquote { border-left: 3px solid #333; padding-left: 16px; margin: 0.7em 0 0 0; font-weight: 600; }
 code { font-size: 0.92em; background: #f0f0f0; padding: 0 4px; border-radius: 3px; }
 
 /* booktabs-style rules: reset default-theme borders/zebra first, then add rules */
@@ -45,8 +46,8 @@ thead th { border-bottom: 1px solid #333 !important; font-weight: 600; }
 .columns { display: grid; gap: 26px; align-items: start; }
 .col-img { text-align: center; }
 .col-img img { max-width: 100%; }
-.caption { font-size: 0.74em; color: #444; line-height: 1.28; margin-top: 6px; text-align: left; }
-.credit  { font-size: 0.62em; color: #777; margin-top: 2px; }
+.caption { font-size: 0.72em; color: #444; line-height: 1.28; margin-top: 6px; text-align: left; }
+.credit  { font-size: 0.6em; color: #777; margin-top: 2px; }
 
 /* page number bottom-right as "current / total" */
 section::after {
@@ -55,17 +56,19 @@ section::after {
 }
 
 /* dense slides */
-section.tight { font-size: 22px; line-height: 1.28; }
+section.tight { font-size: 23px; line-height: 1.3; }
 section.tight h1 { font-size: 32px; }
+section.tight li { margin: 0.36em 0; }
 
-/* title slide: title + one-line scope + a large hero, then author */
+/* title slide: title + scope + two captioned figures, then author */
 section.title { justify-content: flex-start !important; }
 section.title h1 { border-bottom: none; font-size: 42px; margin: 0 0 6px 0; padding: 0; }
-section.title .sub { font-size: 24px; color: #333; margin: 0 0 12px 0; padding-bottom: 14px; border-bottom: 1.5px solid #c9c9c9; }
-section.title .hero { text-align: center; margin: 8px 0 0 0; }
-section.title .hero img { max-width: 100%; }
-section.title .by { font-size: 18px; color: #1a1a1a; margin: 16px 0 0 0; text-align: center; }
-section.title .date { font-size: 16px; color: #777; margin-top: 4px; text-align: center; }
+section.title .sub { font-size: 24px; color: #333; margin: 0 0 12px 0; padding-bottom: 12px; border-bottom: 1.5px solid #c9c9c9; }
+section.title .figs { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: end; margin: 6px 0 0 0; }
+section.title .figs .col-img img { max-width: 100%; }
+section.title .figs .caption { text-align: center; }
+section.title .by { font-size: 21px; color: #1a1a1a; margin: 16px 0 0 0; text-align: center; }
+section.title .date { font-size: 17px; color: #777; margin-top: 4px; text-align: center; }
 section.title::after { content: "" !important; }
 </style>
 
@@ -76,10 +79,21 @@ section.title::after { content: "" !important; }
 
 <p class="sub">Natural-language command of agent crowds in strategy games, under real-time compute budgets</p>
 
-<div class="hero">
+<div class="figs">
+<div class="col-img">
 
-<img src="fig/command-station.png" style="max-height: 432px;">
+<img src="fig/command-station.png" style="max-height: 292px;">
 
+<div class="caption">The interface: command a battle by voice, watching and listening as it unfolds.</div>
+
+</div>
+<div class="col-img">
+
+<img src="fig/hero.svg" style="max-height: 292px;">
+
+<div class="caption">The endgame: several players each command their own crowd, in one real-time world.</div>
+
+</div>
 </div>
 
 <p class="by">A project proposal grown from Yubo Huang's interest and insight, under the guidance of Dr. Enmao Diao.</p>
@@ -91,27 +105,20 @@ section.title::after { content: "" !important; }
 <!-- _class: tight -->
 # <span class="sec">1.1</span> The Problem and the Vision
 
-<div class="columns" style="grid-template-columns: 53% 44%">
+<div class="columns" style="grid-template-columns: 52% 45%">
 <div>
 
-I play real-time strategy games: Age of Empires IV, StarCraft II. The decision-making is the fun part: where to expand, when to attack, how to read the opponent.
-
-But that thinking is buried under frantic manual labour: hunting for unit icons, drag-selecting, clicking hundreds of times a minute. The interface, not the strategy, is where the effort goes.
-
-A strategy player should command the way a real commander does:
-
-- **watch** the battle and **listen** to reports,
-- **think**,
-- **speak** the orders, pressing a key only now and then.
-
-Subordinates handle the execution. That interface could be the next revolutionary strategy game.
+- In a strategy game, the **fun is the strategy**: where to expand, when to attack, how to read the opponent.
+- It is buried under **frantic clicks**: hunting icons, drag-selecting, hundreds of actions a minute.
+- A player should command like a **real commander**: watch, listen, **speak the orders**, press a key only now and then.
+- The subordinates execute. That interface could be the next strategy game.
 
 </div>
 <div class="col-img">
 
-<img src="fig/sc2-minigames.jpg" style="max-height: 360px;">
+<img src="fig/sc2-minigames.jpg" style="max-height: 348px;">
 
-<div class="caption"><strong>Figure 1: the labour the interface forces.</strong> A montage of StarCraft II tasks: move here, gather there, build these. Age of Empires IV plays differently but shares the trait, rich strategy buried under hundreds of manual actions a minute.</div>
+<div class="caption"><strong>Figure 1: the labour the interface forces.</strong> A few StarCraft II tasks (move here, gather there, build these); the strategy is buried under hundreds of manual actions a minute.</div>
 <div class="credit">Still: PySC2 video (DeepMind)</div>
 
 </div>
@@ -119,30 +126,26 @@ Subordinates handle the execution. That interface could be the next revolutionar
 
 ---
 
-# <span class="sec">1.2</span> The Missing Piece: Speed
+<!-- _class: tight -->
+# <span class="sec">1.2</span> The Gap: Efficiency, Untested at Game Speed
 
-The commander interface shipped once ([Tom Clancy's EndWar, 2008](https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar)), but on a rigid 70-word grammar. Language models lifted that limit; what they still cannot do is **act at game pace**: a model that answers in seconds is useless against an opponent moving every frame.
+- The interface shipped once (**EndWar, 2008**), but on a 70-word grammar. Language models lifted that limit; they still **cannot act at game pace**.
+- LLMs already play RTS through text ([**TextStarCraft II**, NeurIPS 2024](https://arxiv.org/abs/2312.11865)), but only by **pausing the clock**.
+- The methods that would fix that, above all **KV-cache eviction**, are scored on perplexity, **never in a live game** where evicting the wrong memory loses the match.
+- A streaming game is the natural stress test, and **nobody has run it** (the [LLM Game Agents Survey, CSUR 2026](https://arxiv.org/abs/2404.02039), names it a core open challenge).
 
-> **How much does natural-language command cost, in latency and memory, at game speed, and how can that cost be driven down?**
-
----
-
-# <span class="sec">2</span> The Gap: Efficiency, Untested Where It Counts
-
-LLMs already play real-time strategy through text ([TextStarCraft II, NeurIPS 2024](https://arxiv.org/abs/2312.11865)), but only by pausing the clock to think. The efficiency methods that would let them keep up, above all **KV-cache eviction** (dropping old context to fit memory), are scored on perplexity and retrieval, never inside a live game where evicting the wrong memory loses the match minutes later.
-
-So a streaming game is the most natural stress test for efficient inference, and nobody has run it, though the [LLM Game Agents Survey (CSUR 2026)](https://arxiv.org/abs/2404.02039) already names low-latency control a core open challenge.
+> How much does command cost, in latency and memory, at game speed, and how do we drive it down?
 
 ---
 
 <!-- _class: tight -->
-# <span class="sec">3</span> Preliminaries
+# <span class="sec">2</span> Preliminaries
 
 The background this work builds on:
 
 | Area | What it gives us |
 |---|---|
-| **Reinforcement learning** | The substrate: a game is a Markov decision process, win rate is the reward, recalling a scouted tech switch is credit assignment. We need RL *literacy* to read the field, not RL training. |
+| **Reinforcement learning** | A game is a Markov decision process, win rate is the reward, recalling a scouted tech switch is credit assignment. We need RL *literacy* to read the field, not RL training. |
 | **Efficient LLM inference** | KV-cache eviction (H2O, SnapKV, StreamingLLM, [OBCache](https://arxiv.org/abs/2510.07651)), structured pruning, quantization, distillation: the methods this work puts to the test. |
 | **Vision-language-action models** | [π0](https://arxiv.org/abs/2410.24164): a slow vision-language backbone driving a fast action expert, trained by imitation. A model for splitting a slow strategic brain from fast executors. |
 | **The StarCraft II agent stack** | [PySC2](https://github.com/google-deepmind/pysc2), [TextStarCraft II](https://arxiv.org/abs/2312.11865), LLM-PySC2: the environment we inherit rather than rebuild. |
@@ -150,97 +153,74 @@ The background this work builds on:
 
 ---
 
-# <span class="sec">4.1</span> The Three Jobs
+# <span class="sec">3.1</span> The Three Jobs
 
-The system needs three capabilities: separate lines of work that eventually run together as one system.
+The system needs three capabilities: separate lines of work that eventually run together.
 
 | Job | What it does |
 |---|---|
 | **Decide** | An LLM commander reads the game-state stream and issues the orders, under hard latency and memory budgets |
 | **Foresee** | A compact world model answers "what if" before you commit: if the army pushes now, does the fight win? |
-| **Embody** | Units carry out the orders with model-generated motion (synthesized for the command, not replayed clips) at crowd scale on one GPU |
+| **Embody** | Units carry out the orders with model-generated motion, at crowd scale, on one GPU |
 
-This proposal is about the first job, **Decide**. Foresee and Embody are the growth surface, built later.
+This proposal is about the first job, **Decide**. Foresee and Embody come later.
 
 ---
 
 <!-- _class: tight -->
-# <span class="sec">4.2</span> The Plan: Three Phases
+# <span class="sec">3.2</span> The Plan: Three Phases
 
-The three jobs are the *parts*. The three phases are the *order*: we build in increasingly complex environments, with one shared **harness** under all of them (the command protocol, the unpausable clock, deadline enforcement, metric logging), so the engineering transfers upward.
+The jobs are the *parts*; the phases are the *order*. One shared **harness** runs under all of them (command protocol, unpausable clock, deadlines, metric logging), so the engineering transfers upward.
 
 | Phase | Focus | What happens |
 |---|---|---|
-| **Phase 1** | Benchmarks | Build the harness and the efficiency-frontier evaluation, on two testbeds: a command arena (warm-up) and StarCraft II with the clock unpaused (the flagship). |
-| **Phase 2** | Methods | Attack whatever Phase 1 exposes as the bottleneck: game-aware eviction, a learned state tokenizer, distilled commanders. |
-| **Phase 3** | The real interface | Bring in the human (voice), then humans plural (multiplayer competition); grow the Foresee and Embody jobs. |
+| **1** | Benchmarks | The command arena (warm-up), then StarCraft II with the clock unpaused. |
+| **2** | Methods | Attack whatever the benchmarks expose: game-aware eviction, a learned tokenizer, distilled commanders. |
+| **3** | Real interface | The human (voice), then humans plural (multiplayer); grow the Foresee and Embody jobs. |
 
-The environments grow with the phases: **a toy room → StarCraft II → multiplayer → a full game.** The end-state game is the north star, not a deliverable: its role is to fix the two constraints every paper inherits: unpausable clock, hard compute budget.
+Environments grow with the phases: **a toy room → StarCraft II → multiplayer → a full game.** The end-state game is the north star, not a deliverable.
 
 ---
 
-# <span class="sec">5.1</span> The Command Arena
+# <span class="sec">4.1</span> The Command Arena
 
+<div class="columns" style="grid-template-columns: 41% 56%">
+<div>
+
+- Colour-tagged agents in a room; each moves in **one of four directions** on command.
+- One command is trivial; the test is the **stream**: many, fast.
+- Harder with **rate**, **compositional orders** ("everyone but the yellow one"), and **memory** ("the one I moved west").
+- Measured: **grounding accuracy**, **command-to-action latency**, **deadline misses**.
+
+</div>
 <div class="col-img">
 
-<img src="fig/arena.svg" style="max-height: 330px;">
+<img src="fig/arena.svg" style="max-height: 384px;">
 
-<div class="caption"><strong>Figure 2: Phase 1's warm-up testbed.</strong> Colour-tagged agents in a room, each command colour-keyed to its agent. One command is trivially easy for any modern model, by design: the test is the stream. Difficulty rises with command rate, with compositional orders ("everyone except the yellow one, gather at the door"), and with orders that depend on memory ("the one who was sitting earlier, move west"). It costs weeks, not months, and proves out the harness everything later reuses.</div>
+<div class="caption"><strong>Figure 2: the command arena.</strong> Colour-tagged agents, each moving in one of four directions on command.</div>
 
+</div>
 </div>
 
 ---
 
-<!-- _class: tight -->
-# <span class="sec">5.2</span> The StarCraft II Benchmark
+# <span class="sec">4.2</span> Then StarCraft II
 
-The flagship of Phase 1, the **wedge**: a deliberately narrow, fast first paper that splits the agenda open. It asks: can an LLM command at game speed, and which efficiency techniques preserve its judgment?
-
-**The setup.** Build on the TextStarCraft II stack, but never pause the clock. Every decision carries a wall-clock deadline; the model runs under a fixed memory ceiling. A late decision does not happen.
-
-**What varies.** The cache policy (full cache vs. methods like [StreamingLLM](https://arxiv.org/abs/2309.17453) sinks or [OBCache (ICML 2026)](https://arxiv.org/abs/2510.07651)); model size and sparsity (1B to 70B, pruned, quantized); the architecture; and how game state is encoded.
-
-**What we measure.** Win rate as a function of latency budget and memory budget. The headline result is a frontier, not one number.
-
-**The clever part: strategic-memory probes.** Scripted matches winnable only by recalling something seen minutes earlier. They turn an invisible cache mistake into a visible lost game, a report card no perplexity benchmark can give.
+- Once the arena works, the same harness moves to **StarCraft II with the clock unpaused**: real strategic depth, a real opponent.
+- There the efficiency methods (which cache policy, how big a model, how to encode the state) are scored by **win rate under a latency and memory budget**.
+- Concrete benchmark design waits until the arena is built.
 
 ---
 
 <!-- _class: tight -->
-# <span class="sec">6.1</span> What This Produces
+# <span class="sec">5</span> What This Produces
 
-The agenda is research-first: the game is the north star, the papers are the milestones. Each must answer a question its community already cares about, while caring nothing about the game.
+The game is the north star; the papers are the milestones. Each answers a question its community already cares about, beyond the game.
 
-| Paper | Phase | The question it answers | Who cares, beyond the game |
+| Paper | Phase | The question | Who cares |
 |---|---|---|---|
-| Command-arena benchmark | 1 | How does grounding degrade as command rate rises? | Real-time agent and interactive-systems researchers |
-| Real-time commander benchmark (the wedge) | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning researchers, whose methods are never scored by win rate |
-| Game-state tokenizer | 1 to 2 | Does compact tokenization extend to entity and event streams? | The tokenization-beyond-text programme |
-| Competitive-efficiency study | 3 | Does a fast small commander beat a slow large one? | Inference-efficiency and agents communities |
-| Crowd motion under budget | 3 | Can language-commanded crowds move in real time on one GPU? | Motion-generation and graphics community |
-
----
-
-# <span class="sec">6.2</span> The Multiplayer Endgame
-
-<div class="col-img">
-
-<img src="fig/hero.svg" style="max-height: 384px;">
-
-<div class="caption"><strong>Figure 3: the multiplayer endgame.</strong> Several players each command their own army by voice in one shared, unpausable world. Latency stops being a number we measure and becomes what decides the match: does a fast small commander beat a slow large one? Efficiency, settled by Elo.</div>
-
-</div>
-
----
-
-<!-- _class: tight -->
-# <span class="sec">7</span> Open Questions
-
-The calls to make together:
-
-- **Scope of the first paper.** The benchmark alone, or the benchmark plus the learned state tokenizer?
-- **Compute.** The efficiency-frontier sweep multiplies models, budgets, and matches: what scale is realistic, and on which GPUs?
-- **Venue and timing.** A faster ICLR 2027 submission, or a stronger one at NeurIPS 2027?
-- **Beyond the papers.** Does the commander interface become a DreamSoul product, or stay a research line?
-
-<p style="font-size:0.8em; color:#777; margin-top:10px;">Full proposal and decisions log: <code>DreamSoul-AI/game-commander</code>.</p>
+| Command-arena benchmark | 1 | How does grounding degrade as command rate rises? | Real-time agents, interactive systems |
+| Real-time commander benchmark | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning researchers |
+| Game-state tokenizer | 1 to 2 | Does compact tokenization extend to entity and event streams? | Tokenization beyond text |
+| Competitive-efficiency study | 3 | Does a fast small commander beat a slow large one? | Inference efficiency, agents |
+| Crowd motion under budget | 3 | Can language-commanded crowds move in real time on one GPU? | Motion generation, graphics |

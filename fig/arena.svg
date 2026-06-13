@@ -1,51 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="980" height="430" viewBox="0 0 980 430" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="470" height="380" viewBox="0 0 470 380" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="ahGray" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
-      <path d="M0,0 L8,4.5 L0,9 Z" fill="#6B7280"/>
-    </marker>
-    <marker id="ahBlue" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
-      <path d="M0,0 L8,4.5 L0,9 Z" fill="#2563EB"/>
-    </marker>
+    <marker id="aBlue"  markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 Z" fill="#2563EB"/></marker>
+    <marker id="aGray"  markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 Z" fill="#6B7280"/></marker>
+    <marker id="aAmber" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 Z" fill="#B45309"/></marker>
+    <marker id="aTeal"  markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 Z" fill="#0D9488"/></marker>
+    <marker id="aCmp"   markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 Z" fill="#9CA3AF"/></marker>
   </defs>
 
-  <!-- left column: the command stream -->
-  <text x="24" y="46" font-size="19" font-weight="600" fill="#1a1a1a">Streamed commands</text>
-  <text x="24" y="92"  font-size="17" fill="#9CA3AF">t = 0.0 s</text>
-  <text x="110" y="92" font-size="18" fill="#6B7280" font-weight="600">"Gray, walk south."</text>
-  <text x="24" y="132"  font-size="17" fill="#9CA3AF">t = 1.2 s</text>
-  <text x="110" y="132" font-size="18" fill="#B45309" font-weight="600">"Yellow, sit down."</text>
-  <text x="24" y="172"  font-size="17" fill="#9CA3AF">t = 2.1 s</text>
-  <text x="110" y="172" font-size="18" fill="#2563EB" font-weight="600">"Blue, run north."</text>
-
-  <text x="24" y="226" font-size="16" fill="#444">Difficulty rises along three axes:</text>
-  <text x="24" y="252" font-size="16" fill="#444">command rate, compositional addressing</text>
-  <text x="24" y="278" font-size="16" fill="#444">("everyone except the yellow one..."),</text>
-  <text x="24" y="304" font-size="16" fill="#444">and commands about remembered state</text>
-  <text x="24" y="330" font-size="16" fill="#444">("the one who was sitting earlier...").</text>
-
-  <text x="24" y="384" font-size="16" font-style="italic" fill="#6B7280">The clock never pauses: a late action</text>
-  <text x="24" y="408" font-size="16" font-style="italic" fill="#6B7280">simply does not happen.</text>
-
   <!-- the room -->
-  <rect x="430" y="36" width="520" height="368" rx="14" fill="none" stroke="#333" stroke-width="2"/>
+  <rect x="18" y="18" width="434" height="344" rx="16" fill="none" stroke="#333" stroke-width="2"/>
 
-  <!-- compass: north up -->
-  <line x1="912" y1="96" x2="912" y2="62" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ahGray)"/>
-  <text x="905" y="116" font-size="16" fill="#9CA3AF">N</text>
+  <!-- compass: north is up -->
+  <line x1="424" y1="74" x2="424" y2="44" stroke="#9CA3AF" stroke-width="2" marker-end="url(#aCmp)"/>
+  <text x="417" y="96" font-size="15" fill="#9CA3AF">N</text>
 
-  <!-- gray agent: walking south -->
-  <circle cx="610" cy="150" r="17" fill="#6B7280"/>
-  <line x1="610" y1="172" x2="610" y2="248" stroke="#6B7280" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#ahGray)"/>
-  <text x="634" y="156" font-size="16" fill="#6B7280" font-weight="600">gray: walking</text>
-
-  <!-- yellow agent: sitting (no motion arrow; seat line under the dot) -->
-  <circle cx="790" cy="230" r="17" fill="#D9A406"/>
-  <line x1="767" y1="254" x2="813" y2="254" stroke="#B45309" stroke-width="3"/>
-  <text x="814" y="236" font-size="16" fill="#B45309" font-weight="600">yellow: sitting</text>
-
-  <!-- blue agent: running north (longer dashed arrow, double stroke) -->
-  <circle cx="530" cy="330" r="17" fill="#2563EB"/>
-  <line x1="530" y1="308" x2="530" y2="208" stroke="#2563EB" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#ahBlue)"/>
-  <line x1="544" y1="304" x2="544" y2="244" stroke="#2563EB" stroke-width="1.5" stroke-dasharray="4 5"/>
-  <text x="554" y="336" font-size="16" fill="#2563EB" font-weight="600">blue: running</text>
+  <!-- agents: each moves in one of four directions -->
+  <!-- blue, north -->
+  <line x1="150" y1="206" x2="150" y2="150" stroke="#2563EB" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#aBlue)"/>
+  <circle cx="150" cy="224" r="17" fill="#2563EB"/>
+  <!-- gray, south -->
+  <line x1="245" y1="150" x2="245" y2="206" stroke="#6B7280" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#aGray)"/>
+  <circle cx="245" cy="132" r="17" fill="#6B7280"/>
+  <!-- amber, east -->
+  <line x1="190" y1="292" x2="250" y2="292" stroke="#B45309" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#aAmber)"/>
+  <circle cx="172" cy="292" r="17" fill="#D9A406"/>
+  <!-- teal, west -->
+  <line x1="338" y1="248" x2="278" y2="248" stroke="#0D9488" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#aTeal)"/>
+  <circle cx="356" cy="248" r="17" fill="#0D9488"/>
+  <!-- second blue, north -->
+  <line x1="320" y1="320" x2="320" y2="270" stroke="#2563EB" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#aBlue)"/>
+  <circle cx="320" cy="338" r="17" fill="#2563EB"/>
 </svg>

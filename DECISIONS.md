@@ -5,6 +5,28 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: deck overhaul — bullets, trimmed to 9 slides, two-figure cover
+
+**Decision**: major revision per Yubo's feedback, and the slide-decks skill
+gained the lessons behind it (bullets-not-paragraphs; captions on every
+figure incl. the cover; don't-name-what-you-can't-show; no hype words ahead
+of evidence; no discussion asides on slides; don't over-detail future
+phases; de-dup table columns). Deck changes: all prose slides converted to
+short bullets; the cover now carries two captioned figures (command-station
+photo + the multiplayer diagram, moved up from its own slide) with larger
+authorship; the Missing-Piece and Gap slides merged into one (1.2); the
+Phase column de-duped (cells "1/2/3"); the arena figure redrawn to
+four-direction movement only (no sitting), enlarged, and the "costs weeks,
+not months..." sequencing aside removed; the StarCraft slide cut to a plain
+three-bullet "next environment" (no "flagship/wedge", no premature
+benchmark detail, since the arena isn't built); Age of Empires dropped from
+1.1 (no AoE figure to show; StarCraft suffices); the Open Questions slide
+removed (the whole proposal is open questions); the dedicated multiplayer
+slide removed (figure now on the cover). 12 → 9 slides.
+**Why**: audiences listen, they don't read paragraphs; the deck was
+long-winded, over-promised unbuilt phases, and used hype ahead of results.
+The skill now encodes all of this so it persists.
+
 ## 2026-06-13: created a slide-decks skill; applied it to fix the deck
 
 **Decision**: created `~/.claude/skills/slide-decks/SKILL.md` codifying
