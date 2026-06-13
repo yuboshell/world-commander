@@ -5,6 +5,20 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: hero — players and agents drawn as distinct species
+
+**Decision**: redraw so the real-human players and the virtual-character
+agents no longer look alike. Players = solid filled human silhouettes
+wearing comms headsets, standing OUTSIDE a thin rounded-rectangle
+"screen," pointing in. Agents = line-art pictogram characters INSIDE the
+screen (the virtual world). Solid-vs-line plus outside-vs-inside makes
+the real/virtual split read at a glance, even at thumbnail size.
+**Why**: Yubo noted players and agents were the same pictogram, so they
+read as the same kind of being; players are real people commanding,
+agents are the virtual characters being commanded.
+**Rejected**: one figure style for both (ambiguous); a screen border
+alone without restyling the players (weaker).
+
 ## 2026-06-13: hero revised — two commanders, embodied characters in motion
 
 **Decision**: redraw the title-slide hero so it shows **two** commanders
