@@ -5,6 +5,24 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: deck reorganized into a paper-style numbered structure
+
+**Decision**: restructure the deck into numbered sections, with muted
+section-number prefixes on slide titles: 1 Motivation (1.1 the problem &
+vision, 1.2 the missing piece + research question), 2 The Gap, 3
+Preliminaries, 4 Approach (4.1 three jobs, 4.2 three phases), 5 Phase 1
+(5.1 the command arena, 5.2 the StarCraft II benchmark), 6 Outlook (6.1
+the papers, 6.2 the multiplayer endgame), 7 Open Questions. Added a new
+**Preliminaries** slide (RL, efficient inference, VLA/π0, the SC2 stack,
+tokenization), placed before the Approach per paper convention. Trimmed
+repeated statements of the budget-frontier philosophy.
+**Why**: Yubo found the deck illogically organized and redundant; a
+paper-style index forces a hierarchy, makes redundancy visible (same idea
+→ same section), and matches how Dr. Diao reads. He noted papers put
+preliminaries before the method, so Preliminaries is section 3.
+**Rejected**: heavy academic numbering on every line (kept the numbers as
+light, muted title prefixes so the slides still read visually).
+
 ## 2026-06-13: removed the "Key Bet" architecture slide (medium-phase, redundant)
 
 **Decision**: cut the slide "The Key Bet: Slow Thinker, Fast Actors" (the

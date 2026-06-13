@@ -25,6 +25,7 @@ h1 {                                   /* slide title: white bg, thin rule */
   padding-bottom: 8px;
   border-bottom: 1.5px solid #c9c9c9;
 }
+h1 .sec { color: #b3b3b3; font-weight: 600; margin-right: 0.45em; }   /* paper-style section number */
 a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 strong { font-weight: 600; }
 ul, ol { margin: 0.25em 0; padding-left: 1.15em; }
@@ -100,7 +101,7 @@ section.title::after { content: "" !important; }
 ---
 
 <!-- _class: tight -->
-# The Idea: Play the Strategy, Not the Mouse
+# <span class="sec">1.1</span> The Problem and the Vision
 
 <div class="columns" style="grid-template-columns: 53% 44%">
 <div>
@@ -130,7 +131,7 @@ Subordinates handle the execution. That interface could be the next revolutionar
 
 ---
 
-# The Missing Piece: Speed
+# <span class="sec">1.2</span> The Missing Piece: Speed
 
 The commander interface is not a new dream. It shipped once: [Tom Clancy's EndWar (2008)](https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar) was a fully voice-commanded strategy game. But it ran on a rigid 70-word grammar: players had to memorize exact phrases, and anything outside the script failed.
 
@@ -145,7 +146,7 @@ Everything is judged one way: **performance as a function of latency budget and 
 ---
 
 <!-- _class: tight -->
-# The Gap: Efficiency, Untested Where It Counts
+# <span class="sec">2</span> The Gap: Efficiency, Untested Where It Counts
 
 LLMs can already play real-time strategy through a text interface: [TextStarCraft II (NeurIPS 2024)](https://arxiv.org/abs/2312.11865) beats the built-in AI. But systems like it slow or pause the clock to think, so the real-time question is sidestepped, not answered.
 
@@ -157,9 +158,24 @@ The field already feels the pressure: the [LLM Game Agents Survey (CSUR 2026)](h
 
 ---
 
-# The Three Jobs
+<!-- _class: tight -->
+# <span class="sec">3</span> Preliminaries
 
-The system needs three capabilities. They are separate lines of work that will run together in the end, and all three share one yardstick: performance as a function of latency and memory budget.
+The background this work builds on:
+
+| Area | What it gives us |
+|---|---|
+| **Reinforcement learning** | The substrate: a game is a Markov decision process, win rate is the reward, recalling a scouted tech switch is credit assignment. Phase 1 needs RL *literacy*, not training. |
+| **Efficient LLM inference** | KV-cache eviction (H2O, SnapKV, StreamingLLM, [OBCache](https://arxiv.org/abs/2510.07651)), structured pruning, quantization, distillation: the methods the benchmark scores. |
+| **Vision-language-action models** | [π0](https://arxiv.org/abs/2410.24164): a slow vision-language backbone driving a fast action expert, trained by imitation. The template for the commander/executor split. |
+| **The StarCraft II agent stack** | [PySC2](https://github.com/google-deepmind/pysc2), [TextStarCraft II](https://arxiv.org/abs/2312.11865), LLM-PySC2: the environment we inherit rather than rebuild. |
+| **Tokenization beyond text** | Byte-pair encoding and [graph tokenization (ICLR 2026)](https://www.diaoenmao.com): the basis for a learned game-state tokenizer. |
+
+---
+
+# <span class="sec">4.1</span> The Three Jobs
+
+The system needs three capabilities: separate lines of work that eventually run together as one system.
 
 | Job | What it does |
 |---|---|
@@ -172,7 +188,7 @@ This proposal is about the first job, **Decide**. Foresee and Embody are the gro
 ---
 
 <!-- _class: tight -->
-# The Plan: Three Phases
+# <span class="sec">4.2</span> The Plan: Three Phases
 
 The three jobs are the *parts*. The three phases are the *order*: we build in increasingly complex environments, with one shared **harness** under all of them (the command protocol, the unpausable clock, deadline enforcement, metric logging), so the engineering transfers upward.
 
@@ -182,11 +198,11 @@ The three jobs are the *parts*. The three phases are the *order*: we build in in
 | **Phase 2** | Methods | Attack whatever Phase 1 exposes as the bottleneck: game-aware eviction, a learned state tokenizer, distilled commanders. |
 | **Phase 3** | The real interface | Bring in the human (voice), then humans plural (multiplayer competition); grow the Foresee and Embody jobs. |
 
-The environments grow with the phases: **a toy room → StarCraft II → multiplayer → a full game.** The end-state game is the north star, not a deliverable: its role is to fix the two constraints every paper inherits, an unpausable clock and a hard compute budget.
+The environments grow with the phases: **a toy room → StarCraft II → multiplayer → a full game.** The end-state game is the north star, not a deliverable: its role is to fix the two constraints every paper inherits: unpausable clock, hard compute budget.
 
 ---
 
-# The Command Arena: Where Phase 1 Begins
+# <span class="sec">5.1</span> The Command Arena
 
 <div class="col-img">
 
@@ -199,7 +215,7 @@ The environments grow with the phases: **a toy room → StarCraft II → multipl
 ---
 
 <!-- _class: tight -->
-# Phase 1: the StarCraft II Benchmark
+# <span class="sec">5.2</span> The StarCraft II Benchmark
 
 The flagship of Phase 1, the **wedge**: a deliberately narrow, fast first paper that splits the agenda open. It asks: can an LLM command at game speed, and which efficiency techniques preserve its judgment?
 
@@ -214,7 +230,7 @@ The flagship of Phase 1, the **wedge**: a deliberately narrow, fast first paper 
 ---
 
 <!-- _class: tight -->
-# What This Produces
+# <span class="sec">6.1</span> What This Produces
 
 The agenda is research-first: the game is the north star, the papers are the milestones. Each must answer a question its community already cares about, while caring nothing about the game.
 
@@ -228,7 +244,7 @@ The agenda is research-first: the game is the north star, the papers are the mil
 
 ---
 
-# Where It Leads: Players vs. Players
+# <span class="sec">6.2</span> The Multiplayer Endgame
 
 <div class="col-img">
 
@@ -241,7 +257,7 @@ The agenda is research-first: the game is the north star, the papers are the mil
 ---
 
 <!-- _class: tight -->
-# Open Questions
+# <span class="sec">7</span> Open Questions
 
 The calls to make together:
 
