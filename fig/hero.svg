@@ -1,63 +1,100 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="460" viewBox="0 0 500 460" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="450" viewBox="0 0 520 450" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="agGray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 Z" fill="#9CA3AF"/></marker>
-    <marker id="agBlue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 Z" fill="#2563EB"/></marker>
-    <marker id="agDark" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 Z" fill="#333"/></marker>
+    <!-- figures face right; mirror with scale(-1,1) for the other team. currentColor = team colour. -->
+    <symbol id="cmdr" viewBox="0 0 40 64">
+      <circle cx="16" cy="9" r="6.5" fill="currentColor"/>
+      <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="16" y1="16" x2="16" y2="39"/>
+        <line x1="16" y1="39" x2="9" y2="60"/>
+        <line x1="16" y1="39" x2="23" y2="60"/>
+        <line x1="16" y1="23" x2="37" y2="16"/>
+        <line x1="16" y1="23" x2="8" y2="32"/>
+      </g>
+    </symbol>
+    <symbol id="run" viewBox="0 0 40 64">
+      <circle cx="24" cy="10" r="6" fill="currentColor"/>
+      <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="16" x2="14" y2="37"/>
+        <line x1="14" y1="37" x2="31" y2="46"/>
+        <line x1="14" y1="37" x2="4" y2="53"/>
+        <line x1="19" y1="21" x2="29" y2="15"/>
+        <line x1="19" y1="21" x2="8" y2="29"/>
+      </g>
+    </symbol>
+    <symbol id="walk" viewBox="0 0 40 64">
+      <circle cx="19" cy="9" r="6" fill="currentColor"/>
+      <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="16" x2="19" y2="37"/>
+        <line x1="19" y1="37" x2="27" y2="55"/>
+        <line x1="19" y1="37" x2="12" y2="55"/>
+        <line x1="19" y1="22" x2="26" y2="30"/>
+        <line x1="19" y1="22" x2="13" y2="29"/>
+      </g>
+    </symbol>
+    <symbol id="sit" viewBox="0 0 40 64">
+      <circle cx="15" cy="12" r="6" fill="currentColor"/>
+      <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="15" y1="18" x2="15" y2="33"/>
+        <line x1="15" y1="33" x2="29" y2="33"/>
+        <line x1="29" y1="33" x2="29" y2="50"/>
+        <line x1="15" y1="24" x2="25" y2="30"/>
+      </g>
+    </symbol>
   </defs>
 
-  <!-- ── the command: a speech bubble (natural language) ─────────────── -->
-  <rect x="14" y="16" width="236" height="94" rx="16" fill="#ffffff" stroke="#333" stroke-width="2.5"/>
-  <polygon points="86,108 70,138 108,108" fill="#ffffff" stroke="#333" stroke-width="2.5"/>
-  <polygon points="88,106 72,134 106,106" fill="#ffffff"/>
+  <!-- ── the clock: one shared real-time clock over the arena ─────────── -->
+  <circle cx="260" cy="48" r="26" fill="#ffffff" stroke="#333" stroke-width="2.5"/>
+  <line x1="260" y1="24" x2="260" y2="31" stroke="#333" stroke-width="2"/>
+  <line x1="260" y1="72" x2="260" y2="65" stroke="#333" stroke-width="2"/>
+  <line x1="236" y1="48" x2="243" y2="48" stroke="#333" stroke-width="2"/>
+  <line x1="284" y1="48" x2="277" y2="48" stroke="#333" stroke-width="2"/>
+  <line x1="260" y1="48" x2="247" y2="37" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="260" y1="48" x2="275" y2="35" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 262 19 A 29 29 0 0 1 291 50" fill="none" stroke="#333" stroke-width="2"
+        marker-end="url(#tick)"/>
+  <defs><marker id="tick" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 Z" fill="#333"/></marker></defs>
 
-  <!-- voice waveform -->
-  <rect x="30" y="40" width="5" height="26" rx="2.5" fill="#333"/>
-  <rect x="39" y="32" width="5" height="42" rx="2.5" fill="#333"/>
-  <rect x="48" y="46" width="5" height="14" rx="2.5" fill="#333"/>
-  <rect x="57" y="38" width="5" height="30" rx="2.5" fill="#333"/>
+  <!-- ── Player 1 (blue) commands from the left ──────────────────────── -->
+  <use href="#cmdr" x="34" y="30" width="46" height="74" style="color:#2563EB"/>
+  <text x="30" y="122" font-size="14" font-weight="600" fill="#2563EB">Player 1</text>
+  <path d="M 80 92 C 122 150, 142 205, 176 248" fill="none" stroke="#2563EB" stroke-width="2" stroke-dasharray="5 5" opacity="0.4"/>
+  <path d="M 80 96 C 140 165, 180 225, 214 286" fill="none" stroke="#2563EB" stroke-width="2" stroke-dasharray="5 5" opacity="0.4"/>
 
-  <!-- the two spoken orders, agent names colour-keyed to the dots below -->
-  <text x="78" y="52" font-size="18" font-weight="600"><tspan fill="#2563EB">Blue</tspan><tspan fill="#1a1a1a">, push north.</tspan></text>
-  <text x="78" y="84" font-size="18" font-weight="600"><tspan fill="#B45309">Amber</tspan><tspan fill="#1a1a1a">, hold the door.</tspan></text>
+  <!-- ── Player 2 (amber) commands from the right ────────────────────── -->
+  <g transform="translate(486,30) scale(-1,1)"><use href="#cmdr" width="46" height="74" style="color:#B45309"/></g>
+  <text x="430" y="122" font-size="14" font-weight="600" fill="#B45309">Player 2</text>
+  <path d="M 440 92 C 398 150, 378 205, 344 248" fill="none" stroke="#B45309" stroke-width="2" stroke-dasharray="5 5" opacity="0.4"/>
+  <path d="M 440 96 C 380 165, 340 225, 306 286" fill="none" stroke="#B45309" stroke-width="2" stroke-dasharray="5 5" opacity="0.4"/>
 
-  <!-- ── the clock: real time, never pausing ─────────────────────────── -->
-  <circle cx="442" cy="56" r="30" fill="#ffffff" stroke="#333" stroke-width="2.5"/>
-  <line x1="442" y1="30" x2="442" y2="37" stroke="#333" stroke-width="2"/>
-  <line x1="442" y1="82" x2="442" y2="75" stroke="#333" stroke-width="2"/>
-  <line x1="416" y1="56" x2="423" y2="56" stroke="#333" stroke-width="2"/>
-  <line x1="468" y1="56" x2="461" y2="56" stroke="#333" stroke-width="2"/>
-  <line x1="442" y1="56" x2="428" y2="44" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="442" y1="56" x2="458" y2="42" stroke="#333" stroke-width="2" stroke-linecap="round"/>
-  <path d="M 444 22 A 34 34 0 0 1 478 58" fill="none" stroke="#333" stroke-width="2" marker-end="url(#agDark)"/>
+  <!-- compass: north is up -->
+  <line x1="496" y1="232" x2="496" y2="208" stroke="#9CA3AF" stroke-width="2" marker-end="url(#tick)"/>
+  <text x="490" y="250" font-size="14" fill="#9CA3AF">N</text>
 
-  <!-- ── the command flows to the crowd ──────────────────────────────── -->
-  <path d="M 90 132 C 130 200, 150 250, 205 300" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#agGray)"/>
-  <path d="M 92 134 C 170 200, 240 260, 300 318" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#agGray)"/>
-  <path d="M 94 136 C 220 220, 330 280, 392 332" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#agGray)"/>
+  <!-- ── the two crowds: virtual characters in motion ────────────────── -->
+  <!-- shadows -->
+  <g fill="#000" opacity="0.06">
+    <ellipse cx="170" cy="312" rx="16" ry="3.5"/>
+    <ellipse cx="146" cy="372" rx="14" ry="3.5"/>
+    <ellipse cx="228" cy="364" rx="16" ry="3.5"/>
+    <ellipse cx="392" cy="312" rx="16" ry="3.5"/>
+    <ellipse cx="388" cy="372" rx="14" ry="3.5"/>
+    <ellipse cx="312" cy="372" rx="14" ry="3.5"/>
+  </g>
 
-  <!-- compass: north is up, so "push north" reads as the up arrows -->
-  <line x1="470" y1="270" x2="470" y2="244" stroke="#9CA3AF" stroke-width="2" marker-end="url(#agGray)"/>
-  <text x="464" y="288" font-size="15" fill="#9CA3AF">N</text>
+  <!-- blue team: running and walking toward the centre -->
+  <g stroke="#2563EB" stroke-width="2" opacity="0.3" stroke-linecap="round">
+    <line x1="132" y1="270" x2="146" y2="270"/><line x1="128" y1="280" x2="144" y2="280"/><line x1="134" y1="290" x2="148" y2="290"/>
+  </g>
+  <use href="#run"  x="150" y="252" width="40" height="62" style="color:#2563EB"/>
+  <use href="#walk" x="126" y="316" width="36" height="56" style="color:#2563EB"/>
+  <use href="#run"  x="208" y="304" width="40" height="62" style="color:#2563EB"/>
 
-  <!-- ── the crowd executes ──────────────────────────────────────────── -->
-  <!-- the rest of the crowd (uncommanded) -->
-  <circle cx="160" cy="392" r="13" fill="#6B7280"/>
-  <circle cx="292" cy="408" r="13" fill="#0D9488"/>
-  <circle cx="306" cy="316" r="13" fill="#6B7280"/>
-  <circle cx="404" cy="362" r="13" fill="#0D9488"/>
-  <circle cx="430" cy="408" r="13" fill="#6B7280"/>
-
-  <!-- blue agents: pushing north (dashed motion arrows, up) -->
-  <line x1="205" y1="332" x2="205" y2="300" stroke="#2563EB" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#agBlue)"/>
-  <line x1="245" y1="352" x2="245" y2="320" stroke="#2563EB" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#agBlue)"/>
-  <line x1="222" y1="402" x2="222" y2="370" stroke="#2563EB" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#agBlue)"/>
-  <circle cx="205" cy="348" r="13" fill="#2563EB"/>
-  <circle cx="245" cy="368" r="13" fill="#2563EB"/>
-  <circle cx="222" cy="418" r="13" fill="#2563EB"/>
-
-  <!-- amber agents: holding (seat line under the dot) -->
-  <circle cx="338" cy="372" r="13" fill="#D9A406"/>
-  <line x1="322" y1="392" x2="354" y2="392" stroke="#B45309" stroke-width="3"/>
-  <circle cx="372" cy="410" r="13" fill="#D9A406"/>
-  <line x1="356" y1="430" x2="388" y2="430" stroke="#B45309" stroke-width="3"/>
+  <!-- amber team: mirrored, moving the other way; one holds position (sitting) -->
+  <g stroke="#B45309" stroke-width="2" opacity="0.3" stroke-linecap="round">
+    <line x1="416" y1="270" x2="430" y2="270"/><line x1="418" y1="280" x2="434" y2="280"/><line x1="414" y1="290" x2="428" y2="290"/>
+  </g>
+  <g transform="translate(412,252) scale(-1,1)"><use href="#run"  width="40" height="62" style="color:#B45309"/></g>
+  <g transform="translate(406,316) scale(-1,1)"><use href="#walk" width="36" height="56" style="color:#B45309"/></g>
+  <g transform="translate(330,318) scale(-1,1)"><use href="#sit"  width="36" height="56" style="color:#B45309"/></g>
+  <line x1="298" y1="372" x2="326" y2="372" stroke="#B45309" stroke-width="3"/>
 </svg>

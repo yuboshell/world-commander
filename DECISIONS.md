@@ -5,6 +5,22 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: hero revised — two commanders, embodied characters in motion
+
+**Decision**: redraw the title-slide hero so it shows **two** commanders
+(Player 1 / Player 2, colour-coded) each directing their own crowd in a
+shared real-time arena, and draw the agents as small human figures in
+motion (running with speed lines, walking, one sitting to hold) rather
+than dots. Also revised the GPT Image 2 prompt to match. Attribution line
+reworded "based on" → "grown from ... under the guidance of."
+**Why**: Yubo's point — the North Star is a multiplayer game, and the
+goal is commanding virtual characters with real motion, so the title hero
+(which represents the vision) should show both. The Phase-1 arena figure
+(Figure 2) still uses abstract dots, keeping the body of the deck honest
+about the current first step: hero = vision, arena = reality.
+**Rejected**: single commander + abstract dots on the title slide
+(under-sold the multiplayer, embodied North Star).
+
 ## 2026-06-12: title slide gains a hero illustration (hand-authored SVG)
 
 **Decision**: add a vector hero illustration (`fig/hero.svg`) to the

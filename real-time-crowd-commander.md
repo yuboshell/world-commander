@@ -85,7 +85,7 @@ section.title::after { content: "" !important; }
 
 <p class="q">How much does natural-language command cost at game speed, and how can that cost be driven down?</p>
 
-<p class="by">A project proposal based on Yubo Huang's interest and insight, with guidance from Dr. Enmao Diao.</p>
+<p class="by">A project proposal grown from Yubo Huang's interest and insight, under the guidance of Dr. Enmao Diao.</p>
 
 <p class="date">June 2026</p>
 
