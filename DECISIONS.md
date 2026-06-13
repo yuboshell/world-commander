@@ -5,6 +5,26 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: created a slide-decks skill; applied it to fix the deck
+
+**Decision**: created `~/.claude/skills/slide-decks/SKILL.md` codifying
+Yubo's deck preferences (Keynote-White visual style, paper-numbered
+structure, concise-but-large writing, figure/citation conventions, a
+redundancy audit, and an anti-patterns list of the specific mistakes made
+this session). Applied it to the deck: the cover is now a clean title page
+(title, scope, large hero, author — no prose, which removes the cover/1.1
+duplication); slide 1.2 is condensed to one setup sentence plus the
+research question; the Gap (2) is cut to two tight paragraphs (both
+references kept); Preliminaries (3) reworded to remove the "Phase 1" and
+"commander/executor split" forward references. Re-audit: the
+budget-frontier framing now appears once (on 5.2).
+**Why**: Yubo was justifiably unhappy with inconsistent slide-writing and
+proposed a skill as the durable fix — a written spec stops the per-turn
+drift. The slide edits follow his feedback on slides 1-5.
+**Note**: the skill lives in `~/.claude/skills/` (global, auto-triggers
+from next session). It can be moved into `~/github/claude-config` if Yubo
+wants it version-controlled and synced like his CLAUDE.md.
+
 ## 2026-06-13: cover slide de-teched to a storytelling hook
 
 **Decision**: on the title slide, replace the abstract-plus-research-

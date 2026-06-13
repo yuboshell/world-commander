@@ -58,17 +58,14 @@ section::after {
 section.tight { font-size: 22px; line-height: 1.28; }
 section.tight h1 { font-size: 32px; }
 
-/* title slide: dense, top-aligned, title-plus-abstract beside a hero illustration */
+/* title slide: title + one-line scope + a large hero, then author */
 section.title { justify-content: flex-start !important; }
 section.title h1 { border-bottom: none; font-size: 42px; margin: 0 0 6px 0; padding: 0; }
-section.title .sub { font-size: 24px; color: #333; margin: 0 0 14px 0; }
-section.title .row { display: grid; grid-template-columns: 50% 48%; gap: 26px; align-items: center; padding-top: 14px; border-top: 1.5px solid #c9c9c9; }
-section.title .abstract { font-size: 21px; line-height: 1.4; margin: 0 0 14px 0; }
-section.title .q { font-size: 22px; font-weight: 600; border-left: 3px solid #333; padding-left: 14px; margin: 0 0 16px 0; line-height: 1.32; }
-section.title .by { font-size: 18px; color: #1a1a1a; margin: 0; }
-section.title .date { font-size: 16px; color: #777; margin-top: 4px; }
-section.title .hero { text-align: center; }
+section.title .sub { font-size: 24px; color: #333; margin: 0 0 12px 0; padding-bottom: 14px; border-bottom: 1.5px solid #c9c9c9; }
+section.title .hero { text-align: center; margin: 8px 0 0 0; }
 section.title .hero img { max-width: 100%; }
+section.title .by { font-size: 18px; color: #1a1a1a; margin: 16px 0 0 0; text-align: center; }
+section.title .date { font-size: 16px; color: #777; margin-top: 4px; text-align: center; }
 section.title::after { content: "" !important; }
 </style>
 
@@ -79,22 +76,15 @@ section.title::after { content: "" !important; }
 
 <p class="sub">Natural-language command of agent crowds in strategy games, under real-time compute budgets</p>
 
-<div class="row">
-<div>
+<div class="hero">
 
-<p class="abstract">Real-time strategy games bury their best part, the strategy, under hundreds of clicks a minute. This project asks whether you could play like a real commander instead: watch the battle, speak your orders, and let your forces carry them out.</p>
+<img src="fig/command-station.png" style="max-height: 432px;">
+
+</div>
 
 <p class="by">A project proposal grown from Yubo Huang's interest and insight, under the guidance of Dr. Enmao Diao.</p>
 
 <p class="date">June 2026</p>
-
-</div>
-<div class="hero">
-
-<img src="fig/command-station.png" style="max-height: 408px;">
-
-</div>
-</div>
 
 ---
 
@@ -131,28 +121,17 @@ Subordinates handle the execution. That interface could be the next revolutionar
 
 # <span class="sec">1.2</span> The Missing Piece: Speed
 
-The commander interface is not a new dream. It shipped once: [Tom Clancy's EndWar (2008)](https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar) was a fully voice-commanded strategy game. But it ran on a rigid 70-word grammar: players had to memorize exact phrases, and anything outside the script failed.
-
-Language models removed that limit. They understand free-form commands. What they cannot yet do is **act at game pace**: a model that takes seconds to answer is useless against an opponent moving every frame.
-
-So the one missing piece is speed, and it sets the research question:
+The commander interface shipped once ([Tom Clancy's EndWar, 2008](https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar)), but on a rigid 70-word grammar. Language models lifted that limit; what they still cannot do is **act at game pace**: a model that answers in seconds is useless against an opponent moving every frame.
 
 > **How much does natural-language command cost, in latency and memory, at game speed, and how can that cost be driven down?**
 
-Everything is judged one way: **performance as a function of latency budget and memory budget**, an efficiency frontier rather than a single score. The clock never pauses, so a decision that arrives late simply does not happen.
-
 ---
 
-<!-- _class: tight -->
 # <span class="sec">2</span> The Gap: Efficiency, Untested Where It Counts
 
-LLMs can already play real-time strategy through a text interface: [TextStarCraft II (NeurIPS 2024)](https://arxiv.org/abs/2312.11865) beats the built-in AI. But systems like it slow or pause the clock to think, so the real-time question is sidestepped, not answered.
+LLMs already play real-time strategy through text ([TextStarCraft II, NeurIPS 2024](https://arxiv.org/abs/2312.11865)), but only by pausing the clock to think. The efficiency methods that would let them keep up, above all **KV-cache eviction** (dropping old context to fit memory), are scored on perplexity and retrieval, never inside a live game where evicting the wrong memory loses the match minutes later.
 
-And the methods that would make real time possible are tested in the wrong place. Take **KV-cache eviction** (dropping old context to fit a memory budget): it is scored on perplexity and document retrieval, never inside a live game, where evicting the wrong memory, the opponent's scouted tech switch, loses the match minutes later, with no perplexity number to warn you.
-
-**The gap, in one line**: a streaming game is the most natural stress test for efficient inference, and nobody has run it. Context grows every second, old information matters unevenly, and the ground-truth metric, win or lose, is external and unforgiving.
-
-The field already feels the pressure: the [LLM Game Agents Survey (CSUR 2026)](https://arxiv.org/abs/2404.02039) names low-latency control as a core open challenge. The opening is visible to everyone.
+So a streaming game is the most natural stress test for efficient inference, and nobody has run it, though the [LLM Game Agents Survey (CSUR 2026)](https://arxiv.org/abs/2404.02039) already names low-latency control a core open challenge.
 
 ---
 
@@ -163,9 +142,9 @@ The background this work builds on:
 
 | Area | What it gives us |
 |---|---|
-| **Reinforcement learning** | The substrate: a game is a Markov decision process, win rate is the reward, recalling a scouted tech switch is credit assignment. Phase 1 needs RL *literacy*, not training. |
-| **Efficient LLM inference** | KV-cache eviction (H2O, SnapKV, StreamingLLM, [OBCache](https://arxiv.org/abs/2510.07651)), structured pruning, quantization, distillation: the methods the benchmark scores. |
-| **Vision-language-action models** | [π0](https://arxiv.org/abs/2410.24164): a slow vision-language backbone driving a fast action expert, trained by imitation. The template for the commander/executor split. |
+| **Reinforcement learning** | The substrate: a game is a Markov decision process, win rate is the reward, recalling a scouted tech switch is credit assignment. We need RL *literacy* to read the field, not RL training. |
+| **Efficient LLM inference** | KV-cache eviction (H2O, SnapKV, StreamingLLM, [OBCache](https://arxiv.org/abs/2510.07651)), structured pruning, quantization, distillation: the methods this work puts to the test. |
+| **Vision-language-action models** | [π0](https://arxiv.org/abs/2410.24164): a slow vision-language backbone driving a fast action expert, trained by imitation. A model for splitting a slow strategic brain from fast executors. |
 | **The StarCraft II agent stack** | [PySC2](https://github.com/google-deepmind/pysc2), [TextStarCraft II](https://arxiv.org/abs/2312.11865), LLM-PySC2: the environment we inherit rather than rebuild. |
 | **Tokenization beyond text** | Byte-pair encoding and [graph tokenization (ICLR 2026)](https://www.diaoenmao.com): the basis for a learned game-state tokenizer. |
 
