@@ -5,6 +5,44 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-12: organization simplified to two axes (jobs + phases)
+
+**Decision**: collapse the three overlapping schemes (layers / rungs /
+phases) to two clear axes. (1) **Three jobs** = the system's
+capabilities: Decide (the commander), Foresee (the world model), Embody
+(units move). Renamed from "layers"; the Phase status column is removed.
+(2) **Three phases** = the timeline: Phase 1 Benchmarks (command arena
+warm-up + StarCraft II flagship), Phase 2 Methods, Phase 3 Real
+interface. The word "rung" is retired; the environments become a
+complexity-ladder line (toy room → StarCraft II → multiplayer → game)
+folded into the phases, not a third naming scheme. The arena is now
+explicitly the first testbed of Phase 1, not a free-floating "rung 0."
+Applied to PROPOSAL.md (rewritten), DECK.md (slides 5–8 + inventory got
+a Phase column, build-ordered), CLAUDE.md.
+**Why**: Yubo (correctly) found the three schemes a mess. Rungs and
+phases were near-duplicate time axes that did not line up 1:1 (Phase 1 =
+SC2 = rung 1, but rung 0/arena was no phase, and Phase 2/methods was no
+rung), so no reader could tell what belonged where. Two orthogonal axes
+(parts vs. order) with the environments as a picture is the fix.
+**Rejected**: collapsing to a single timeline (loses the capability
+framing that shows scope and collaborator fit); keeping three schemes
+with a map (does not remove the root cause). Chosen by Yubo from a
+three-way comparison.
+**Revisit when**: a fourth job or phase appears; or a venue wants the
+formal three-layer-stack framing back.
+
+## 2026-06-12: title changed to "At Your Command" (supersedes "Commanding Crowds")
+
+**Decision**: final title is **At Your Command** (chosen by Yubo from a
+four-way vivid-options comparison), superseding the same-day pick
+"Commanding Crowds," which Yubo found accurate but flat (土/呆).
+Subtitle unchanged. Applied across PROPOSAL.md, DECK.md, CLAUDE.md;
+repo slug stays `game-commander`.
+**Why**: "At Your Command" is the subordinate's reply, evoking troops
+awaiting orders, the commander relationship at the heart of the idea.
+More vivid than the plain "Commanding Crowds" while the subtitle still
+carries the literal meaning (subject + object + speed).
+
 ## 2026-06-12: title changed to "Commanding Crowds"
 
 **Decision**: the proposal and deck are titled **Commanding Crowds**,

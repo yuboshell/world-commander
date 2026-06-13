@@ -1,4 +1,4 @@
-# Commanding Crowds
+# At Your Command
 
 Natural-language command of agent crowds in strategy games, under real-time compute budgets.
 
@@ -22,42 +22,47 @@ Efficiency is documented as the open problem. The [ACM Computing Surveys survey 
 
 Efficiency methods are never evaluated where the stakes are real. KV-cache eviction and compression methods are scored on perplexity, retrieval suites, and recently [reasoning benchmarks](https://arxiv.org/html/2512.12008v1) or [learned-eviction setups](https://arxiv.org/abs/2602.10238). No existing work evaluates cache eviction closed-loop inside a live game, where evicting the wrong memory loses the match minutes later. A streaming game is arguably the most natural stress test for these methods: context grows continuously, history matters non-uniformly, and the ground-truth metric (win or lose) is external to the model.
 
-## Research program: three layers
+## The three jobs
 
-The commander interface decomposes into a stack, each layer a publishable line of work sharing one evaluation philosophy: performance as a function of latency and memory budget.
+The commander interface needs three capabilities. They are separate lines of work that will eventually run together in one system, and they share one evaluation philosophy: performance as a function of latency and memory budget.
 
-| Layer | Function | Status |
+| Job | What it does |
+|---|---|
+| **Decide** | An LLM commander reads the game-state stream and issues macro decisions under hard latency and memory budgets |
+| **Foresee** | A compact world model answers the commander's "what if" queries ("if the army pushes now, does the fight win?") |
+| **Embody** | Units carry out commands with model-generated motion (synthesized for the order, not replayed animation clips) at crowd scale on one consumer GPU |
+
+This proposal is about getting **Decide** right first. **Foresee** and **Embody** are the growth surface, built in the later phases and aligned with motion-generation and world-model research directions in Yubo's prospective PhD work.
+
+## The plan: three phases
+
+The three jobs above are the *parts*; the three phases below are the *order*. We build in increasingly complex environments, with one shared **harness** under all of them — the command protocol, the unpausable clock, deadline enforcement, and metric logging — so the engineering and the evaluation transfer upward.
+
+| Phase | Focus | What happens |
 |---|---|---|
-| Strategy | An LLM commander reads the game state stream and issues macro decisions under hard latency and KV-cache budgets | Phase 1 (wedge) |
-| Foresight | A compact entity-level world model answers the commander's counterfactual queries ("if the army pushes now, does the fight win?") | Phase 2-3 |
-| Embodiment | Units execute commands with generated motion at crowd scale on a consumer GPU | Phase 2-3 |
+| **Phase 1** | Benchmarks | Build the harness and the efficiency-frontier evaluation, on two testbeds: a command arena (warm-up) and StarCraft II with the clock unpaused (the flagship wedge). |
+| **Phase 2** | Methods | Attack whatever Phase 1 exposes as the bottleneck: game-aware eviction, a learned state tokenizer, distilled commanders, commander/executor scheduling. |
+| **Phase 3** | The real interface | Reintroduce the human (voice command), then humans plural (multiplayer competition); grow the Foresee and Embody jobs. |
 
-## Roadmap: from arena to game
+The environments grow with the phases, simplest to hardest:
 
-The end state — a full commander-interface strategy game in the spirit of Age of Empires — is a product vision, years out, and not the deliverable. Its role is to fix the two constraints every paper inherits: an unpausable clock and a hard compute budget. The path toward it is a ladder of environments sharing one harness, one command protocol, and one evaluation philosophy; each rung isolates a measurable question that publishes on its own.
+> a toy room (abstract agents)  →  StarCraft II  →  multiplayer  →  a full game
 
-| Rung | Environment | What it isolates |
-|---|---|---|
-| 0 | Command arena: color-tagged agents in a minimal room move in discrete directions under streamed language commands, no motion detail | Per-entity command grounding against the clock: grounding accuracy, utterance-to-action latency, deadline misses as command rate rises |
-| 1 | StarCraft II, clock unpaused | Strategic judgment under latency and KV-cache budgets (the Phase 1 wedge) |
-| 2 | Multi-user arena: several players command their own units from their own machines in one shared real-time world | Efficiency as competitiveness: matches between efficiency configurations (Phase 3) |
-| 3 | The commander game | Product north star, beyond the paper horizon |
+The end state, a full commander-interface game in the spirit of Age of Empires, is a product vision years out, not a deliverable. Its role is to fix the two constraints every paper inherits: an unpausable clock and a hard compute budget.
 
-The arena costs weeks, not months: no game engineering, no motion data, agents that simply move. Single commands are trivially easy for any modern model — by design; the test is the stream. Difficulty rises along three axes: command rate, compositional addressing ("everyone except the yellow one, gather at the door"), and commands that depend on remembered state ("the one who was sitting earlier — move him west"). Building the arena first validates the streaming-command infrastructure and latency protocol that every later rung, including the wedge, reuses. It is also where the embodiment layer eventually lands: swap discrete moves for generated full-body motion at crowd scale, and the harness and metrics carry over unchanged.
+## Phase 1: the benchmark (the wedge)
 
-Rung 2 changes what latency means: in a competitive match it stops being a constraint to measure and becomes what decides the winner. The headline question — does a fast small commander beat a slow large one head-to-head? — turns the efficiency frontier into Elo-style ratings (chess's system for ranking players by match outcomes), an evaluation no static corpus can imitate. Multi-user play also surfaces the systems questions — per-client inference versus a shared server budget, fairness across heterogeneous player hardware — that extend the Phase 2 scheduling line.
+The **wedge** is a deliberately narrow, fast first paper that opens the agenda behind it. It builds the harness and asks: can an LLM command at game speed, and which efficiency techniques preserve its judgment? Two testbeds.
 
-## Phase 1: the wedge paper
+**The command arena (warm-up).** Color-tagged agents in a minimal room move in discrete directions under streamed language commands, with no motion detail and no game engineering. It costs weeks, not months, and proves out the streaming-command infrastructure that StarCraft II and every later phase reuse. One command is trivially easy for any modern model, by design; the test is the *stream*. Difficulty rises along three axes: command rate, compositional addressing ("everyone except the yellow one, gather at the door"), and commands that depend on remembered state ("the one who was sitting earlier, move west"). Measured: command-grounding accuracy, utterance-to-action latency, and deadline misses as command rate rises.
 
-A benchmark and empirical study: can an LLM command at game speed, and which efficiency techniques preserve its judgment?
-
-Environment. Build on the TextStarCraft II / [LLM-PySC2](https://arxiv.org/pdf/2411.05348) stack with one decisive change: the game clock does not pause. The harness enforces wall-clock decision deadlines and a VRAM ceiling; a late decision is a no-op, as it is for a human.
+**StarCraft II, clock unpaused (flagship).** Build on the TextStarCraft II / [LLM-PySC2](https://arxiv.org/pdf/2411.05348) stack with one decisive change: the game clock does not pause. The harness enforces wall-clock decision deadlines and a VRAM ceiling; a late decision simply does not happen, as it is for a human.
 
 Experimental variables.
 
 - KV-cache policy: full cache, [StreamingLLM](https://arxiv.org/abs/2309.17453)-style attention sinks, H2O (Zhang et al., 2023), SnapKV (Li et al., 2024), and [OBCache](https://arxiv.org/abs/2510.07651), treating the game-state stream as the long context.
 - Model scale and sparsity: open-weight models from 1B to 70B, plus structurally pruned variants (GISP, RESP) and quantized variants.
-- Architecture: monolithic commander versus a commander/executor split (slow strategic model, fast small executors), the architecture suggested by the DOOM result — and, in robotics, by vision-language-action models: [π0](https://arxiv.org/abs/2410.24164) pairs a slow vision-language backbone with a fast action expert controlling at up to 50 Hz, the analogy raised in the first discussion round.
+- Architecture: monolithic commander versus a commander/executor split (slow strategic model, fast small executors), the architecture suggested by the DOOM result and, in robotics, by vision-language-action models: [π0](https://arxiv.org/abs/2410.24164) pairs a slow vision-language backbone with a fast action expert controlling at up to 50 Hz.
 - State encoding: plain-text serialization versus a learned tokenizer over structured game state (see below).
 
 Metrics. Win rate against fixed built-in AI levels as a function of (decision latency budget, VRAM budget): an efficiency frontier rather than a single score. Secondary: actions issued per minute, decision deadline misses, tokens per decision.
@@ -66,38 +71,40 @@ Strategic-memory probes. Scripted scenarios where winning requires recalling inf
 
 State tokenization module. Game state is a structured, non-text modality: entities, positions, event streams. Following the program of extending byte-pair-style tokenization beyond text ([Graph Tokenization, ICLR 2026](https://www.diaoenmao.com)), train a tokenizer on StarCraft II replay corpora and measure tokens-per-decision and end-to-end latency at equal win rate against text serialization. A compact state code shrinks every downstream cost in the stack.
 
-Deliverables: the open-source harness and benchmark, the efficiency-frontier study, and the memory-probe suite.
+Deliverables: the open-source harness and the two benchmarks, the efficiency-frontier study, and the memory-probe suite.
 
 ## Phase 2: methods
 
 Whatever Phase 1 exposes as the bottleneck becomes the method work. Candidates: game-aware KV eviction that exploits entity lifetimes and spatial locality; learned state tokenizers trained jointly with the policy; distilled small commanders trained on large-model match traces; commander/executor scheduling under a shared GPU budget.
 
-## Phase 3: toward the real interface
+## Phase 3: the real interface
 
-Reintroduce the human. A voice-commanded mode (the commander speaks, agents execute) evaluated on intent throughput, cognitive load, and accessibility, extending what Adaptive Command began — then humans, plural: the multi-user arena (roadmap rung 2), where matches between players turn efficiency into competitiveness. In parallel, the foresight and embodiment layers mature: entity-level world models for in-game counterfactuals (cheaper, queryable analogues of [WHAM](https://www.nature.com/articles/s41586-025-08600-3)-style gameplay models), and crowd-scale language-conditioned motion generation under compute budgets, building on the real-time text-to-motion line ([MotionLCM](https://arxiv.org/pdf/2404.19759), [MotionStreamer](https://arxiv.org/pdf/2503.15451), [CrowdMoGen](https://yukangcao.github.io/CrowdMoGen/)). These layers align with motion-generation and character-world-model research directions in Yubo's prospective PhD work and are listed here as the agenda's growth surface rather than Phase 1 commitments.
+Reintroduce the human. A voice-commanded mode (the commander speaks, agents execute) evaluated on intent throughput, cognitive load, and accessibility, extending what Adaptive Command began. Then humans, plural: a multiplayer arena where several players command their own units from their own machines in one shared real-time world. There, latency stops being a constraint to measure and becomes what decides the winner. The headline question — does a fast small commander beat a slow large one head-to-head? — turns the efficiency frontier into Elo-style ratings (chess's system for ranking players by match outcomes), an evaluation no static corpus can imitate, and surfaces the systems questions (per-client inference versus a shared server budget, fairness across heterogeneous player hardware) that extend the Phase 2 scheduling line.
+
+In parallel, the Foresee and Embody jobs mature: entity-level world models for in-game counterfactuals (cheaper, queryable analogues of [WHAM](https://www.nature.com/articles/s41586-025-08600-3)-style gameplay models), and crowd-scale language-conditioned motion generation under compute budgets, building on the real-time text-to-motion line ([MotionLCM](https://arxiv.org/pdf/2404.19759), [MotionStreamer](https://arxiv.org/pdf/2503.15451), [CrowdMoGen](https://yukangcao.github.io/CrowdMoGen/)). For the motion-generation community, this reads as real-time control of multiple virtual characters.
 
 ## Paper inventory
 
-The program is research-first: the game is the north star, the papers are the milestones. The test each paper must pass is answering a question its community already cares about while caring nothing about the game; the budget-frontier evaluation is what passes it.
+The program is research-first: the game is the north star, the papers are the milestones. The test each paper must pass is to answer a question its community already cares about while caring nothing about the game; the budget-frontier evaluation is what passes it. Papers are listed roughly in build order.
 
-| Paper | The question | Who cares, independent of the game |
-|---|---|---|
-| Real-time commander benchmark (the Phase 1 wedge) | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning researchers, whose methods are scored on static corpora today, never by win rate |
-| Game-state tokenizer (inside the wedge or standalone — open question 3) | Does byte-pair tokenization extend to entity and event streams, and what does a compact state code buy at equal win rate? | The tokenization-beyond-text program |
-| Command-arena benchmark (rung 0) | How does per-entity command grounding degrade as command rate rises against a hard clock? | Real-time agent and interactive-systems researchers |
-| Competitive-efficiency study (rung 2) | Does a fast small commander beat a slow large one head-to-head — Elo as a function of compute budget? | Inference-efficiency and agents communities; an evaluation-paradigm result |
-| Crowd motion under budget (embodiment layer) | Can language-commanded full-body crowds run in real time on one consumer GPU? | The motion-generation and graphics community |
+| Paper | Phase | The question | Who cares, independent of the game |
+|---|---|---|---|
+| Command-arena benchmark | 1 | How does per-entity command grounding degrade as command rate rises against a hard clock? | Real-time agent and interactive-systems researchers |
+| Real-time commander benchmark (the wedge) | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning researchers, whose methods are scored on static corpora today, never by win rate |
+| Game-state tokenizer | 1 to 2 | Does byte-pair tokenization extend to entity and event streams, and what does a compact state code buy at equal win rate? | The tokenization-beyond-text program |
+| Competitive-efficiency study | 3 | Does a fast small commander beat a slow large one head-to-head, Elo as a function of compute budget? | Inference-efficiency and agents communities; an evaluation-paradigm result |
+| Crowd motion under budget | 3 | Can language-commanded full-body crowds run in real time on one consumer GPU? | The motion-generation and graphics community |
 
-Benchmark papers live or die on adoption: open source, one-command install, credible baselines — the Phase 1 deliverables are scoped with that in mind.
+Whether the game-state tokenizer ships inside the wedge or stands alone as a second paper is an open question (below). Benchmark papers live or die on adoption: open source, one-command install, credible baselines, all of which the Phase 1 deliverables are scoped for.
 
 ## Why this collaboration
 
-The wedge paper needs two things at once: the efficiency-methods stack (cache eviction, structured pruning, tokenization beyond text), where Dr. Diao's recent work supplies both methods and baselines, and benchmark/harness engineering plus genuine RTS fluency, which Yubo brings. The niche is defensible because this combination is rare: agent-interface groups lack the efficiency depth, and efficiency groups evaluate on static corpora rather than closed-loop games.
+The wedge needs two things at once: the efficiency-methods stack (cache eviction, structured pruning, tokenization beyond text), where Dr. Diao's recent work supplies both methods and baselines, and benchmark/harness engineering plus genuine RTS fluency, which Yubo brings. The niche is defensible because this combination is rare: agent-interface groups lack the efficiency depth, and efficiency groups evaluate on static corpora rather than closed-loop games.
 
 ## Risks
 
 - Environment engineering on StarCraft II is real work; mitigated by inheriting the TextStarCraft II stack rather than building from scratch.
-- The "KV eviction in closed-loop games" gap could be filled by others; the surveys already name it, so the wedge paper should move fast.
+- The "KV eviction in closed-loop games" gap could be filled by others; the surveys already name it, so the wedge should move fast.
 - Latency results age as inference gets cheaper; the benchmark's framing (performance versus budget) remains meaningful regardless of which model currently wins.
 
 ## Discussion log
@@ -106,9 +113,7 @@ The wedge paper needs two things at once: the efficiency-methods stack (cache ev
 
 - Latency is the fight: large-model control is slow against the speed that mouse control demands. This is the wedge's thesis restated as a concern — the benchmark exists to measure exactly that gap and what closes it.
 - Architecture pointer: borrow from robot vision-language-action models (the [π0](https://arxiv.org/abs/2410.24164) line), where a slow vision-language backbone drives a fast action expert at real-time rates. Added to the Phase 1 architecture variable; a game is the cheaper, safer place to iterate on the same split.
-- "Essentially RL in a virtual world": the long arc runs through reinforcement learning, so RL literacy is a prerequisite to build. Phase 1 itself needs no RL training (off-the-shelf and pruned commanders, prompted), but learned commanders, the foresight layer, and any trained executor do. Near-term action: survey RL fundamentals and consult RL colleagues.
-
-Also from the exchange: for the motion-generation community, the program reads as "real-time control of multiple virtual characters" — the one-line translation of the embodiment layer for that audience.
+- "Essentially RL in a virtual world": the long arc runs through reinforcement learning, so RL literacy is a prerequisite to build. Phase 1 itself needs no RL training (off-the-shelf and pruned commanders, prompted), but learned commanders, the Foresee job, and any trained executor do. Near-term action: survey RL fundamentals and consult RL colleagues.
 
 ## Open questions for discussion
 

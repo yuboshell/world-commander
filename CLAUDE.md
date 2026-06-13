@@ -5,10 +5,13 @@ Natural-language command of agent crowds in strategy games, under real-time comp
 Created 2026-06-10; its own git repo under `~/github/game-commander`.
 
 ## What's here
-- `PROPOSAL.md` — the research agenda ("Commanding Crowds"):
-  three-layer program (strategy / foresight / embodiment), four-rung
-  environment roadmap, Phase-1 wedge-paper spec (real-time StarCraft II
-  commander benchmark, KV-cache eviction evaluated by win rate), paper
+- `PROPOSAL.md` — the research agenda ("At Your Command"). Two axes:
+  three jobs (Decide / Foresee / Embody = the system's capabilities) and
+  three phases (1 Benchmarks / 2 Methods / 3 Real interface = the
+  timeline); environments are a complexity ladder (arena → StarCraft II →
+  multiplayer → game) folded into the phases, not a separate scheme.
+  Phase-1 wedge spec (real-time StarCraft II commander benchmark plus the
+  command-arena warm-up, KV-cache eviction evaluated by win rate), paper
   inventory, prior-art map with verified links, discussion log. Drafted
   2026-06-10 for discussion with Dr. Enmao Diao. Canonical remote:
   `DreamSoul-AI/game-commander` (private org repo — Diao sees it as org owner,

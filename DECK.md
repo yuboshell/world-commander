@@ -3,7 +3,7 @@ marp: true
 html: true
 paginate: true
 size: 16:9
-title: "Commanding Crowds"
+title: "At Your Command"
 ---
 
 <style>
@@ -69,7 +69,7 @@ section.title::after { content: "" !important; }
 <!-- _class: title -->
 <!-- _paginate: false -->
 
-# Commanding Crowds
+# At Your Command
 
 <p class="sub">Natural-language command of agent crowds in strategy games, under real-time compute budgets</p>
 
@@ -137,52 +137,51 @@ The field already feels the pressure: the [LLM Game Agents Survey (CSUR 2026)](h
 
 ---
 
-# The Program: Three Layers
+# The Three Jobs
 
-The commander interface decomposes into a stack. Each layer is its own publishable line of work, and all three share the same budget-frontier evaluation.
+The system needs three capabilities. They are separate lines of work that will run together in the end, and all three share one yardstick: performance as a function of latency and memory budget.
 
-| Layer | Function | Status |
-|---|---|---|
-| **Strategy** | An LLM commander reads the game-state stream and issues macro decisions under hard latency and memory budgets | Phase 1 |
-| **Foresight** | A compact world model answers the commander's "what if" queries: if the army pushes now, does the fight win? | Phase 2 to 3 |
-| **Embodiment** | Units carry out commands with model-generated motion (synthesized for the order, not replayed animation clips) at crowd scale on one consumer GPU | Phase 2 to 3 |
+| Job | What it does |
+|---|---|
+| **Decide** | An LLM commander reads the game-state stream and issues the orders, under hard latency and memory budgets |
+| **Foresee** | A compact world model answers "what if" before you commit: if the army pushes now, does the fight win? |
+| **Embody** | Units carry out the orders with model-generated motion (synthesized for the command, not replayed clips) at crowd scale on one GPU |
 
-This proposal is about getting the first layer right.
+This proposal is about the first job, **Decide**. Foresee and Embody are the growth surface, built later.
 
 ---
 
 <!-- _class: tight -->
-# The Roadmap: Four Rungs, One Harness
+# The Plan: Three Phases
 
-A ladder of environments, simplest first. Each shares one **harness**: the common scaffolding every rung runs inside (command protocol, the unpausable clock, deadline enforcement, metric logging), so the engineering transfers upward.
+The three jobs are the *parts*. The three phases are the *order*: we build in increasingly complex environments, with one shared **harness** under all of them (the command protocol, the unpausable clock, deadline enforcement, metric logging), so the engineering transfers upward.
 
-| Rung | Environment | What it isolates |
+| Phase | Focus | What happens |
 |---|---|---|
-| 0 | **Command arena**: colour-tagged agents in a room move in discrete directions under streamed commands (Figure 2) | Can the model send the right order to the right agent, fast enough, as commands speed up? |
-| 1 | **StarCraft II, clock unpaused** | Strategic judgment under latency and memory budgets: the Phase 1 paper |
-| 2 | **Multi-user arena**: several players command their own units in one shared real-time world | Efficiency as competitiveness: does a fast small commander beat a slow large one? |
-| 3 | **The commander game** | The product north star, beyond the paper horizon |
+| **Phase 1** | Benchmarks | Build the harness and the efficiency-frontier evaluation, on two testbeds: a command arena (warm-up) and StarCraft II with the clock unpaused (the flagship). |
+| **Phase 2** | Methods | Attack whatever Phase 1 exposes as the bottleneck: game-aware eviction, a learned state tokenizer, distilled commanders. |
+| **Phase 3** | The real interface | Bring in the human (voice), then humans plural (multiplayer competition); grow the Foresee and Embody jobs. |
 
-The end-state game is a vision, not a deliverable. Its job is to fix the two constraints every paper inherits: an unpausable clock and a hard compute budget.
+The environments grow with the phases: **a toy room → StarCraft II → multiplayer → a full game.** The end-state game is the north star, not a deliverable: its role is to fix the two constraints every paper inherits, an unpausable clock and a hard compute budget.
 
 ---
 
-# Rung 0 Up Close: the Command Arena
+# The Command Arena: Where Phase 1 Begins
 
 <div class="col-img">
 
-<img src="fig/arena.svg" style="max-height: 340px;">
+<img src="fig/arena.svg" style="max-height: 330px;">
 
-<div class="caption"><strong>Figure 2: the simplest rung.</strong> Colour-tagged agents in a room, each command colour-keyed to its agent. One command is trivially easy for any modern model, by design: the test is the stream. Difficulty rises with command rate, with compositional orders ("everyone except the yellow one, gather at the door"), and with orders that depend on memory ("the one who was sitting earlier, move west"). The arena costs weeks, not months, and proves out the harness every later rung reuses.</div>
+<div class="caption"><strong>Figure 2: Phase 1's warm-up testbed.</strong> Colour-tagged agents in a room, each command colour-keyed to its agent. One command is trivially easy for any modern model, by design: the test is the stream. Difficulty rises with command rate, with compositional orders ("everyone except the yellow one, gather at the door"), and with orders that depend on memory ("the one who was sitting earlier, move west"). It costs weeks, not months, and proves out the harness everything later reuses.</div>
 
 </div>
 
 ---
 
 <!-- _class: tight -->
-# Phase 1: the First Paper
+# Phase 1: the StarCraft II Benchmark
 
-The **wedge**: a deliberately narrow, fast first paper, the thin end that splits the agenda open. It is a benchmark and a study, asking: can an LLM command at game speed, and which efficiency techniques preserve its judgment?
+The flagship of Phase 1, the **wedge**: a deliberately narrow, fast first paper that splits the agenda open. It asks: can an LLM command at game speed, and which efficiency techniques preserve its judgment?
 
 **The setup.** Build on the TextStarCraft II stack, but never pause the clock. Every decision carries a wall-clock deadline; the model runs under a fixed memory ceiling. A late decision does not happen.
 
@@ -227,13 +226,13 @@ A second bet: game state is not really text, it is entities, positions, and even
 
 The agenda is research-first: the game is the north star, the papers are the milestones. Each must answer a question its community already cares about, while caring nothing about the game.
 
-| Paper | The question it answers | Who cares, beyond the game |
-|---|---|---|
-| Real-time commander benchmark (Phase 1) | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning researchers, whose methods are never scored by win rate |
-| Game-state tokenizer | Does compact tokenization extend to entity and event streams? | The tokenization-beyond-text programme |
-| Command-arena benchmark (rung 0) | How does grounding degrade as command rate rises? | Real-time agent and interactive-systems researchers |
-| Competitive-efficiency study (rung 2) | Does a fast small commander beat a slow large one? | Inference-efficiency and agents communities |
-| Crowd motion under budget (embodiment) | Can language-commanded crowds move in real time on one GPU? | Motion-generation and graphics community |
+| Paper | Phase | The question it answers | Who cares, beyond the game |
+|---|---|---|---|
+| Command-arena benchmark | 1 | How does grounding degrade as command rate rises? | Real-time agent and interactive-systems researchers |
+| Real-time commander benchmark (the wedge) | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning researchers, whose methods are never scored by win rate |
+| Game-state tokenizer | 1 to 2 | Does compact tokenization extend to entity and event streams? | The tokenization-beyond-text programme |
+| Competitive-efficiency study | 3 | Does a fast small commander beat a slow large one? | Inference-efficiency and agents communities |
+| Crowd motion under budget | 3 | Can language-commanded crowds move in real time on one GPU? | Motion-generation and graphics community |
 
 ---
 

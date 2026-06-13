@@ -24,7 +24,7 @@
   <text x="24" y="330" font-size="16" fill="#444">("the one who was sitting earlier...").</text>
 
   <text x="24" y="384" font-size="16" font-style="italic" fill="#6B7280">The clock never pauses: a late action</text>
-  <text x="24" y="408" font-size="16" font-style="italic" fill="#6B7280">is a no-op.</text>
+  <text x="24" y="408" font-size="16" font-style="italic" fill="#6B7280">simply does not happen.</text>
 
   <!-- the room -->
   <rect x="430" y="36" width="520" height="368" rx="14" fill="none" stroke="#333" stroke-width="2"/>
