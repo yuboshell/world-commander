@@ -11,7 +11,9 @@ project-local; transferable lessons still go to memex at milestones.
 (Player 1 / Player 2, colour-coded) each directing their own crowd in a
 shared real-time arena, and draw the agents as small human figures in
 motion (running with speed lines, walking, one sitting to hold) rather
-than dots. Also revised the GPT Image 2 prompt to match. Attribution line
+than dots. Each team is ~10 figures in three depth-receding ranks (front
+large and in motion, ranks behind smaller), so the crowds read as armies,
+not squads. Also revised the GPT Image 2 prompt to match. Attribution line
 reworded "based on" → "grown from ... under the guidance of."
 **Why**: Yubo's point — the North Star is a multiplayer game, and the
 goal is commanding virtual characters with real motion, so the title hero

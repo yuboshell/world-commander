@@ -1,100 +1,99 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="520" height="450" viewBox="0 0 520 450" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="470" viewBox="0 0 540 470" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
   <defs>
     <!-- figures face right; mirror with scale(-1,1) for the other team. currentColor = team colour. -->
     <symbol id="cmdr" viewBox="0 0 40 64">
       <circle cx="16" cy="9" r="6.5" fill="currentColor"/>
       <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="16" y1="16" x2="16" y2="39"/>
-        <line x1="16" y1="39" x2="9" y2="60"/>
-        <line x1="16" y1="39" x2="23" y2="60"/>
-        <line x1="16" y1="23" x2="37" y2="16"/>
-        <line x1="16" y1="23" x2="8" y2="32"/>
+        <line x1="16" y1="16" x2="16" y2="39"/><line x1="16" y1="39" x2="9" y2="60"/><line x1="16" y1="39" x2="23" y2="60"/>
+        <line x1="16" y1="23" x2="37" y2="16"/><line x1="16" y1="23" x2="8" y2="32"/>
       </g>
     </symbol>
     <symbol id="run" viewBox="0 0 40 64">
       <circle cx="24" cy="10" r="6" fill="currentColor"/>
       <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="22" y1="16" x2="14" y2="37"/>
-        <line x1="14" y1="37" x2="31" y2="46"/>
-        <line x1="14" y1="37" x2="4" y2="53"/>
-        <line x1="19" y1="21" x2="29" y2="15"/>
-        <line x1="19" y1="21" x2="8" y2="29"/>
+        <line x1="22" y1="16" x2="14" y2="37"/><line x1="14" y1="37" x2="31" y2="46"/><line x1="14" y1="37" x2="4" y2="53"/>
+        <line x1="19" y1="21" x2="29" y2="15"/><line x1="19" y1="21" x2="8" y2="29"/>
       </g>
     </symbol>
     <symbol id="walk" viewBox="0 0 40 64">
       <circle cx="19" cy="9" r="6" fill="currentColor"/>
       <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="19" y1="16" x2="19" y2="37"/>
-        <line x1="19" y1="37" x2="27" y2="55"/>
-        <line x1="19" y1="37" x2="12" y2="55"/>
-        <line x1="19" y1="22" x2="26" y2="30"/>
-        <line x1="19" y1="22" x2="13" y2="29"/>
+        <line x1="19" y1="16" x2="19" y2="37"/><line x1="19" y1="37" x2="27" y2="55"/><line x1="19" y1="37" x2="12" y2="55"/>
+        <line x1="19" y1="22" x2="26" y2="30"/><line x1="19" y1="22" x2="13" y2="29"/>
       </g>
     </symbol>
     <symbol id="sit" viewBox="0 0 40 64">
       <circle cx="15" cy="12" r="6" fill="currentColor"/>
       <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="15" y1="18" x2="15" y2="33"/>
-        <line x1="15" y1="33" x2="29" y2="33"/>
-        <line x1="29" y1="33" x2="29" y2="50"/>
-        <line x1="15" y1="24" x2="25" y2="30"/>
+        <line x1="15" y1="18" x2="15" y2="33"/><line x1="15" y1="33" x2="29" y2="33"/><line x1="29" y1="33" x2="29" y2="50"/><line x1="15" y1="24" x2="25" y2="30"/>
       </g>
     </symbol>
+    <marker id="tick" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 Z" fill="#333"/></marker>
   </defs>
 
-  <!-- ── the clock: one shared real-time clock over the arena ─────────── -->
-  <circle cx="260" cy="48" r="26" fill="#ffffff" stroke="#333" stroke-width="2.5"/>
-  <line x1="260" y1="24" x2="260" y2="31" stroke="#333" stroke-width="2"/>
-  <line x1="260" y1="72" x2="260" y2="65" stroke="#333" stroke-width="2"/>
-  <line x1="236" y1="48" x2="243" y2="48" stroke="#333" stroke-width="2"/>
-  <line x1="284" y1="48" x2="277" y2="48" stroke="#333" stroke-width="2"/>
-  <line x1="260" y1="48" x2="247" y2="37" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="260" y1="48" x2="275" y2="35" stroke="#333" stroke-width="2" stroke-linecap="round"/>
-  <path d="M 262 19 A 29 29 0 0 1 291 50" fill="none" stroke="#333" stroke-width="2"
-        marker-end="url(#tick)"/>
-  <defs><marker id="tick" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 Z" fill="#333"/></marker></defs>
+  <!-- shared real-time clock over the arena -->
+  <circle cx="270" cy="46" r="25" fill="#ffffff" stroke="#333" stroke-width="2.5"/>
+  <line x1="270" y1="24" x2="270" y2="31" stroke="#333" stroke-width="2"/><line x1="270" y1="68" x2="270" y2="61" stroke="#333" stroke-width="2"/>
+  <line x1="248" y1="46" x2="255" y2="46" stroke="#333" stroke-width="2"/><line x1="292" y1="46" x2="285" y2="46" stroke="#333" stroke-width="2"/>
+  <line x1="270" y1="46" x2="258" y2="36" stroke="#333" stroke-width="2.5" stroke-linecap="round"/><line x1="270" y1="46" x2="284" y2="34" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 272 18 A 28 28 0 0 1 300 47" fill="none" stroke="#333" stroke-width="2" marker-end="url(#tick)"/>
 
-  <!-- ── Player 1 (blue) commands from the left ──────────────────────── -->
-  <use href="#cmdr" x="34" y="30" width="46" height="74" style="color:#2563EB"/>
-  <text x="30" y="122" font-size="14" font-weight="600" fill="#2563EB">Player 1</text>
-  <path d="M 80 92 C 122 150, 142 205, 176 248" fill="none" stroke="#2563EB" stroke-width="2" stroke-dasharray="5 5" opacity="0.4"/>
-  <path d="M 80 96 C 140 165, 180 225, 214 286" fill="none" stroke="#2563EB" stroke-width="2" stroke-dasharray="5 5" opacity="0.4"/>
+  <!-- Player 1 (blue) commands from the left -->
+  <use href="#cmdr" x="30" y="26" width="46" height="74" style="color:#2563EB"/>
+  <text x="26" y="118" font-size="14" font-weight="600" fill="#2563EB">Player 1</text>
+  <path d="M 76 88 C 118 150, 138 215, 165 295" fill="none" stroke="#2563EB" stroke-width="2" stroke-dasharray="5 5" opacity="0.38"/>
+  <path d="M 76 92 C 135 160, 175 230, 205 300" fill="none" stroke="#2563EB" stroke-width="2" stroke-dasharray="5 5" opacity="0.38"/>
 
-  <!-- ── Player 2 (amber) commands from the right ────────────────────── -->
-  <g transform="translate(486,30) scale(-1,1)"><use href="#cmdr" width="46" height="74" style="color:#B45309"/></g>
-  <text x="430" y="122" font-size="14" font-weight="600" fill="#B45309">Player 2</text>
-  <path d="M 440 92 C 398 150, 378 205, 344 248" fill="none" stroke="#B45309" stroke-width="2" stroke-dasharray="5 5" opacity="0.4"/>
-  <path d="M 440 96 C 380 165, 340 225, 306 286" fill="none" stroke="#B45309" stroke-width="2" stroke-dasharray="5 5" opacity="0.4"/>
+  <!-- Player 2 (amber) commands from the right -->
+  <g transform="translate(510,26) scale(-1,1)"><use href="#cmdr" width="46" height="74" style="color:#B45309"/></g>
+  <text x="452" y="118" font-size="14" font-weight="600" fill="#B45309">Player 2</text>
+  <path d="M 464 88 C 422 150, 402 215, 375 295" fill="none" stroke="#B45309" stroke-width="2" stroke-dasharray="5 5" opacity="0.38"/>
+  <path d="M 464 92 C 405 160, 365 230, 335 300" fill="none" stroke="#B45309" stroke-width="2" stroke-dasharray="5 5" opacity="0.38"/>
 
-  <!-- compass: north is up -->
-  <line x1="496" y1="232" x2="496" y2="208" stroke="#9CA3AF" stroke-width="2" marker-end="url(#tick)"/>
-  <text x="490" y="250" font-size="14" fill="#9CA3AF">N</text>
+  <!-- compass -->
+  <line x1="516" y1="232" x2="516" y2="208" stroke="#9CA3AF" stroke-width="2" marker-end="url(#tick)"/>
+  <text x="510" y="250" font-size="14" fill="#9CA3AF">N</text>
 
-  <!-- ── the two crowds: virtual characters in motion ────────────────── -->
-  <!-- shadows -->
+  <!-- ground shadows under the front ranks -->
   <g fill="#000" opacity="0.06">
-    <ellipse cx="170" cy="312" rx="16" ry="3.5"/>
-    <ellipse cx="146" cy="372" rx="14" ry="3.5"/>
-    <ellipse cx="228" cy="364" rx="16" ry="3.5"/>
-    <ellipse cx="392" cy="312" rx="16" ry="3.5"/>
-    <ellipse cx="388" cy="372" rx="14" ry="3.5"/>
-    <ellipse cx="312" cy="372" rx="14" ry="3.5"/>
+    <ellipse cx="170" cy="378" rx="16" ry="3.5"/><ellipse cx="132" cy="380" rx="15" ry="3.5"/><ellipse cx="212" cy="382" rx="16" ry="3.5"/>
+    <ellipse cx="370" cy="378" rx="16" ry="3.5"/><ellipse cx="408" cy="380" rx="15" ry="3.5"/><ellipse cx="328" cy="382" rx="16" ry="3.5"/>
   </g>
 
-  <!-- blue team: running and walking toward the centre -->
-  <g stroke="#2563EB" stroke-width="2" opacity="0.3" stroke-linecap="round">
-    <line x1="132" y1="270" x2="146" y2="270"/><line x1="128" y1="280" x2="144" y2="280"/><line x1="134" y1="290" x2="148" y2="290"/>
+  <!-- ── BLUE army (Player 1), facing right, ranks receding into depth ── -->
+  <!-- far rank: small -->
+  <use href="#walk" x="118" y="262" width="22" height="34" style="color:#2563EB"/>
+  <use href="#walk" x="146" y="260" width="22" height="34" style="color:#2563EB"/>
+  <use href="#walk" x="174" y="262" width="22" height="34" style="color:#2563EB"/>
+  <use href="#walk" x="200" y="264" width="22" height="34" style="color:#2563EB"/>
+  <!-- middle rank -->
+  <use href="#run"  x="122" y="286" width="28" height="44" style="color:#2563EB"/>
+  <use href="#walk" x="156" y="288" width="28" height="44" style="color:#2563EB"/>
+  <use href="#run"  x="190" y="286" width="28" height="44" style="color:#2563EB"/>
+  <!-- front rank: large, with speed lines on the lead runner -->
+  <g stroke="#2563EB" stroke-width="2" opacity="0.32" stroke-linecap="round">
+    <line x1="128" y1="338" x2="144" y2="338"/><line x1="124" y1="350" x2="142" y2="350"/><line x1="130" y1="362" x2="146" y2="362"/>
   </g>
-  <use href="#run"  x="150" y="252" width="40" height="62" style="color:#2563EB"/>
-  <use href="#walk" x="126" y="316" width="36" height="56" style="color:#2563EB"/>
-  <use href="#run"  x="208" y="304" width="40" height="62" style="color:#2563EB"/>
+  <use href="#run"  x="150" y="316" width="40" height="62" style="color:#2563EB"/>
+  <use href="#walk" x="112" y="322" width="36" height="56" style="color:#2563EB"/>
+  <use href="#run"  x="192" y="320" width="40" height="62" style="color:#2563EB"/>
 
-  <!-- amber team: mirrored, moving the other way; one holds position (sitting) -->
-  <g stroke="#B45309" stroke-width="2" opacity="0.3" stroke-linecap="round">
-    <line x1="416" y1="270" x2="430" y2="270"/><line x1="418" y1="280" x2="434" y2="280"/><line x1="414" y1="290" x2="428" y2="290"/>
+  <!-- ── AMBER army (Player 2), mirrored, facing left ──────────────────── -->
+  <!-- far rank -->
+  <g transform="translate(422,262) scale(-1,1)"><use href="#walk" width="22" height="34" style="color:#B45309"/></g>
+  <g transform="translate(394,260) scale(-1,1)"><use href="#walk" width="22" height="34" style="color:#B45309"/></g>
+  <g transform="translate(366,262) scale(-1,1)"><use href="#walk" width="22" height="34" style="color:#B45309"/></g>
+  <g transform="translate(340,264) scale(-1,1)"><use href="#walk" width="22" height="34" style="color:#B45309"/></g>
+  <!-- middle rank -->
+  <g transform="translate(418,286) scale(-1,1)"><use href="#run"  width="28" height="44" style="color:#B45309"/></g>
+  <g transform="translate(384,288) scale(-1,1)"><use href="#walk" width="28" height="44" style="color:#B45309"/></g>
+  <g transform="translate(350,286) scale(-1,1)"><use href="#run"  width="28" height="44" style="color:#B45309"/></g>
+  <!-- front rank: one sits to hold the line -->
+  <g stroke="#B45309" stroke-width="2" opacity="0.32" stroke-linecap="round">
+    <line x1="396" y1="338" x2="412" y2="338"/><line x1="398" y1="350" x2="416" y2="350"/><line x1="394" y1="362" x2="410" y2="362"/>
   </g>
-  <g transform="translate(412,252) scale(-1,1)"><use href="#run"  width="40" height="62" style="color:#B45309"/></g>
-  <g transform="translate(406,316) scale(-1,1)"><use href="#walk" width="36" height="56" style="color:#B45309"/></g>
-  <g transform="translate(330,318) scale(-1,1)"><use href="#sit"  width="36" height="56" style="color:#B45309"/></g>
-  <line x1="298" y1="372" x2="326" y2="372" stroke="#B45309" stroke-width="3"/>
+  <g transform="translate(390,316) scale(-1,1)"><use href="#run"  width="40" height="62" style="color:#B45309"/></g>
+  <g transform="translate(428,322) scale(-1,1)"><use href="#walk" width="36" height="56" style="color:#B45309"/></g>
+  <g transform="translate(348,320) scale(-1,1)"><use href="#sit"  width="40" height="62" style="color:#B45309"/></g>
+  <line x1="316" y1="378" x2="344" y2="378" stroke="#B45309" stroke-width="3"/>
 </svg>
