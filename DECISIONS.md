@@ -5,6 +5,29 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-12: title slide gains a hero illustration (hand-authored SVG)
+
+**Decision**: add a vector hero illustration (`fig/hero.svg`) to the
+right column of the title slide, depicting the whole idea in one picture:
+a speech bubble issuing two colour-keyed orders ("Blue, push north." /
+"Amber, hold the door."), command-flow lines fanning to a crowd of
+colour-tagged agents, blue ones pushing north (motion arrows), amber
+holding (seat lines), a clock with a sweep arrow for real time, and a
+north compass. Title slide is now a two-column title-plus-abstract +
+hero layout.
+**Why**: Yubo asked for an image to make the deck look fancier. No
+text-to-image tool is available in this environment, and a hand-authored
+SVG is the better fit anyway: crisp at any size, license-clean, and
+on-brand (monochrome base; colour reserved for agent identity, which
+carries information, per the project figure conventions). It also reuses
+the visual language of the arena figure (Figure 2), so the deck is
+visually cohesive.
+**Rejected**: a raster AI-generated illustration (no tool; would clash
+with the clean Keynote-White style and risk licensing).
+**Revisit when**: the project has real screenshots/renders to use as the
+hero, or a text-to-image tool becomes available and a photographic look
+is wanted.
+
 ## 2026-06-12: title finalized "Real-Time Crowd Commander"; dense title slide; files renamed
 
 **Decision**: final title **Real-Time Crowd Commander** (Yubo's own merge
