@@ -3,7 +3,7 @@ marp: true
 html: true
 paginate: true
 size: 16:9
-title: "At Your Command"
+title: "Real-Time Crowd Commander"
 ---
 
 <style>
@@ -57,23 +57,29 @@ section::after {
 section.tight { font-size: 20px; line-height: 1.3; }
 section.tight h1 { font-size: 30px; }
 
-/* title slide */
-section.title { justify-content: center !important; align-items: center; text-align: center; }
-section.title h1 { border-bottom: none; font-size: 48px; margin: 0 0 16px 0; padding: 0; }
-section.title .sub { font-size: 26px; color: #333; margin: 0 0 70px 0; }
-section.title .by { font-size: 21px; color: #1a1a1a; max-width: 34em; margin: 0 auto; }
-section.title .date { font-size: 18px; color: #777; margin-top: 12px; }
+/* title slide: dense, top-aligned, doubles as the abstract */
+section.title { justify-content: flex-start !important; }
+section.title h1 { border-bottom: none; font-size: 42px; margin: 0 0 6px 0; padding: 0; }
+section.title .sub { font-size: 24px; color: #333; margin: 0 0 16px 0; }
+section.title .abstract { font-size: 22px; line-height: 1.42; margin: 0; padding-top: 14px; border-top: 1.5px solid #c9c9c9; }
+section.title .q { font-size: 23px; font-weight: 600; border-left: 3px solid #333; padding-left: 14px; margin: 18px 0; line-height: 1.34; }
+section.title .by { font-size: 19px; color: #1a1a1a; margin: 0; }
+section.title .date { font-size: 16px; color: #777; margin-top: 4px; }
 section.title::after { content: "" !important; }
 </style>
 
 <!-- _class: title -->
 <!-- _paginate: false -->
 
-# At Your Command
+# Real-Time Crowd Commander
 
 <p class="sub">Natural-language command of agent crowds in strategy games, under real-time compute budgets</p>
 
-<p class="by">This project proposal is based on Yubo Huang's interest and insight, with guidance from Dr. Enmao Diao.</p>
+<p class="abstract">Real-time strategy games bury their best part, the strategy, under hundreds of manual actions a minute. This agenda asks whether the player can instead command in natural language, like a real commander, while a language model turns the orders into actions at game speed. The hard part is cost, so the work measures and drives down what natural-language command takes in latency and memory under a clock that never pauses.</p>
+
+<p class="q">How much does natural-language command cost, in latency and memory, at game speed, and how can that cost be driven down?</p>
+
+<p class="by">A project proposal based on Yubo Huang's interest and insight, with guidance from Dr. Enmao Diao.</p>
 
 <p class="date">June 2026</p>
 

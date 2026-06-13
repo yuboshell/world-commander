@@ -5,6 +5,27 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-12: title finalized "Real-Time Crowd Commander"; dense title slide; files renamed
+
+**Decision**: final title **Real-Time Crowd Commander** (Yubo's own merge
+of the recommended "Real-Time Commander" with the "Crowd" object),
+superseding "At Your Command." The title slide is rebuilt as a dense,
+top-aligned title-plus-abstract page (title, subtitle, a three-sentence
+abstract, the research question, authorship) to obey the
+high-space-efficiency style rule; the old centered layout left too much
+blank space. Deck files renamed from `DECK.*` to
+`real-time-crowd-commander.{md,pdf,html}` (named after the title, not the
+wooden "deck"); CLAUDE.md workflow commands updated to match. Repo slug
+stays `game-commander`.
+**Why**: Yubo's taste clarified to informative-over-clever. "At Your
+Command" was clever but conveyed nothing; the earlier rejects were flat
+("Commanding Crowds") or speed-only ("Command at the Speed of Thought").
+"Real-Time Crowd Commander" names all three dimensions at once: real-time
+(the constraint), crowd (the object), commander (the act).
+**Rejected**: "At Your Command" (vague), "Game Commander" (generic
+baseline), and the single-dimension forms "Real-Time Commander" /
+"Crowd Commander" / "LLM Commander" (Yubo combined the first two).
+
 ## 2026-06-12: organization simplified to two axes (jobs + phases)
 
 **Decision**: collapse the three overlapping schemes (layers / rungs /
