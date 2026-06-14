@@ -5,6 +5,21 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: North Star broadened to a revolutionary video game (not genre-bound)
+
+**Decision**: the North-Star framing is **"the next revolutionary video game"**
+(cross-genre), not "the next strategy game." Strategy is the research vehicle
+and testbed; the command-by-voice interface is not bound to one genre. Updated
+the cover caption, slide 1.1's punchline ("Strategy is where we start; the
+interface could be the next revolutionary game, in any genre"), and the
+PROPOSAL.md end-state.
+**Why**: Yubo's point — gaming has stalled for lack of a genuinely new way to
+play, and "command instead of click" applies to any genre where directing
+beats micro-managing, so the North Star should claim that scope. I had
+narrowed it to "strategy game" by scoping to the research, conflating the
+vehicle with the dream. Distinction to keep: strategy = the vehicle; a
+revolutionary cross-genre game = the North Star.
+
 ## 2026-06-13: renamed to "World Commander"; LLM reframed as executor, not commander
 
 **Decision** (both approved by Yubo): (1) project renamed **Real-Time Crowd

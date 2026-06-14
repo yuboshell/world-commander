@@ -48,7 +48,7 @@ The environments grow with the phases, simplest to hardest:
 
 > a toy room (abstract agents)  →  StarCraft II  →  multiplayer  →  a full game
 
-The end state, a full commander-interface game in the spirit of Age of Empires, is a product vision years out, not a deliverable. Its role is to fix the two constraints every paper inherits: an unpausable clock and a hard compute budget.
+The end state, a genuinely new kind of video game played by command rather than by frantic input, is a product vision years out, not a deliverable. We start with strategy (the best testbed), but the voice-command interface is not bound to one genre: the North Star is a revolutionary game, not a strategy game specifically. Its role here is to fix the two constraints every paper inherits: an unpausable clock and a hard compute budget.
 
 ## Phase 1: the benchmark (the wedge)
 

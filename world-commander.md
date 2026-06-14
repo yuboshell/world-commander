@@ -91,7 +91,7 @@ section.title::after { content: "" !important; }
 
 <img src="fig/command-station.png" style="max-height: 292px;">
 
-<div class="caption">The North Star: the next strategy game, played by voice from the commander's chair.</div>
+<div class="caption">The North Star: the next revolutionary video game, played by voice from the commander's chair.</div>
 
 </div>
 </div>
@@ -111,7 +111,7 @@ section.title::after { content: "" !important; }
 - In a strategy game, the **fun is the strategy**: where to expand, when to attack, how to read the opponent.
 - It is buried under **frantic clicks**: hunting icons, drag-selecting, hundreds of actions a minute.
 - A player should command like a **real commander**: watch, listen, **speak the orders**, press a key only now and then.
-- The subordinates execute. That interface could be the next strategy game.
+- The subordinates execute. Strategy is where we start; the interface could be the next revolutionary game, in any genre.
 
 </div>
 <div class="col-img">
