@@ -214,5 +214,4 @@ The game is the north star; the papers are the milestones. Each answers a questi
 | Command-arena benchmark | 1 | How does grounding degrade as command rate rises? | Real-time agents, interactive systems |
 | Real-time commander benchmark | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning |
 | Game-state tokenizer | 1 to 2 | Does compact tokenization extend to entity and event streams? | Tokenization beyond text |
-| Competitive-efficiency study | 3 | In a head-to-head match, does a fast small model beat a slow large one? | Inference efficiency, agents |
 | Crowd motion under budget | 3 | Can language-commanded crowds move in real time on one GPU? | Motion generation, graphics |
