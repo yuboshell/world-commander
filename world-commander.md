@@ -145,7 +145,7 @@ The background this work builds on:
 
 | Area | What it gives us |
 |---|---|
-| **Reinforcement learning** | A game is a Markov decision process, win rate is the reward, recalling a scouted tech switch is credit assignment. We need RL *literacy* to read the field, not RL training. |
+| **Reinforcement learning** | A game is a Markov decision process: an agent acts, and win rate is the reward. We need to *understand* this to read the field; the work runs models by prompting, training none of its own. |
 | **Efficient LLM inference** | KV-cache eviction (H2O, SnapKV, StreamingLLM, [OBCache](https://arxiv.org/abs/2510.07651)), structured pruning, quantization, distillation: the methods this work puts to the test. |
 | **Vision-language-action models** | [π0](https://arxiv.org/abs/2410.24164): a slow vision-language backbone driving a fast action expert, trained by imitation. A model for splitting a slow strategic brain from fast executors. |
 | **The StarCraft II agent stack** | [PySC2](https://github.com/google-deepmind/pysc2), [TextStarCraft II](https://arxiv.org/abs/2312.11865), LLM-PySC2: the environment we inherit rather than rebuild. |
