@@ -25,7 +25,7 @@ h1 {                                   /* slide title: white bg, thin rule */
   padding-bottom: 8px;
   border-bottom: 1.5px solid #c9c9c9;
 }
-h1 .sec { color: #b3b3b3; font-weight: 600; margin-right: 0.45em; }   /* paper-style section number */
+h1 .sec { color: #1a1a1a; font-weight: 600; margin-right: 0.45em; }   /* paper-style section number */
 a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 strong { font-weight: 600; }
 ul, ol { margin: 0.3em 0; padding-left: 1.1em; }
@@ -46,13 +46,13 @@ thead th { border-bottom: 1px solid #333 !important; font-weight: 600; }
 .columns { display: grid; gap: 26px; align-items: start; }
 .col-img { text-align: center; }
 .col-img img { max-width: 100%; }
-.caption { font-size: 0.72em; color: #444; line-height: 1.28; margin-top: 6px; text-align: left; }
-.credit  { font-size: 0.6em; color: #777; margin-top: 2px; }
+.caption { font-size: 0.72em; color: #1a1a1a; line-height: 1.28; margin-top: 6px; text-align: left; }
+.credit  { font-size: 0.6em; color: #1a1a1a; margin-top: 2px; }
 
 /* page number bottom-right as "current / total" */
 section::after {
   content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
-  font-size: 14px; color: #8a8a8a;
+  font-size: 14px; color: #1a1a1a;
 }
 
 /* dense slides */
@@ -63,12 +63,12 @@ section.tight li { margin: 0.36em 0; }
 /* title slide: title + scope + two captioned figures, then author */
 section.title { justify-content: flex-start !important; }
 section.title h1 { border-bottom: none; font-size: 42px; margin: 0 0 6px 0; padding: 0; }
-section.title .sub { font-size: 24px; color: #333; margin: 0 0 12px 0; padding-bottom: 12px; border-bottom: 1.5px solid #c9c9c9; }
+section.title .sub { font-size: 24px; color: #1a1a1a; margin: 0 0 12px 0; padding-bottom: 12px; border-bottom: 1.5px solid #c9c9c9; }
 section.title .figs { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: end; margin: 6px 0 0 0; }
 section.title .figs .col-img img { max-width: 100%; }
 section.title .figs .caption { text-align: center; }
 section.title .by { font-size: 23px; color: #1a1a1a; margin: 16px 0 0 0; text-align: center; }
-section.title .date { font-size: 17px; color: #777; margin-top: 4px; text-align: center; }
+section.title .date { font-size: 17px; color: #1a1a1a; margin-top: 4px; text-align: center; }
 section.title::after { content: "" !important; }
 </style>
 
