@@ -67,7 +67,7 @@ section.title .sub { font-size: 24px; color: #333; margin: 0 0 12px 0; padding-b
 section.title .figs { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: end; margin: 6px 0 0 0; }
 section.title .figs .col-img img { max-width: 100%; }
 section.title .figs .caption { text-align: center; }
-section.title .by { font-size: 21px; color: #1a1a1a; margin: 16px 0 0 0; text-align: center; }
+section.title .by { font-size: 23px; color: #1a1a1a; margin: 16px 0 0 0; text-align: center; }
 section.title .date { font-size: 17px; color: #777; margin-top: 4px; text-align: center; }
 section.title::after { content: "" !important; }
 </style>
@@ -82,21 +82,21 @@ section.title::after { content: "" !important; }
 <div class="figs">
 <div class="col-img">
 
-<img src="fig/command-station.png" style="max-height: 292px;">
+<img src="fig/hero.svg" style="max-height: 292px;">
 
-<div class="caption">The interface: command a battle by voice, watching and listening as it unfolds.</div>
+<div class="caption">What we build: real-time, language-commanded agent crowds (here, two players commanding their own).</div>
 
 </div>
 <div class="col-img">
 
-<img src="fig/hero.svg" style="max-height: 292px;">
+<img src="fig/command-station.png" style="max-height: 292px;">
 
-<div class="caption">The endgame: several players each command their own crowd, in one real-time world.</div>
+<div class="caption">The North Star: the next strategy game, played by voice from the commander's chair.</div>
 
 </div>
 </div>
 
-<p class="by">A project proposal grown from Yubo Huang's interest and insight, under the guidance of Dr. Enmao Diao.</p>
+<p class="by">This proposal grew from Yubo Huang's interest and insight, under the guidance of Dr. Enmao Diao.</p>
 
 <p class="date">June 2026</p>
 
@@ -129,10 +129,10 @@ section.title::after { content: "" !important; }
 <!-- _class: tight -->
 # <span class="sec">1.2</span> The Gap: Efficiency, Untested at Game Speed
 
-- The interface shipped once (**EndWar, 2008**), but on a 70-word grammar. Language models lifted that limit; they still **cannot act at game pace**.
-- LLMs already play RTS through text ([**TextStarCraft II**, NeurIPS 2024](https://arxiv.org/abs/2312.11865)), but only by **pausing the clock**.
-- The methods that would fix that, above all **KV-cache eviction**, are scored on perplexity, **never in a live game** where evicting the wrong memory loses the match.
-- A streaming game is the natural stress test, and **nobody has run it** (the [LLM Game Agents Survey, CSUR 2026](https://arxiv.org/abs/2404.02039), names it a core open challenge).
+- The interface shipped once ([Tom Clancy's EndWar (2008)](https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar)), but on a 70-word grammar. Language models lifted that limit; they still **cannot act at game pace**.
+- LLMs already play RTS through text ([TextStarCraft II (NeurIPS 2024)](https://arxiv.org/abs/2312.11865)), but only by **pausing the clock**.
+- The efficient-inference methods that would fix that (eviction, quantization, distillation, smaller models) are tuned on perplexity, **never in a live game** where dropping the wrong context loses the match.
+- A streaming game is the natural stress test, and **nobody has run it** ([LLM Game Agents Survey (CSUR 2026)](https://arxiv.org/abs/2404.02039) names it a core open challenge).
 
 > How much does command cost, in latency and memory, at game speed, and how do we drive it down?
 

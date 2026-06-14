@@ -5,6 +5,30 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: cover figures swapped, citations fixed, efficiency framing broadened
+
+**Applied**: cover figures swapped (diagram first = the technical/build view,
+command-station photo second = the North-Star product) with reframed captions;
+authorship enlarged and reworded to "This proposal grew from..."; citations
+fixed to one hyperlink each (EndWar now linked; TextStarCraft II and the CSUR
+survey no longer split into two links — the split came from bolding inside the
+link); skill citation rule strengthened ("one link per citation, no bold
+inside"); the Gap slide broadened from "above all KV-cache eviction" to the
+wider efficient-inference toolbox (eviction, quantization, distillation,
+smaller models). Kept SVG for the diagram (vector = agent-editable; a raster
+PNG is not).
+**Held for Yubo's decision**:
+1. Rename to **World Commander** (endorsed; a multi-file rename + filenames, so
+   it waits for a clean "go").
+2. **Human-vs-LLM-commander framing.** Yubo's vision has the *human* as the
+   strategic commander, so an "LLM commander scored by win rate" (inherited
+   from TextStarCraft II) is incoherent. Recommendation: the LLM is the
+   **executor** of a scripted/human command stream; benchmark command-following
+   under budget (the arena already does this), and reframe win rate as
+   *executing a fixed strategy under budget*, not an autonomous LLM strategist.
+   This reshapes the Three Jobs (Decide = executor; Foresee = a what-if advisor
+   the human consults) and the win-rate framing. Worth settling with Diao.
+
 ## 2026-06-13: deck overhaul — bullets, trimmed to 9 slides, two-figure cover
 
 **Decision**: major revision per Yubo's feedback, and the slide-decks skill
