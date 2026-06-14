@@ -5,7 +5,7 @@ Natural-language command of agent crowds in strategy games, under real-time comp
 Created 2026-06-10; its own git repo under `~/github/game-commander`.
 
 ## What's here
-- `PROPOSAL.md` — the research agenda ("Real-Time Crowd Commander"). Two axes:
+- `PROPOSAL.md` — the research agenda ("World Commander"). Two axes:
   three jobs (Decide / Foresee / Embody = the system's capabilities) and
   three phases (1 Benchmarks / 2 Methods / 3 Real interface = the
   timeline); environments are a complexity ladder (arena → StarCraft II →
@@ -17,7 +17,7 @@ Created 2026-06-10; its own git repo under `~/github/game-commander`.
   `DreamSoul-AI/game-commander` (private org repo — Diao sees it as org owner,
   no invite needed; visible to all org members). A frozen v1 snapshot sits
   archived at `yubohuangai/game-commander`.
-- `real-time-crowd-commander.md` / `.pdf` / `.html` — the Marp slide deck
+- `world-commander.md` / `.pdf` / `.html` — the Marp slide deck
   (named after the title, not "deck"): a clean, small mirror of PROPOSAL.md
   for presenting and sharing at any time, and Yubo's own review artifact.
   Style: Keynote-White (ported from the weekly-report decks); no em-dashes
@@ -29,12 +29,12 @@ Created 2026-06-10; its own git repo under `~/github/game-commander`.
 
 ## Documentation workflow (the contract)
 - PROPOSAL.md is canonical. Any session that changes it substantively
-  must update real-time-crowd-commander.md and re-render both outputs
+  must update world-commander.md and re-render both outputs
   before committing:
-  `marp real-time-crowd-commander.md --html -o real-time-crowd-commander.pdf --allow-local-files && marp real-time-crowd-commander.md --html -o real-time-crowd-commander.html --allow-local-files`
+  `marp world-commander.md --html -o world-commander.pdf --allow-local-files && marp world-commander.md --html -o world-commander.html --allow-local-files`
   The `--html` flag is required — without it Marp strips the layout
   `<div>`s and the two-column slides collapse. Verify dense slides
-  visually: `pdftoppm -png -r 95 -f N -l N -singlefile real-time-crowd-commander.pdf /tmp/slide`.
+  visually: `pdftoppm -png -r 95 -f N -l N -singlefile world-commander.pdf /tmp/slide`.
   PDF is the sharing format; the `.html` is for presenting (it plays
   GIF/video once the project has its own footage).
 - Any decision made in conversation gets a DECISIONS.md entry in the

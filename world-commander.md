@@ -3,7 +3,7 @@ marp: true
 html: true
 paginate: true
 size: 16:9
-title: "Real-Time Crowd Commander"
+title: "World Commander"
 ---
 
 <style>
@@ -75,7 +75,7 @@ section.title::after { content: "" !important; }
 <!-- _class: title -->
 <!-- _paginate: false -->
 
-# Real-Time Crowd Commander
+# World Commander
 
 <p class="sub">Natural-language command of agent crowds in strategy games, under real-time compute budgets</p>
 
@@ -155,15 +155,15 @@ The background this work builds on:
 
 # <span class="sec">3.1</span> The Three Jobs
 
-The system needs three capabilities: separate lines of work that eventually run together.
+The human commands; the system needs three capabilities to carry that out. Separate lines of work that eventually run together.
 
 | Job | What it does |
 |---|---|
-| **Decide** | An LLM commander reads the game-state stream and issues the orders, under hard latency and memory budgets |
-| **Foresee** | A compact world model answers "what if" before you commit: if the army pushes now, does the fight win? |
-| **Embody** | Units carry out the orders with model-generated motion, at crowd scale, on one GPU |
+| **Execute** | An LLM turns the commander's spoken intent into the right in-game actions, in real time, under hard latency and memory budgets |
+| **Foresee** | A fast world model the commander can query before committing: if the army pushes now, does the fight win? |
+| **Embody** | Units carry out the actions with model-generated motion, at crowd scale, on one GPU |
 
-This proposal is about the first job, **Decide**. Foresee and Embody come later.
+This proposal is about the first job, **Execute**. Foresee and Embody come later.
 
 ---
 
@@ -207,7 +207,7 @@ Environments grow with the phases: **a toy room → StarCraft II → multiplayer
 # <span class="sec">4.2</span> Then StarCraft II
 
 - Once the arena works, the same harness moves to **StarCraft II with the clock unpaused**: real strategic depth, a real opponent.
-- There the efficiency methods (which cache policy, how big a model, how to encode the state) are scored by **win rate under a latency and memory budget**.
+- The LLM executes a **fixed, scripted strategy**; the efficiency methods (cache policy, model size, state encoding) are scored by **win rate under a latency and memory budget**.
 - Concrete benchmark design waits until the arena is built.
 
 ---
@@ -222,5 +222,5 @@ The game is the north star; the papers are the milestones. Each answers a questi
 | Command-arena benchmark | 1 | How does grounding degrade as command rate rises? | Real-time agents, interactive systems |
 | Real-time commander benchmark | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning researchers |
 | Game-state tokenizer | 1 to 2 | Does compact tokenization extend to entity and event streams? | Tokenization beyond text |
-| Competitive-efficiency study | 3 | Does a fast small commander beat a slow large one? | Inference efficiency, agents |
+| Competitive-efficiency study | 3 | Does a fast small model beat a slow large one? | Inference efficiency, agents |
 | Crowd motion under budget | 3 | Can language-commanded crowds move in real time on one GPU? | Motion generation, graphics |

@@ -5,6 +5,26 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: renamed to "World Commander"; LLM reframed as executor, not commander
+
+**Decision** (both approved by Yubo): (1) project renamed **Real-Time Crowd
+Commander → World Commander** (more ambitious, rides the "world model"
+resonance; subtitle carries the specifics). Applied to the deck (title +
+filenames `world-commander.{md,pdf,html}`), PROPOSAL.md, CLAUDE.md. (2) The
+human is the strategic commander; the LLM is the **executor** of that intent,
+not an autonomous strategist. The "Decide" job is renamed **Execute**; Foresee
+is a what-if advisor the human queries; in Phase 1 the commander is a scripted
+command stream, so the benchmark isolates how well/cheaply the LLM carries
+orders out (command-following in the arena; win rate while executing a fixed
+strategy in StarCraft II). Supersedes the inherited "LLM commander scored by
+win rate" framing.
+**Why**: Yubo's vision has the human commanding, so an autonomous "LLM
+commander" was incoherent and confusing. The executor framing makes the whole
+deck consistent and isolates the LLM's contribution (efficiency) from human
+strategy.
+**Next**: put the framing change to Dr. Diao — it decides what the benchmark
+measures, and his efficiency methods are scored by that metric.
+
 ## 2026-06-13: cover figures swapped, citations fixed, efficiency framing broadened
 
 **Applied**: cover figures swapped (diagram first = the technical/build view,

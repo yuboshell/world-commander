@@ -1,4 +1,4 @@
-# Real-Time Crowd Commander
+# World Commander
 
 Natural-language command of agent crowds in strategy games, under real-time compute budgets.
 
@@ -24,15 +24,15 @@ Efficiency methods are never evaluated where the stakes are real. KV-cache evict
 
 ## The three jobs
 
-The commander interface needs three capabilities. They are separate lines of work that will eventually run together in one system, and they share one evaluation philosophy: performance as a function of latency and memory budget.
+The **human is the strategic commander**; the LLM-driven system carries the orders out. It needs three capabilities, separate lines of work that will eventually run together, sharing one evaluation philosophy: performance as a function of latency and memory budget.
 
 | Job | What it does |
 |---|---|
-| **Decide** | An LLM commander reads the game-state stream and issues macro decisions under hard latency and memory budgets |
-| **Foresee** | A compact world model answers the commander's "what if" queries ("if the army pushes now, does the fight win?") |
-| **Embody** | Units carry out commands with model-generated motion (synthesized for the order, not replayed animation clips) at crowd scale on one consumer GPU |
+| **Execute** | An LLM turns the commander's spoken intent into the right in-game actions, in real time, under hard latency and memory budgets |
+| **Foresee** | A compact world model the commander can query before committing ("if the army pushes now, does the fight win?") |
+| **Embody** | Units carry out the actions with model-generated motion (synthesized for the order, not replayed animation clips) at crowd scale on one consumer GPU |
 
-This proposal is about getting **Decide** right first. **Foresee** and **Embody** are the growth surface, built in the later phases and aligned with motion-generation and world-model research directions in Yubo's prospective PhD work.
+This proposal is about getting **Execute** right first. **Foresee** and **Embody** are the growth surface, built in the later phases and aligned with motion-generation and world-model research directions in Yubo's prospective PhD work. Note the LLM is the *executor* of the commander's intent, not an autonomous strategist: in Phase 1 the commander is a scripted command stream, so the benchmark isolates how well and how cheaply the LLM carries orders out, not whose strategy is better. (Earlier framings that scored an "LLM commander" by win rate are superseded; see the discussion log.)
 
 ## The plan: three phases
 
@@ -113,7 +113,9 @@ The wedge needs two things at once: the efficiency-methods stack (cache eviction
 
 - Latency is the fight: large-model control is slow against the speed that mouse control demands. This is the wedge's thesis restated as a concern — the benchmark exists to measure exactly that gap and what closes it.
 - Architecture pointer: borrow from robot vision-language-action models (the [π0](https://arxiv.org/abs/2410.24164) line), where a slow vision-language backbone drives a fast action expert at real-time rates. Added to the Phase 1 architecture variable; a game is the cheaper, safer place to iterate on the same split.
-- "Essentially RL in a virtual world": the long arc runs through reinforcement learning, so RL literacy is a prerequisite to build. Phase 1 itself needs no RL training (off-the-shelf and pruned commanders, prompted), but learned commanders, the Foresee job, and any trained executor do. Near-term action: survey RL fundamentals and consult RL colleagues.
+- "Essentially RL in a virtual world": the long arc runs through reinforcement learning, so RL literacy is a prerequisite to build. Phase 1 itself needs no RL training (off-the-shelf and pruned models, prompted), but learned executors, the Foresee job, and any trained policy do. Near-term action: survey RL fundamentals and consult RL colleagues.
+
+**2026-06-13 — executor framing (to confirm with Dr. Diao).** The human is the strategic commander; the LLM is the *executor* of that intent, not an autonomous strategist. Earlier framing (inherited from TextStarCraft II) scored an "LLM commander" by win rate, which conflicts with the human-as-commander vision. Resolution: in Phase 1 the commander is a scripted command stream, and the benchmark measures how well and how cheaply the LLM carries orders out — command-following in the arena, and win rate while executing a fixed strategy in StarCraft II. Renamed the "Decide" job to **Execute**, and Foresee is a what-if advisor the commander queries. This changes what the benchmark measures, so it is the next thing to put to Dr. Diao (his efficiency methods are scored by whichever metric). Project also renamed to **World Commander**.
 
 ## Open questions for discussion
 
