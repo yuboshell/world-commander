@@ -29,7 +29,7 @@ The **human is the strategic commander**; the LLM-driven system carries the orde
 | Job | What it does |
 |---|---|
 | **Execute** | An LLM turns the commander's spoken intent into the right in-game actions, in real time, under hard latency and memory budgets |
-| **Foresee** | A compact world model the commander can query before committing ("if the army pushes now, does the fight win?") |
+| **Foresee** | An in-game aid the commander consults before acting (a compact world model): "if the army pushes now, does the fight win?" |
 | **Embody** | Units carry out the actions with model-generated motion (synthesized for the order, not replayed animation clips) at crowd scale on one consumer GPU |
 
 This proposal is about getting **Execute** right first. **Foresee** and **Embody** are the growth surface, built in the later phases and aligned with motion-generation and world-model research directions in Yubo's prospective PhD work. Note the LLM is the *executor* of the commander's intent, not an autonomous strategist: in Phase 1 the commander is a scripted command stream, so the benchmark isolates how well and how cheaply the LLM carries orders out, not whose strategy is better. (Earlier framings that scored an "LLM commander" by win rate are superseded; see the discussion log.)

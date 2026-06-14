@@ -160,7 +160,7 @@ The human commands; the system needs three capabilities to carry that out. Separ
 | Job | What it does |
 |---|---|
 | **Execute** | An LLM turns the commander's spoken intent into the right in-game actions, in real time, under hard latency and memory budgets |
-| **Foresee** | A fast world model the commander can query before committing: if the army pushes now, does the fight win? |
+| **Foresee** | An **in-game aid** the commander consults before acting: ask "if I push now, do I win?" and it forecasts the outcome. |
 | **Embody** | Units carry out the actions with model-generated motion, at crowd scale, on one GPU |
 
 This proposal is about the first job, **Execute**. Foresee and Embody come later.
