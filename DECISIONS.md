@@ -5,6 +5,17 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-13: GitHub repo renamed game-commander → world-commander
+
+**Decision**: renamed the GitHub repo to **DreamSoul-AI/world-commander** to
+match the project title (slug is lowercase-hyphenated; GitHub repo names can't
+have spaces). The git remote, plus the README and CLAUDE.md headings/refs, are
+updated. Supersedes the earlier "repo slug stays game-commander" note.
+**Notes**: GitHub redirects the old URL, so links already shared still work.
+The local clone stays `~/github/game-commander` for now (renaming it
+mid-session would break the working directory); rename separately when
+convenient. The frozen v1 archive `yubohuangai/game-commander` is unchanged.
+
 ## 2026-06-13: North Star broadened to a revolutionary video game (not genre-bound)
 
 **Decision**: the North-Star framing is **"the next revolutionary video game"**

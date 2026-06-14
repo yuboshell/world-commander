@@ -1,4 +1,4 @@
-# game-commander
+# World Commander
 
 Natural-language command of agent crowds in strategy games, under real-time compute budgets.
 
@@ -14,7 +14,7 @@ Created 2026-06-10; its own git repo under `~/github/game-commander`.
   command-arena warm-up, KV-cache eviction evaluated by win rate), paper
   inventory, prior-art map with verified links, discussion log. Drafted
   2026-06-10 for discussion with Dr. Enmao Diao. Canonical remote:
-  `DreamSoul-AI/game-commander` (private org repo — Diao sees it as org owner,
+  `DreamSoul-AI/world-commander` (private org repo — Diao sees it as org owner,
   no invite needed; visible to all org members). A frozen v1 snapshot sits
   archived at `yubohuangai/game-commander`.
 - `world-commander.md` / `.pdf` / `.html` — the Marp slide deck
