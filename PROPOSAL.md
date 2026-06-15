@@ -2,7 +2,7 @@
 
 Natural-language command of agent crowds in strategy games, under real-time compute budgets.
 
-Draft research agenda for discussion. Yubo Huang, 2026-06-10.
+Draft research program for discussion. Yubo Huang, 2026-06-10.
 
 ## Vision
 
@@ -10,7 +10,7 @@ In a real-time strategy (RTS) game, most of a player's effort goes into microman
 
 The alternative interface already exists in another domain. Working with coding agents, a person speaks an intent, an agent executes the low-level operations, and the person reviews and redirects. The same division of labor applied to strategy games turns the player into a commander: watch, listen, think, speak; subordinates execute. Tom Clancy's EndWar shipped a fully voice-commanded RTS in 2008 on a rigid 70-word grammar ([Wikipedia](https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar)), so the interface concept predates modern language models by 15 years. What was missing then was free-form language understanding. What is missing now is speed: language models understand the commands but cannot act at game pace.
 
-This agenda asks the question that decides whether the commander interface is buildable: how much does natural-language command cost, in latency and memory, at game speed, and how can that cost be driven down?
+This program asks the question that decides whether the commander interface is buildable: how much does natural-language command cost, in latency and memory, at game speed, and how can that cost be driven down?
 
 ## Background
 
@@ -24,11 +24,11 @@ Efficiency methods are never evaluated where the stakes are real. KV-cache evict
 
 ## The system: commander and executor
 
-The **human is the strategic commander**; the LLM-driven system carries the orders out. The whole near-term agenda is one capability, **execution**: an LLM turning the commander's spoken intent into the right in-game actions, in real time, under hard latency and memory budgets, evaluated as performance against that budget.
+The **human is the strategic commander**; the LLM-driven system carries the orders out. The whole near-term effort is one capability, **execution**: an LLM turning the commander's spoken intent into the right in-game actions, in real time, under hard latency and memory budgets, evaluated as performance against that budget.
 
 The LLM is the *executor* of the commander's intent, not an autonomous strategist: in Phase 1 the commander is a scripted command stream, so the benchmark isolates how well and how cheaply the LLM carries orders out, not whose strategy is better. (Earlier framings that scored an "LLM commander" by win rate are superseded; see the discussion log.)
 
-Execution is the spine of every phase below. One direction sits further out and stays in view because it defines the end-state experience: **embodiment**, units carrying out orders with model-generated motion (synthesized for the order, not replayed animation clips) at crowd scale on one consumer GPU, aligned with the motion-generation direction in Yubo's prospective PhD work. It appears in Phase 3 and as one paper in the inventory, not as near-term work.
+Execution is the spine of every phase below. One direction sits further out and stays in view because it defines the end-state experience: **embodiment**, units carrying out orders with model-generated motion (synthesized for the order, not replayed animation clips) at crowd scale on one consumer GPU, aligned with the motion-generation direction in Yubo's prospective PhD work. It appears in Phase 3 and as one project in the inventory, not as near-term work.
 
 ## The plan: three phases
 
@@ -44,11 +44,11 @@ The environments grow with the phases, simplest to hardest:
 
 > a toy room (abstract agents)  →  StarCraft II  →  multiplayer  →  a full game
 
-The end state, a genuinely new kind of video game played by command rather than by frantic input, is a product vision years out, not a deliverable. We start with strategy (the best testbed), but the voice-command interface is not bound to one genre: the North Star is a revolutionary game, not a strategy game specifically. Its role here is to fix the two constraints every paper inherits: an unpausable clock and a hard compute budget.
+The end state, a genuinely new kind of video game played by command rather than by frantic input, is a product vision years out, not a deliverable. We start with strategy (the best testbed), but the voice-command interface is not bound to one genre: the North Star is a revolutionary game, not a strategy game specifically. Its role here is to fix the two constraints every project inherits: an unpausable clock and a hard compute budget.
 
 ## Phase 1: the benchmark (the wedge)
 
-The **wedge** is a deliberately narrow, fast first paper that opens the agenda behind it. It builds the harness and asks: can an LLM command at game speed, and which efficiency techniques preserve its judgment? Two testbeds.
+The **wedge** is a deliberately narrow, fast first project that opens the program behind it. It builds the harness and asks: can an LLM command at game speed, and which efficiency techniques preserve its judgment? Two testbeds.
 
 **The command arena (warm-up).** Color-tagged agents in a minimal room move in discrete directions under streamed language commands, with no motion detail and no game engineering. It costs weeks, not months, and proves out the streaming-command infrastructure that StarCraft II and every later phase reuse. One command is trivially easy for any modern model, by design; the test is the *stream*. Difficulty rises along three axes: command rate, compositional addressing ("everyone except the yellow one, gather at the door"), and commands that depend on remembered state ("the one who was sitting earlier, move west"). Measured: command-grounding accuracy, utterance-to-action latency, and deadline misses as command rate rises.
 
@@ -79,18 +79,17 @@ Reintroduce the human. A voice-commanded mode (the commander speaks, agents exec
 
 In parallel, **embodiment** matures: crowd-scale language-conditioned motion generation under compute budgets, building on the real-time text-to-motion line ([MotionLCM](https://arxiv.org/pdf/2404.19759), [MotionStreamer](https://arxiv.org/pdf/2503.15451), [CrowdMoGen](https://yukangcao.github.io/CrowdMoGen/)). For the motion-generation community, this reads as real-time control of multiple virtual characters.
 
-## Paper inventory
+## Project inventory
 
-The program is research-first: the game is the north star, the papers are the milestones. The test each paper must pass is to answer a question its community already cares about while caring nothing about the game; the budget-frontier evaluation is what passes it. Papers are listed roughly in build order.
+The program is research-first: the game is the north star, the projects are the milestones. Each project is a top-tier paper's worth of work, and the test each must pass is to answer a question its community already cares about while caring nothing about the game; the budget-frontier evaluation is what passes it. The command arena is a warm-up task, not a project, so it does not appear here. Projects are listed roughly in build order.
 
-| Paper | Phase | The question | Who cares, independent of the game |
+| Project | Phase | The question | Who cares, independent of the game |
 |---|---|---|---|
-| Command-arena benchmark | 1 | How does per-entity command grounding degrade as command rate rises against a hard clock? | Real-time agent and interactive-systems researchers |
-| Real-time commander benchmark (the wedge) | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning researchers, whose methods are scored on static corpora today, never by win rate |
+| Real-time commander benchmark | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning researchers, whose methods are scored on static corpora today, never by win rate |
 | Game-state tokenizer | 1 to 2 | Does byte-pair tokenization extend to entity and event streams, and what does a compact state code buy at equal win rate? | The tokenization-beyond-text program |
-| Crowd motion under budget | 3 | Can language-commanded full-body crowds run in real time on one consumer GPU? | The motion-generation and graphics community |
+| Crowd motion under budget (embodiment) | 3 | Can language-commanded full-body crowds run in real time on one consumer GPU? | The motion-generation and graphics community |
 
-Whether the game-state tokenizer ships inside the wedge or stands alone as a second paper is an open question (below). Benchmark papers live or die on adoption: open source, one-command install, credible baselines, all of which the Phase 1 deliverables are scoped for.
+Whether the game-state tokenizer ships inside the first project or stands alone as a second is an open question (below). Benchmark projects live or die on adoption: open source, one-command install, credible baselines, all of which the Phase 1 deliverables are scoped for.
 
 ## Why this collaboration
 
@@ -104,7 +103,7 @@ The wedge needs two things at once: the efficiency-methods stack (cache eviction
 
 ## Discussion log
 
-**2026-06-11 — first round with Dr. Diao (WeChat).** Direction endorsed. Three signals, folded back into the agenda:
+**2026-06-11 — first round with Dr. Diao (WeChat).** Direction endorsed. Three signals, folded back into the program:
 
 - Latency is the fight: large-model control is slow against the speed that mouse control demands. This is the wedge's thesis restated as a concern — the benchmark exists to measure exactly that gap and what closes it.
 - Architecture pointer: borrow from robot vision-language-action models (the [π0](https://arxiv.org/abs/2410.24164) line), where a slow vision-language backbone drives a fast action expert at real-time rates. Added to the Phase 1 architecture variable; a game is the cheaper, safer place to iterate on the same split.
@@ -112,11 +111,11 @@ The wedge needs two things at once: the efficiency-methods stack (cache eviction
 
 **2026-06-13 — executor framing (to confirm with Dr. Diao).** The human is the strategic commander; the LLM is the *executor* of that intent, not an autonomous strategist. Earlier framing (inherited from TextStarCraft II) scored an "LLM commander" by win rate, which conflicts with the human-as-commander vision. Resolution: in Phase 1 the commander is a scripted command stream, and the benchmark measures how well and how cheaply the LLM carries orders out — command-following in the arena, and win rate while executing a fixed strategy in StarCraft II. Renamed the "Decide" job to **Execute**, and Foresee is a what-if advisor the commander queries. This changes what the benchmark measures, so it is the next thing to put to Dr. Diao (his efficiency methods are scored by whichever metric). Project also renamed to **World Commander**.
 
-**2026-06-14 — scope narrowed to execution.** Dropped the three-jobs axis (Execute / Foresee / Embody) as a redundant second framing of the phases: the vision is already carried by the North Star and the three phases. The proposal now runs on one spine, execution, across the phases. Foresee (the what-if advisor) is removed; embodiment (crowd-scale motion) is kept as one later direction and one paper, not a co-equal job. The standalone "Competitive-efficiency study" paper is dropped, aligning the inventory with the deck.
+**2026-06-14 — scope narrowed to execution.** Dropped the three-jobs axis (Execute / Foresee / Embody) as a redundant second framing of the phases: the vision is already carried by the North Star and the three phases. The proposal now runs on one spine, execution, across the phases. Foresee (the what-if advisor) is removed; embodiment (crowd-scale motion) is kept as one later direction and one project, not a co-equal job. The standalone "Competitive-efficiency study" project is dropped, aligning the inventory with the deck.
 
 ## Open questions for discussion
 
-1. Venue and timing for the wedge paper (ICLR 2027 versus a slower, stronger NeurIPS 2027 submission).
+1. Venue and timing for the first project (ICLR 2027 versus a slower, stronger NeurIPS 2027 submission).
 2. Model scale and compute: which open-weight families, and on whose GPUs the frontier sweep runs.
-3. Whether the state-tokenization module belongs in the wedge paper or stands alone as a second paper.
-4. Whether DreamSoul has product interest in the commander interface beyond the papers.
+3. Whether the state-tokenization module belongs in the first project or stands alone as a second project.
+4. Whether DreamSoul has product interest in the commander interface beyond the projects.

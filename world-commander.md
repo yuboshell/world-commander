@@ -79,24 +79,24 @@ section.title::after { content: "" !important; }
 
 <p class="sub">Natural-language command of agent crowds in strategy games, under real-time compute budgets</p>
 
+<p class="by">This proposal grew from Yubo Huang's interest and insight, under the guidance of Dr. Enmao Diao.</p>
+
 <div class="figs">
 <div class="col-img">
 
-<img src="fig/hero.svg" style="max-height: 292px;">
+<img src="fig/hero.svg" style="max-height: 280px;">
 
 <div class="caption">What we build: real-time, language-commanded agent crowds (here, two players commanding their own).</div>
 
 </div>
 <div class="col-img">
 
-<img src="fig/command-station.png" style="max-height: 292px;">
+<img src="fig/command-station.png" style="max-height: 280px;">
 
 <div class="caption">The North Star: the next revolutionary video game, played by voice from the commander's chair.</div>
 
 </div>
 </div>
-
-<p class="by">This proposal grew from Yubo Huang's interest and insight, under the guidance of Dr. Enmao Diao.</p>
 
 <p class="date">June 2026</p>
 
@@ -139,7 +139,20 @@ section.title::after { content: "" !important; }
 ---
 
 <!-- _class: tight -->
-# <span class="sec">2</span> Preliminaries
+# <span class="sec">2</span> The Roadmap: Three Projects
+
+**World Commander** is a research **program**, delivered as three **projects** (each a top-tier paper's worth of work) across environments of growing complexity (a toy room → StarCraft II → multiplayer → a full game), under one shared **harness**. The end-state game is the north star, not a deliverable; each project answers a question its community already cares about, beyond the game.
+
+| Project | Phase | The question | Who cares |
+|---|---|---|---|
+| Real-time commander benchmark | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning |
+| Game-state tokenizer | 1 to 2 | Does compact tokenization extend to entity and event streams? | Tokenization beyond text |
+| Crowd motion under budget (embodiment) | 3 | Can language-commanded crowds move in real time on one GPU? | Motion generation, graphics |
+
+---
+
+<!-- _class: tight -->
+# <span class="sec">3</span> Preliminaries
 
 The background this work builds on:
 
@@ -153,7 +166,9 @@ The background this work builds on:
 
 ---
 
-# <span class="sec">3</span> The Command Arena
+# <span class="sec">4</span> The Command Arena
+
+**Where we start:** the warm-up task that proves the streaming-command plumbing cheaply, before StarCraft II.
 
 <div class="columns" style="grid-template-columns: 41% 56%">
 <div>
@@ -173,16 +188,3 @@ The background this work builds on:
 </div>
 </div>
 
----
-
-<!-- _class: tight -->
-# <span class="sec">4</span> The Roadmap and What It Produces
-
-Three phases in environments of growing complexity (a toy room → StarCraft II → multiplayer → a full game), under one shared **harness** (unpausable clock, deadlines, logging). Each phase yields a paper a community already cares about, beyond the game; the end-state game is the north star, not a deliverable.
-
-| Paper | Phase | The question | Who cares |
-|---|---|---|---|
-| Command-arena benchmark | 1 | How does grounding degrade as command rate rises? | Real-time agents, interactive systems |
-| Real-time commander benchmark | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning |
-| Game-state tokenizer | 1 to 2 | Does compact tokenization extend to entity and event streams? | Tokenization beyond text |
-| Crowd motion under budget | 3 | Can language-commanded crowds move in real time on one GPU? | Motion generation, graphics |

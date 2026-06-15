@@ -5,7 +5,7 @@ Natural-language command of agent crowds in strategy games, under real-time comp
 Created 2026-06-10; its own git repo under `~/github/world-commander`.
 
 ## What's here
-- `PROPOSAL.md` — the research agenda ("World Commander"). One spine,
+- `PROPOSAL.md` — the research program ("World Commander"). One spine,
   **execution** (the LLM carries out the human commander's intent at game
   speed, under latency and memory budgets), rolled out across three phases
   (1 Benchmarks / 2 Methods / 3 Real interface); environments are a
@@ -14,7 +14,7 @@ Created 2026-06-10; its own git repo under `~/github/world-commander`.
   near-term job; the earlier "three jobs" axis and the Foresee what-if
   advisor are dropped.
   Phase-1 wedge spec (real-time StarCraft II commander benchmark plus the
-  command-arena warm-up, KV-cache eviction evaluated by win rate), paper
+  command-arena warm-up, KV-cache eviction evaluated by win rate), project
   inventory, prior-art map with verified links, discussion log. Drafted
   2026-06-10 for discussion with Dr. Enmao Diao. Canonical remote:
   `DreamSoul-AI/world-commander` (private org repo — Diao sees it as org owner,
@@ -58,6 +58,7 @@ Created 2026-06-10; its own git repo under `~/github/world-commander`.
 - (no build yet — proposal stage)
 
 ## Conventions
+- **Terminology ladder**: *World Commander* is the **program**; a **project** is one paper-sized unit (top-tier conference scale); a **task** is a short step within a project.
 - **Name things by engineering function**, not vendor SKU (the SKU is secondary).
 - **Self-contained**: explain any new term where it appears, or leave it out.
 - **Figures**: every figure gets a number + name + caption; never bake an explanatory paragraph into a figure image.

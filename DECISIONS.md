@@ -5,6 +5,25 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-14: Terminology ladder (program / project / task); deck restructured
+
+**Decision (terminology)**: fixed the vocabulary, which had used "paper" and
+"project" loosely. **World Commander** is the **research program** (the
+umbrella); a **project** is one paper-sized unit of work (top-tier conference
+scale); a **task** is a short step inside a project. ("Framework" was rejected
+for the whole: it names an artifact, not a research effort.) The roadmap now
+lists **projects**, not "papers," and the **command arena is a task** (a
+warm-up), not a project, so it left the inventory. The first project is the
+real-time commander benchmark.
+**Decision (deck structure)**, per Yubo: the author by-line moved directly under
+the title; the Roadmap moved to right before Preliminaries (plan first,
+background second, which suits an advisor audience and lets the roadmap frame
+what follows); the Command Arena is reframed as the warm-up task and now closes
+the deck. New order: Problem, Gap, Roadmap, Preliminaries, Command Arena.
+**Applies to**: deck (restructured and re-rendered, 6 slides), PROPOSAL.md
+("Paper inventory" to "Project inventory"; "agenda" to "program"; "paper" to
+"project" throughout), CLAUDE.md (What's here, plus a Conventions bullet).
+
 ## 2026-06-14: Deck merged the phases and papers slides into one Roadmap
 
 **Decision**: the deck's phases slide ("The Plan: Three Phases") and papers slide
