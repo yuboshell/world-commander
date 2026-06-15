@@ -5,6 +5,22 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-14: Deck trimmed to 5 slides; reordered to overview-then-detail
+
+**Decision**: removed the "Problem and the Vision" slide. For a researcher
+audience the video-game motivation is over-explained, and the title slide's
+North-Star figure already carries the long-term vision. (The deck loses its only
+StarCraft II screenshot; it can move onto the Gap slide if wanted.)
+**Decision (order)**: reversed the previous roadmap-before-preliminaries call.
+New order: Gap, Preliminaries, Roadmap, Command Arena, so the deck runs problem
+to background to overview (the program and its projects) to detail (the first
+project's warm-up task). This also removes the forward reference the earlier
+order introduced (the roadmap named the tokenizer before Preliminaries defined
+it).
+**Why**: the Gap slide is the related-work / gap analysis, so with the title
+carrying the vision a separate motivation slide is redundant. Five slides now:
+Title, Gap, Preliminaries, Roadmap, Command Arena.
+
 ## 2026-06-14: Terminology ladder (program / project / task); deck restructured
 
 **Decision (terminology)**: fixed the vocabulary, which had used "paper" and

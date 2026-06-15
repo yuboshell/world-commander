@@ -32,7 +32,7 @@ ul, ol { margin: 0.3em 0; padding-left: 1.1em; }
 li { margin: 0.42em 0; }
 li > ul { margin-top: 0.3em; }
 p { margin: 0.5em 0; }
-blockquote { border-left: 3px solid #333; padding-left: 16px; margin: 0.7em 0 0 0; font-weight: 600; }
+blockquote { border-left: 3px solid #333; padding-left: 16px; margin: 0.7em 0 0 0; font-weight: 600; color: #1a1a1a; }
 code { font-size: 0.92em; background: #f0f0f0; padding: 0 4px; border-radius: 3px; }
 
 /* booktabs-style rules: reset default-theme borders/zebra first, then add rules */
@@ -103,31 +103,7 @@ section.title::after { content: "" !important; }
 ---
 
 <!-- _class: tight -->
-# <span class="sec">1.1</span> The Problem and the Vision
-
-<div class="columns" style="grid-template-columns: 52% 45%">
-<div>
-
-- In a strategy game, the **fun is the strategy**: where to expand, when to attack, how to read the opponent.
-- It is buried under **frantic clicks**: hunting icons, drag-selecting, hundreds of actions a minute.
-- A player should command like a **real commander**: watch, listen, **speak the orders**, press a key only now and then.
-- The subordinates execute. Strategy is where we start; the interface could be the next revolutionary game, in any genre.
-
-</div>
-<div class="col-img">
-
-<img src="fig/sc2-minigames.jpg" style="max-height: 348px;">
-
-<div class="caption"><strong>Figure 1: the labour the interface forces.</strong> A few StarCraft II tasks (move here, gather there, build these); the strategy is buried under hundreds of manual actions a minute.</div>
-<div class="credit">Still: PySC2 video (DeepMind)</div>
-
-</div>
-</div>
-
----
-
-<!-- _class: tight -->
-# <span class="sec">1.2</span> The Gap: Efficiency, Untested at Game Speed
+# <span class="sec">1</span> The Gap: Efficiency, Untested at Game Speed
 
 - The interface shipped once ([Tom Clancy's EndWar (2008)](https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar)), but on a 70-word grammar. Language models lifted that limit; they still **cannot act at game pace**.
 - LLMs already play RTS through text ([TextStarCraft II (NeurIPS 2024)](https://arxiv.org/abs/2312.11865)), but only by **pausing the clock**.
@@ -139,20 +115,7 @@ section.title::after { content: "" !important; }
 ---
 
 <!-- _class: tight -->
-# <span class="sec">2</span> The Roadmap: Three Projects
-
-**World Commander** is a research **program**, delivered as three **projects** (each a top-tier paper's worth of work) across environments of growing complexity (a toy room → StarCraft II → multiplayer → a full game), under one shared **harness**. The end-state game is the north star, not a deliverable; each project answers a question its community already cares about, beyond the game.
-
-| Project | Phase | The question | Who cares |
-|---|---|---|---|
-| Real-time commander benchmark | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning |
-| Game-state tokenizer | 1 to 2 | Does compact tokenization extend to entity and event streams? | Tokenization beyond text |
-| Crowd motion under budget (embodiment) | 3 | Can language-commanded crowds move in real time on one GPU? | Motion generation, graphics |
-
----
-
-<!-- _class: tight -->
-# <span class="sec">3</span> Preliminaries
+# <span class="sec">2</span> Preliminaries
 
 The background this work builds on:
 
@@ -163,6 +126,19 @@ The background this work builds on:
 | **Vision-language-action models** | [π0](https://arxiv.org/abs/2410.24164): a slow vision-language backbone driving a fast action expert, trained by imitation. A model for splitting a slow strategic brain from fast executors. |
 | **The StarCraft II agent stack** | [PySC2](https://github.com/google-deepmind/pysc2), [TextStarCraft II](https://arxiv.org/abs/2312.11865), LLM-PySC2: the environment we inherit rather than rebuild. |
 | **Tokenization beyond text** | Byte-pair encoding and [graph tokenization (ICLR 2026)](https://www.diaoenmao.com): the basis for a learned game-state tokenizer. |
+
+---
+
+<!-- _class: tight -->
+# <span class="sec">3</span> The Roadmap: Three Projects
+
+**World Commander** is a research **program**, delivered as three **projects** (each a top-tier paper's worth of work) across environments of growing complexity (a toy room → StarCraft II → multiplayer → a full game), under one shared **harness**. The end-state game is the north star, not a deliverable; each project answers a question its community already cares about, beyond the game.
+
+| Project | Phase | The question | Who cares |
+|---|---|---|---|
+| Real-time commander benchmark | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning |
+| Game-state tokenizer | 1 to 2 | Does compact tokenization extend to entity and event streams? | Tokenization beyond text |
+| Crowd motion under budget (embodiment) | 3 | Can language-commanded crowds move in real time on one GPU? | Motion generation, graphics |
 
 ---
 
