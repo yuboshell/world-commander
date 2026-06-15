@@ -64,6 +64,10 @@ Splits the agent into System 1 (FSM plus code-as-policy, fast) and System 2 (asy
 The LLM is the architect, not the per-frame actor: it generates behavior trees in a DSL that then run cheaply at game speed, sidestepping the inference-latency wall across thousands of 3D games.
 *Relevance:* the main architectural alternative to putting an LLM in the real-time loop — compile intent into a fast policy offline, then run under budget. A useful contrast/fallback to direct LLM command; no live natural-language commands during play.
 
+**CivRealm** — A Learning and Reasoning Odyssey in Civilization for Decision-Making Agents. Qi, Chen, Li et al. (BIGAI / Peking University). *ICLR 2024*. [arXiv 2401.10568](https://arxiv.org/abs/2401.10568) · [OpenReview](https://openreview.net/forum?id=UBVNwD3hPN). **[N]**
+An interactive turn-based environment on Freeciv (a Civilization-style strategy game), framed as an imperfect-information, general-sum game with a changing number of players; it exposes both tensor RL agents and LLM agents and reports that both fail to make substantial progress in the full game.
+*Relevance:* the turn-based-strategy counterpart to TextStarCraft II, and a clean design pairing RL and LLM agents in one environment. An adjacent regime (turn-based) to our real-time focus, and a contrast that sharpens why the unpausable clock is the hard part.
+
 *Also relevant (verified):* TextStarCraft II (NeurIPS 2024, [2312.11865](https://arxiv.org/abs/2312.11865)) **[P]**; LLM-PySC2 (NeurIPS 2025, [2411.05348](https://arxiv.org/abs/2411.05348)) **[P]**; the ACM Computing Surveys survey of LLM game agents (CSUR 2026, [2404.02039](https://arxiv.org/abs/2404.02039)) **[P]**; the 1.3M-parameter real-time DOOM model ([2604.07385](https://arxiv.org/abs/2604.07385)) **[P]**; and, for a small-model-for-SC2 thread, Hierarchical Expert Prompt ([2502.11122](https://arxiv.org/abs/2502.11122)) and SC-Phi2 ([2409.18989](https://arxiv.org/abs/2409.18989)).
 
 ## 2. Efficient LLM inference under latency and memory budgets

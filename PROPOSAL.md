@@ -113,6 +113,8 @@ The first project needs two things at once: the efficiency-methods stack (cache 
 
 **2026-06-14 — scope narrowed to execution.** Dropped the three-jobs axis (Execute / Foresee / Embody) as a redundant second framing of the phases: the vision is already carried by the long-term goal and the three phases. The proposal now runs on one spine, execution, across the phases. Foresee (the what-if advisor) is removed; embodiment (crowd-scale motion) is kept as one later direction and one project, not a co-equal job. The standalone "Competitive-efficiency study" project is dropped, aligning the inventory with the deck.
 
+**2026-06-14 — input from Hongsong Tang (potential co-author, RL).** Pointed to [CivRealm (ICLR 2024)](https://arxiv.org/abs/2401.10568), an LLM-plus-RL decision-making environment on the turn-based strategy game Freeciv, as adjacent prior art (added to the literature review). Framed the real-time-versus-turn-based distinction as essentially latency: a turn-based game becomes real-time once each step is fast enough. Refinement carried forward: real-time also means the clock does not pause for the decision (the opponent keeps acting and a late decision is forfeited), so per-decision latency under an unpausable, concurrent clock is the binding constraint.
+
 ## Open questions for discussion
 
 1. Venue and timing for the first project (ICLR 2027 versus a slower, stronger NeurIPS 2027 submission).
