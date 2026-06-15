@@ -153,30 +153,16 @@ The background this work builds on:
 
 ---
 
-# <span class="sec">3.1</span> The Three Jobs
-
-The human commands; the system needs three capabilities to carry that out. Separate lines of work that eventually run together.
-
-| Job | What it does |
-|---|---|
-| **Execute** | An LLM turns the commander's spoken intent into the right in-game actions, in real time, under hard latency and memory budgets |
-| **Foresee** | An **in-game aid** the commander consults before acting: ask "if I push now, do I win?" and it forecasts the outcome. |
-| **Embody** | Units carry out the actions with model-generated motion, at crowd scale, on one GPU |
-
-This proposal is about the first job, **Execute**. Foresee and Embody come later.
-
----
-
 <!-- _class: tight -->
-# <span class="sec">3.2</span> The Plan: Three Phases
+# <span class="sec">3</span> The Plan: Three Phases
 
-The jobs are the *parts*; the phases are the *order*. One shared **harness** runs under all of them (command protocol, unpausable clock, deadlines, metric logging), so the engineering transfers upward.
+One shared **harness** runs under every phase (command protocol, unpausable clock, deadlines, metric logging), so the engineering transfers upward.
 
 | Phase | Focus | What happens |
 |---|---|---|
 | **1** | Benchmarks | The command arena (warm-up), then StarCraft II with the clock unpaused. |
 | **2** | Methods | Attack whatever the benchmarks expose: game-aware eviction, a learned tokenizer, distilled commanders. |
-| **3** | Real interface | The human (voice), then humans plural (multiplayer); grow the Foresee and Embody jobs. |
+| **3** | Real interface | The human (voice), then humans plural (multiplayer), then crowd motion at scale (embodiment). |
 
 Environments grow with the phases: **a toy room → StarCraft II → multiplayer → a full game.** The end-state game is the north star, not a deliverable.
 

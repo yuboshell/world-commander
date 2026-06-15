@@ -5,6 +5,30 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-14: Local folder renamed; jobs axis dropped (Execute is the spine)
+
+**Decision (folder)**: the local clone is now `~/github/world-commander` too,
+matching the GitHub repo and the session name. CLAUDE.md's path reference is
+updated. (Completes the rename deferred on 2026-06-13.)
+
+**Decision (framing)**: dropped the **three-jobs axis** (Execute / Foresee /
+Embody). It duplicated the phase axis as a second framing of the same vision,
+adding weight a first paper does not need; the vision is already carried by the
+North Star and the three phases. The proposal now has **one spine, execution**,
+rolled out across the phases. **Foresee** (the what-if / world-model advisor) is
+removed entirely. **Embodiment** (crowd-scale motion) is kept as a single later
+direction and one paper in the inventory, not a co-equal job, because Yubo wants
+the embodiment thread (and the term) in view. The "Competitive-efficiency study"
+paper is also dropped from PROPOSAL.md, aligning it with the deck (it was cut
+from the deck earlier as too thin to stand alone).
+**Why**: first-paper focus, plus the deck skill's own rule against a second
+framing of the same idea (one idea, one home).
+**Rejected**: removing crowd motion too (option B), which would have reversed
+the earlier "keep crowd motion; it's the embodiment line" call.
+**Applies to**: deck (removed the Three Jobs slide, renumbered 3.2 to 3, updated
+Phase 3), PROPOSAL.md (replaced "The three jobs" section, updated the phases and
+Phase 3 prose, trimmed the paper inventory), CLAUDE.md ("What's here").
+
 ## 2026-06-13: GitHub repo renamed game-commander → world-commander
 
 **Decision**: renamed the GitHub repo to **DreamSoul-AI/world-commander** to

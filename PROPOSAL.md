@@ -22,27 +22,23 @@ Efficiency is documented as the open problem. The [ACM Computing Surveys survey 
 
 Efficiency methods are never evaluated where the stakes are real. KV-cache eviction and compression methods are scored on perplexity, retrieval suites, and recently [reasoning benchmarks](https://arxiv.org/html/2512.12008v1) or [learned-eviction setups](https://arxiv.org/abs/2602.10238). No existing work evaluates cache eviction closed-loop inside a live game, where evicting the wrong memory loses the match minutes later. A streaming game is arguably the most natural stress test for these methods: context grows continuously, history matters non-uniformly, and the ground-truth metric (win or lose) is external to the model.
 
-## The three jobs
+## The system: commander and executor
 
-The **human is the strategic commander**; the LLM-driven system carries the orders out. It needs three capabilities, separate lines of work that will eventually run together, sharing one evaluation philosophy: performance as a function of latency and memory budget.
+The **human is the strategic commander**; the LLM-driven system carries the orders out. The whole near-term agenda is one capability, **execution**: an LLM turning the commander's spoken intent into the right in-game actions, in real time, under hard latency and memory budgets, evaluated as performance against that budget.
 
-| Job | What it does |
-|---|---|
-| **Execute** | An LLM turns the commander's spoken intent into the right in-game actions, in real time, under hard latency and memory budgets |
-| **Foresee** | An in-game aid the commander consults before acting (a compact world model): "if the army pushes now, does the fight win?" |
-| **Embody** | Units carry out the actions with model-generated motion (synthesized for the order, not replayed animation clips) at crowd scale on one consumer GPU |
+The LLM is the *executor* of the commander's intent, not an autonomous strategist: in Phase 1 the commander is a scripted command stream, so the benchmark isolates how well and how cheaply the LLM carries orders out, not whose strategy is better. (Earlier framings that scored an "LLM commander" by win rate are superseded; see the discussion log.)
 
-This proposal is about getting **Execute** right first. **Foresee** and **Embody** are the growth surface, built in the later phases and aligned with motion-generation and world-model research directions in Yubo's prospective PhD work. Note the LLM is the *executor* of the commander's intent, not an autonomous strategist: in Phase 1 the commander is a scripted command stream, so the benchmark isolates how well and how cheaply the LLM carries orders out, not whose strategy is better. (Earlier framings that scored an "LLM commander" by win rate are superseded; see the discussion log.)
+Execution is the spine of every phase below. One direction sits further out and stays in view because it defines the end-state experience: **embodiment**, units carrying out orders with model-generated motion (synthesized for the order, not replayed animation clips) at crowd scale on one consumer GPU, aligned with the motion-generation direction in Yubo's prospective PhD work. It appears in Phase 3 and as one paper in the inventory, not as near-term work.
 
 ## The plan: three phases
 
-The three jobs above are the *parts*; the three phases below are the *order*. We build in increasingly complex environments, with one shared **harness** under all of them — the command protocol, the unpausable clock, deadline enforcement, and metric logging — so the engineering and the evaluation transfer upward.
+We build in increasingly complex environments, with one shared **harness** under all of them (the command protocol, the unpausable clock, deadline enforcement, and metric logging), so the engineering and the evaluation transfer upward.
 
 | Phase | Focus | What happens |
 |---|---|---|
 | **Phase 1** | Benchmarks | Build the harness and the efficiency-frontier evaluation, on two testbeds: a command arena (warm-up) and StarCraft II with the clock unpaused (the flagship wedge). |
 | **Phase 2** | Methods | Attack whatever Phase 1 exposes as the bottleneck: game-aware eviction, a learned state tokenizer, distilled commanders, commander/executor scheduling. |
-| **Phase 3** | The real interface | Reintroduce the human (voice command), then humans plural (multiplayer competition); grow the Foresee and Embody jobs. |
+| **Phase 3** | The real interface | Reintroduce the human (voice command), then humans plural (multiplayer competition); grow toward embodiment (crowd-scale motion). |
 
 The environments grow with the phases, simplest to hardest:
 
@@ -81,7 +77,7 @@ Whatever Phase 1 exposes as the bottleneck becomes the method work. Candidates: 
 
 Reintroduce the human. A voice-commanded mode (the commander speaks, agents execute) evaluated on intent throughput, cognitive load, and accessibility, extending what Adaptive Command began. Then humans, plural: a multiplayer arena where several players command their own units from their own machines in one shared real-time world. There, latency stops being a constraint to measure and becomes what decides the winner. The headline question — does a fast small commander beat a slow large one head-to-head? — turns the efficiency frontier into Elo-style ratings (chess's system for ranking players by match outcomes), an evaluation no static corpus can imitate, and surfaces the systems questions (per-client inference versus a shared server budget, fairness across heterogeneous player hardware) that extend the Phase 2 scheduling line.
 
-In parallel, the Foresee and Embody jobs mature: entity-level world models for in-game counterfactuals (cheaper, queryable analogues of [WHAM](https://www.nature.com/articles/s41586-025-08600-3)-style gameplay models), and crowd-scale language-conditioned motion generation under compute budgets, building on the real-time text-to-motion line ([MotionLCM](https://arxiv.org/pdf/2404.19759), [MotionStreamer](https://arxiv.org/pdf/2503.15451), [CrowdMoGen](https://yukangcao.github.io/CrowdMoGen/)). For the motion-generation community, this reads as real-time control of multiple virtual characters.
+In parallel, **embodiment** matures: crowd-scale language-conditioned motion generation under compute budgets, building on the real-time text-to-motion line ([MotionLCM](https://arxiv.org/pdf/2404.19759), [MotionStreamer](https://arxiv.org/pdf/2503.15451), [CrowdMoGen](https://yukangcao.github.io/CrowdMoGen/)). For the motion-generation community, this reads as real-time control of multiple virtual characters.
 
 ## Paper inventory
 
@@ -92,7 +88,6 @@ The program is research-first: the game is the north star, the papers are the mi
 | Command-arena benchmark | 1 | How does per-entity command grounding degrade as command rate rises against a hard clock? | Real-time agent and interactive-systems researchers |
 | Real-time commander benchmark (the wedge) | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning researchers, whose methods are scored on static corpora today, never by win rate |
 | Game-state tokenizer | 1 to 2 | Does byte-pair tokenization extend to entity and event streams, and what does a compact state code buy at equal win rate? | The tokenization-beyond-text program |
-| Competitive-efficiency study | 3 | Does a fast small commander beat a slow large one head-to-head, Elo as a function of compute budget? | Inference-efficiency and agents communities; an evaluation-paradigm result |
 | Crowd motion under budget | 3 | Can language-commanded full-body crowds run in real time on one consumer GPU? | The motion-generation and graphics community |
 
 Whether the game-state tokenizer ships inside the wedge or stands alone as a second paper is an open question (below). Benchmark papers live or die on adoption: open source, one-command install, credible baselines, all of which the Phase 1 deliverables are scoped for.
@@ -116,6 +111,8 @@ The wedge needs two things at once: the efficiency-methods stack (cache eviction
 - "Essentially RL in a virtual world": the long arc runs through reinforcement learning, so RL literacy is a prerequisite to build. Phase 1 itself needs no RL training (off-the-shelf and pruned models, prompted), but learned executors, the Foresee job, and any trained policy do. Near-term action: survey RL fundamentals and consult RL colleagues.
 
 **2026-06-13 — executor framing (to confirm with Dr. Diao).** The human is the strategic commander; the LLM is the *executor* of that intent, not an autonomous strategist. Earlier framing (inherited from TextStarCraft II) scored an "LLM commander" by win rate, which conflicts with the human-as-commander vision. Resolution: in Phase 1 the commander is a scripted command stream, and the benchmark measures how well and how cheaply the LLM carries orders out — command-following in the arena, and win rate while executing a fixed strategy in StarCraft II. Renamed the "Decide" job to **Execute**, and Foresee is a what-if advisor the commander queries. This changes what the benchmark measures, so it is the next thing to put to Dr. Diao (his efficiency methods are scored by whichever metric). Project also renamed to **World Commander**.
+
+**2026-06-14 — scope narrowed to execution.** Dropped the three-jobs axis (Execute / Foresee / Embody) as a redundant second framing of the phases: the vision is already carried by the North Star and the three phases. The proposal now runs on one spine, execution, across the phases. Foresee (the what-if advisor) is removed; embodiment (crowd-scale motion) is kept as one later direction and one paper, not a co-equal job. The standalone "Competitive-efficiency study" paper is dropped, aligning the inventory with the deck.
 
 ## Open questions for discussion
 

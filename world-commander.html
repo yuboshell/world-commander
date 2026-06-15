@@ -24,7 +24,7 @@
 <p class="by">This proposal grew from Yubo Huang's interest and insight, under the guidance of Dr. Enmao Diao.</p>
 <p class="date">June 2026</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="2" style="--paginate:true;--class:tight;" data-marpit-pagination-total="8" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="2" style="--paginate:true;--class:tight;" data-marpit-pagination-total="7" data-size="16:9">
 <h1 id="span-classsec11span-the-problem-and-the-vision"><span class="sec">1.1</span> The Problem and the Vision</h1>
 <div class="columns" style="grid-template-columns: 52% 45%">
 <div>
@@ -42,7 +42,7 @@
 </div>
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="3" style="--paginate:true;--class:tight;" data-marpit-pagination-total="8" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="3" style="--paginate:true;--class:tight;" data-marpit-pagination-total="7" data-size="16:9">
 <h1 id="span-classsec12span-the-gap-efficiency-untested-at-game-speed"><span class="sec">1.2</span> The Gap: Efficiency, Untested at Game Speed</h1>
 <ul>
 <li>The interface shipped once (<a href="https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar">Tom Clancy's EndWar (2008)</a>), but on a 70-word grammar. Language models lifted that limit; they still <strong>cannot act at game pace</strong>.</li>
@@ -54,7 +54,7 @@
 <p>How much does command cost, in latency and memory, at game speed, and how do we drive it down?</p>
 </blockquote>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="4" style="--paginate:true;--class:tight;" data-marpit-pagination-total="8" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="4" style="--paginate:true;--class:tight;" data-marpit-pagination-total="7" data-size="16:9">
 <h1 id="span-classsec2span-preliminaries"><span class="sec">2</span> Preliminaries</h1>
 <p>The background this work builds on:</p>
 <table>
@@ -88,36 +88,9 @@
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" lang="en-CA" data-marpit-pagination="5" style="--paginate:true;" data-marpit-pagination-total="8" data-size="16:9">
-<h1 id="span-classsec31span-the-three-jobs"><span class="sec">3.1</span> The Three Jobs</h1>
-<p>The human commands; the system needs three capabilities to carry that out. Separate lines of work that eventually run together.</p>
-<table>
-<thead>
-<tr>
-<th>Job</th>
-<th>What it does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Execute</strong></td>
-<td>An LLM turns the commander's spoken intent into the right in-game actions, in real time, under hard latency and memory budgets</td>
-</tr>
-<tr>
-<td><strong>Foresee</strong></td>
-<td>An <strong>in-game aid</strong> the commander consults before acting: ask &quot;if I push now, do I win?&quot; and it forecasts the outcome.</td>
-</tr>
-<tr>
-<td><strong>Embody</strong></td>
-<td>Units carry out the actions with model-generated motion, at crowd scale, on one GPU</td>
-</tr>
-</tbody>
-</table>
-<p>This proposal is about the first job, <strong>Execute</strong>. Foresee and Embody come later.</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="6" style="--paginate:true;--class:tight;" data-marpit-pagination-total="8" data-size="16:9">
-<h1 id="span-classsec32span-the-plan-three-phases"><span class="sec">3.2</span> The Plan: Three Phases</h1>
-<p>The jobs are the <em>parts</em>; the phases are the <em>order</em>. One shared <strong>harness</strong> runs under all of them (command protocol, unpausable clock, deadlines, metric logging), so the engineering transfers upward.</p>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="5" style="--paginate:true;--class:tight;" data-marpit-pagination-total="7" data-size="16:9">
+<h1 id="span-classsec3span-the-plan-three-phases"><span class="sec">3</span> The Plan: Three Phases</h1>
+<p>One shared <strong>harness</strong> runs under every phase (command protocol, unpausable clock, deadlines, metric logging), so the engineering transfers upward.</p>
 <table>
 <thead>
 <tr>
@@ -140,13 +113,13 @@
 <tr>
 <td><strong>3</strong></td>
 <td>Real interface</td>
-<td>The human (voice), then humans plural (multiplayer); grow the Foresee and Embody jobs.</td>
+<td>The human (voice), then humans plural (multiplayer), then crowd motion at scale (embodiment).</td>
 </tr>
 </tbody>
 </table>
 <p>Environments grow with the phases: <strong>a toy room → StarCraft II → multiplayer → a full game.</strong> The end-state game is the north star, not a deliverable.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" lang="en-CA" data-marpit-pagination="7" style="--paginate:true;" data-marpit-pagination-total="8" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" lang="en-CA" data-marpit-pagination="6" style="--paginate:true;" data-marpit-pagination-total="7" data-size="16:9">
 <h1 id="span-classsec4span-the-command-arena"><span class="sec">4</span> The Command Arena</h1>
 <div class="columns" style="grid-template-columns: 41% 56%">
 <div>
@@ -163,7 +136,7 @@
 </div>
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="8" style="--paginate:true;--class:tight;" data-marpit-pagination-total="8" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="7" style="--paginate:true;--class:tight;" data-marpit-pagination-total="7" data-size="16:9">
 <h1 id="span-classsec5span-what-this-produces"><span class="sec">5</span> What This Produces</h1>
 <p>The game is the north star; the papers are the milestones. Each answers a question its community already cares about, beyond the game.</p>
 <table>
