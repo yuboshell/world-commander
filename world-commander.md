@@ -106,9 +106,9 @@ section.title::after { content: "" !important; }
 # <span class="sec">1</span> Related Work: Efficiency, Untested at Game Speed
 
 - The interface shipped once ([Tom Clancy's EndWar (2008)](https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar)), but on a 70-word grammar. Language models lifted that limit; they still **cannot act at game pace**.
-- LLMs already play RTS through text ([TextStarCraft II (NeurIPS 2024)](https://arxiv.org/abs/2312.11865)), but only by **pausing the clock**.
-- The efficient-inference methods that would fix that (eviction, quantization, distillation, smaller models) are tuned on perplexity, **never in a live game** where dropping the wrong context loses the match.
-- A streaming game is the natural stress test, and **nobody has run it** ([LLM Game Agents Survey (CSUR 2026)](https://arxiv.org/abs/2404.02039) names it a core open challenge).
+- LLMs already play StarCraft II, by text ([TextStarCraft II (NeurIPS 2024)](https://arxiv.org/abs/2312.11865)) or screenshots ([AVA (2026)](https://arxiv.org/abs/2503.05383)), but only by **pausing or slowing the clock**.
+- Real-time is only now being measured ([VideoGameBench (2025)](https://arxiv.org/abs/2505.18134): models collapse once the clock keeps running), and only for single agents, **not the efficiency methods**.
+- Eviction, quantization, and distillation are tuned on perplexity, where they already drop the wrong instruction ([Pitfalls of KV Cache Compression (ACL 2026)](https://arxiv.org/abs/2510.00231)); none is **scored by win rate in a live RTS**, where that lost context loses the match.
 
 > How much does command cost, in latency and memory, at game speed, and how do we drive it down?
 

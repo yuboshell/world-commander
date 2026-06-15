@@ -5,6 +5,24 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-14: Folded the literature review into the proposal and deck; narrowed the novelty claim
+
+**Decision**: integrated the top new papers from LITERATURE.md into PROPOSAL.md
+(Related work, plus Phase 1 architecture and tokenizer) and the deck's Related
+Work slide: HLA, AVA, CivRealm, VideoGameBench, AgileThinker (game agents and the
+real-time challenge); Pitfalls of KV Cache Compression and Speculative Actions
+(efficiency methods reaching agentic settings); IRIS / Δ-IRIS (learned
+world-model tokenizers).
+**Decision (claim)**: narrowed the contribution claim. The earlier deck line
+"a streaming game ... nobody has run it" is no longer accurate, since
+VideoGameBench and AgileThinker now measure real-time LLM play directly. The
+precise, still-open gap is restated: the efficient-inference methods (cache
+eviction and the rest) have never been scored by win rate, closed-loop, in a
+live competitive RTS under a latency and memory budget.
+**Why**: honesty after the literature review; an overclaim would not survive
+review or Dr. Diao's scrutiny, and the narrower claim is what the related work
+actually supports.
+
 ## 2026-06-14: Deck trimmed to 5 slides; reordered to overview-then-detail
 
 **Decision**: removed the "Problem and the Vision" slide. For a researcher

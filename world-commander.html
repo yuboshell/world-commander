@@ -28,9 +28,9 @@
 <h1 id="span-classsec1span-related-work-efficiency-untested-at-game-speed"><span class="sec">1</span> Related Work: Efficiency, Untested at Game Speed</h1>
 <ul>
 <li>The interface shipped once (<a href="https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar">Tom Clancy's EndWar (2008)</a>), but on a 70-word grammar. Language models lifted that limit; they still <strong>cannot act at game pace</strong>.</li>
-<li>LLMs already play RTS through text (<a href="https://arxiv.org/abs/2312.11865">TextStarCraft II (NeurIPS 2024)</a>), but only by <strong>pausing the clock</strong>.</li>
-<li>The efficient-inference methods that would fix that (eviction, quantization, distillation, smaller models) are tuned on perplexity, <strong>never in a live game</strong> where dropping the wrong context loses the match.</li>
-<li>A streaming game is the natural stress test, and <strong>nobody has run it</strong> (<a href="https://arxiv.org/abs/2404.02039">LLM Game Agents Survey (CSUR 2026)</a> names it a core open challenge).</li>
+<li>LLMs already play StarCraft II, by text (<a href="https://arxiv.org/abs/2312.11865">TextStarCraft II (NeurIPS 2024)</a>) or screenshots (<a href="https://arxiv.org/abs/2503.05383">AVA (2026)</a>), but only by <strong>pausing or slowing the clock</strong>.</li>
+<li>Real-time is only now being measured (<a href="https://arxiv.org/abs/2505.18134">VideoGameBench (2025)</a>: models collapse once the clock keeps running), and only for single agents, <strong>not the efficiency methods</strong>.</li>
+<li>Eviction, quantization, and distillation are tuned on perplexity, where they already drop the wrong instruction (<a href="https://arxiv.org/abs/2510.00231">Pitfalls of KV Cache Compression (ACL 2026)</a>); none is <strong>scored by win rate in a live RTS</strong>, where that lost context loses the match.</li>
 </ul>
 <blockquote>
 <p>How much does command cost, in latency and memory, at game speed, and how do we drive it down?</p>
