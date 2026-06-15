@@ -5,6 +5,20 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-14: Deck merged the phases and papers slides into one Roadmap
+
+**Decision**: the deck's phases slide ("The Plan: Three Phases") and papers slide
+("What This Produces") overlapped, both walking the phased program. Merged them
+into a single closing slide, **"The Roadmap and What It Produces"** (phases,
+harness, environments ladder, and north star as the intro; then the
+paper-per-phase table). The deck drops to six slides; the Command Arena is now
+section 3.
+**Why**: the deck skill's one-idea-one-home rule. A differentiate-not-merge first
+attempt (leaning the phases slide down to just its arc) left that slide too
+sparse, so merging won.
+**Scope**: deck only. PROPOSAL.md keeps its separate Plan and Paper-inventory
+sections (a prose proposal naturally has both).
+
 ## 2026-06-14: Local folder renamed; jobs axis dropped (Execute is the spine)
 
 **Decision (folder)**: the local clone is now `~/github/world-commander` too,

@@ -153,22 +153,7 @@ The background this work builds on:
 
 ---
 
-<!-- _class: tight -->
-# <span class="sec">3</span> The Plan: Three Phases
-
-One shared **harness** runs under every phase (command protocol, unpausable clock, deadlines, metric logging), so the engineering transfers upward.
-
-| Phase | Focus | What happens |
-|---|---|---|
-| **1** | Benchmarks | The command arena (warm-up), then StarCraft II with the clock unpaused. |
-| **2** | Methods | Attack whatever the benchmarks expose: game-aware eviction, a learned tokenizer, distilled commanders. |
-| **3** | Real interface | The human (voice), then humans plural (multiplayer), then crowd motion at scale (embodiment). |
-
-Environments grow with the phases: **a toy room → StarCraft II → multiplayer → a full game.** The end-state game is the north star, not a deliverable.
-
----
-
-# <span class="sec">4</span> The Command Arena
+# <span class="sec">3</span> The Command Arena
 
 <div class="columns" style="grid-template-columns: 41% 56%">
 <div>
@@ -191,9 +176,9 @@ Environments grow with the phases: **a toy room → StarCraft II → multiplayer
 ---
 
 <!-- _class: tight -->
-# <span class="sec">5</span> What This Produces
+# <span class="sec">4</span> The Roadmap and What It Produces
 
-The game is the north star; the papers are the milestones. Each answers a question its community already cares about, beyond the game.
+Three phases in environments of growing complexity (a toy room → StarCraft II → multiplayer → a full game), under one shared **harness** (unpausable clock, deadlines, logging). Each phase yields a paper a community already cares about, beyond the game; the end-state game is the north star, not a deliverable.
 
 | Paper | Phase | The question | Who cares |
 |---|---|---|---|
