@@ -12,7 +12,7 @@ The alternative interface already exists in another domain. Working with coding 
 
 This program asks the question that decides whether the commander interface is buildable: how much does natural-language command cost, in latency and memory, at game speed, and how can that cost be driven down?
 
-## Background
+## Related work
 
 Three lines of prior work frame the opportunity.
 
@@ -36,7 +36,7 @@ We build in increasingly complex environments, with one shared **harness** under
 
 | Phase | Focus | What happens |
 |---|---|---|
-| **Phase 1** | Benchmarks | Build the harness and the efficiency-frontier evaluation, on two testbeds: a command arena (warm-up) and StarCraft II with the clock unpaused (the flagship wedge). |
+| **Phase 1** | Benchmarks | Build the harness and the efficiency-frontier evaluation, on two testbeds: a command arena (warm-up) and StarCraft II with the clock unpaused (the first project). |
 | **Phase 2** | Methods | Attack whatever Phase 1 exposes as the bottleneck: game-aware eviction, a learned state tokenizer, distilled commanders, commander/executor scheduling. |
 | **Phase 3** | The real interface | Reintroduce the human (voice command), then humans plural (multiplayer competition); grow toward embodiment (crowd-scale motion). |
 
@@ -44,15 +44,15 @@ The environments grow with the phases, simplest to hardest:
 
 > a toy room (abstract agents)  →  StarCraft II  →  multiplayer  →  a full game
 
-The end state, a genuinely new kind of video game played by command rather than by frantic input, is a product vision years out, not a deliverable. We start with strategy (the best testbed), but the voice-command interface is not bound to one genre: the North Star is a revolutionary game, not a strategy game specifically. Its role here is to fix the two constraints every project inherits: an unpausable clock and a hard compute budget.
+The end state, a genuinely new kind of video game played by command rather than by frantic input, is a product vision years out, not a deliverable. We start with strategy (the best testbed), but the voice-command interface is not bound to one genre: the long-term goal is a revolutionary game, not a strategy game specifically. Its role here is to fix the two constraints every project inherits: an unpausable clock and a hard compute budget.
 
-## Phase 1: the benchmark (the wedge)
+## Phase 1: the benchmark (the first project)
 
-The **wedge** is a deliberately narrow, fast first project that opens the program behind it. It builds the harness and asks: can an LLM command at game speed, and which efficiency techniques preserve its judgment? Two testbeds.
+The **first project** is deliberately narrow and fast, the entry point that opens the program behind it. It builds the harness and asks: can an LLM command at game speed, and which efficiency techniques preserve its judgment? Two testbeds.
 
 **The command arena (warm-up).** Color-tagged agents in a minimal room move in discrete directions under streamed language commands, with no motion detail and no game engineering. It costs weeks, not months, and proves out the streaming-command infrastructure that StarCraft II and every later phase reuse. One command is trivially easy for any modern model, by design; the test is the *stream*. Difficulty rises along three axes: command rate, compositional addressing ("everyone except the yellow one, gather at the door"), and commands that depend on remembered state ("the one who was sitting earlier, move west"). Measured: command-grounding accuracy, utterance-to-action latency, and deadline misses as command rate rises.
 
-**StarCraft II, clock unpaused (flagship).** Build on the TextStarCraft II / [LLM-PySC2](https://arxiv.org/pdf/2411.05348) stack with one decisive change: the game clock does not pause. The harness enforces wall-clock decision deadlines and a VRAM ceiling; a late decision simply does not happen, as it is for a human.
+**StarCraft II, clock unpaused (the first project).** Build on the TextStarCraft II / [LLM-PySC2](https://arxiv.org/pdf/2411.05348) stack with one decisive change: the game clock does not pause. The harness enforces wall-clock decision deadlines and a VRAM ceiling; a late decision simply does not happen, as it is for a human.
 
 Experimental variables.
 
@@ -81,7 +81,7 @@ In parallel, **embodiment** matures: crowd-scale language-conditioned motion gen
 
 ## Project inventory
 
-The program is research-first: the game is the north star, the projects are the milestones. Each project is a top-tier paper's worth of work, and the test each must pass is to answer a question its community already cares about while caring nothing about the game; the budget-frontier evaluation is what passes it. The command arena is a warm-up task, not a project, so it does not appear here. Projects are listed roughly in build order.
+The program is research-first: the game is the long-term goal, the projects are the milestones. Each project is a top-tier paper's worth of work, and the test each must pass is to answer a question its community already cares about while caring nothing about the game; the budget-frontier evaluation is what passes it. The command arena is a warm-up task, not a project, so it does not appear here. Projects are listed roughly in build order.
 
 | Project | Phase | The question | Who cares, independent of the game |
 |---|---|---|---|
@@ -93,25 +93,25 @@ Whether the game-state tokenizer ships inside the first project or stands alone 
 
 ## Why this collaboration
 
-The wedge needs two things at once: the efficiency-methods stack (cache eviction, structured pruning, tokenization beyond text), where Dr. Diao's recent work supplies both methods and baselines, and benchmark/harness engineering plus genuine RTS fluency, which Yubo brings. The niche is defensible because this combination is rare: agent-interface groups lack the efficiency depth, and efficiency groups evaluate on static corpora rather than closed-loop games.
+The first project needs two things at once: the efficiency-methods stack (cache eviction, structured pruning, tokenization beyond text), where Dr. Diao's recent work supplies both methods and baselines, and benchmark/harness engineering plus genuine RTS fluency, which Yubo brings. The niche is defensible because this combination is rare: agent-interface groups lack the efficiency depth, and efficiency groups evaluate on static corpora rather than closed-loop games.
 
 ## Risks
 
 - Environment engineering on StarCraft II is real work; mitigated by inheriting the TextStarCraft II stack rather than building from scratch.
-- The "KV eviction in closed-loop games" gap could be filled by others; the surveys already name it, so the wedge should move fast.
+- The "KV eviction in closed-loop games" gap could be filled by others; the surveys already name it, so the first project should move fast.
 - Latency results age as inference gets cheaper; the benchmark's framing (performance versus budget) remains meaningful regardless of which model currently wins.
 
 ## Discussion log
 
 **2026-06-11 — first round with Dr. Diao (WeChat).** Direction endorsed. Three signals, folded back into the program:
 
-- Latency is the fight: large-model control is slow against the speed that mouse control demands. This is the wedge's thesis restated as a concern — the benchmark exists to measure exactly that gap and what closes it.
+- Latency is the fight: large-model control is slow against the speed that mouse control demands. This is the first project's thesis restated as a concern — the benchmark exists to measure exactly that gap and what closes it.
 - Architecture pointer: borrow from robot vision-language-action models (the [π0](https://arxiv.org/abs/2410.24164) line), where a slow vision-language backbone drives a fast action expert at real-time rates. Added to the Phase 1 architecture variable; a game is the cheaper, safer place to iterate on the same split.
 - "Essentially RL in a virtual world": the long arc runs through reinforcement learning, so RL literacy is a prerequisite to build. Phase 1 itself needs no RL training (off-the-shelf and pruned models, prompted), but learned executors, the Foresee job, and any trained policy do. Near-term action: survey RL fundamentals and consult RL colleagues.
 
 **2026-06-13 — executor framing (to confirm with Dr. Diao).** The human is the strategic commander; the LLM is the *executor* of that intent, not an autonomous strategist. Earlier framing (inherited from TextStarCraft II) scored an "LLM commander" by win rate, which conflicts with the human-as-commander vision. Resolution: in Phase 1 the commander is a scripted command stream, and the benchmark measures how well and how cheaply the LLM carries orders out — command-following in the arena, and win rate while executing a fixed strategy in StarCraft II. Renamed the "Decide" job to **Execute**, and Foresee is a what-if advisor the commander queries. This changes what the benchmark measures, so it is the next thing to put to Dr. Diao (his efficiency methods are scored by whichever metric). Project also renamed to **World Commander**.
 
-**2026-06-14 — scope narrowed to execution.** Dropped the three-jobs axis (Execute / Foresee / Embody) as a redundant second framing of the phases: the vision is already carried by the North Star and the three phases. The proposal now runs on one spine, execution, across the phases. Foresee (the what-if advisor) is removed; embodiment (crowd-scale motion) is kept as one later direction and one project, not a co-equal job. The standalone "Competitive-efficiency study" project is dropped, aligning the inventory with the deck.
+**2026-06-14 — scope narrowed to execution.** Dropped the three-jobs axis (Execute / Foresee / Embody) as a redundant second framing of the phases: the vision is already carried by the long-term goal and the three phases. The proposal now runs on one spine, execution, across the phases. Foresee (the what-if advisor) is removed; embodiment (crowd-scale motion) is kept as one later direction and one project, not a co-equal job. The standalone "Competitive-efficiency study" project is dropped, aligning the inventory with the deck.
 
 ## Open questions for discussion
 

@@ -93,7 +93,7 @@ section.title::after { content: "" !important; }
 
 <img src="fig/command-station.png" style="max-height: 280px;">
 
-<div class="caption">The North Star: the next revolutionary video game, played by voice from the commander's chair.</div>
+<div class="caption">The long-term goal: the next revolutionary video game, played by voice from the commander's chair.</div>
 
 </div>
 </div>
@@ -103,7 +103,7 @@ section.title::after { content: "" !important; }
 ---
 
 <!-- _class: tight -->
-# <span class="sec">1</span> The Gap: Efficiency, Untested at Game Speed
+# <span class="sec">1</span> Related Work: Efficiency, Untested at Game Speed
 
 - The interface shipped once ([Tom Clancy's EndWar (2008)](https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar)), but on a 70-word grammar. Language models lifted that limit; they still **cannot act at game pace**.
 - LLMs already play RTS through text ([TextStarCraft II (NeurIPS 2024)](https://arxiv.org/abs/2312.11865)), but only by **pausing the clock**.
@@ -132,7 +132,7 @@ The background this work builds on:
 <!-- _class: tight -->
 # <span class="sec">3</span> The Roadmap: Three Projects
 
-**World Commander** is a research **program**, delivered as three **projects** (each a top-tier paper's worth of work) across environments of growing complexity (a toy room → StarCraft II → multiplayer → a full game), under one shared **harness**. The end-state game is the north star, not a deliverable; each project answers a question its community already cares about, beyond the game.
+**World Commander** is a research **program**, delivered as three **projects** (each a top-tier paper's worth of work) across environments of growing complexity (a toy room → StarCraft II → multiplayer → a full game), under one shared **harness**. The end-state game is the long-term goal, not a deliverable; each project answers a question its community already cares about, beyond the game.
 
 | Project | Phase | The question | Who cares |
 |---|---|---|---|
@@ -144,7 +144,7 @@ The background this work builds on:
 
 # <span class="sec">4</span> The Command Arena
 
-**Where we start:** the warm-up task that proves the streaming-command plumbing cheaply, before StarCraft II.
+**The first step:** a warm-up task that validates the streaming-command infrastructure cheaply, before StarCraft II.
 
 <div class="columns" style="grid-template-columns: 41% 56%">
 <div>
