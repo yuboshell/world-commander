@@ -60,6 +60,12 @@ section.tight { font-size: 23px; line-height: 1.3; }
 section.tight h1 { font-size: 32px; }
 section.tight li { margin: 0.36em 0; }
 
+/* appendix landscape slides: run-in related-work paragraphs, vertically centred */
+section.landscape { font-size: 23px; line-height: 1.32; justify-content: center !important; }
+section.landscape h1 { font-size: 30px; }
+section.landscape p { margin: 0.62em 0; }
+section.landscape .lead { font-size: 0.78em; color: #555; margin: 0 0 0.5em 0; }
+
 /* title slide: title + scope + two captioned figures, then author */
 section.title { justify-content: flex-start !important; }
 section.title h1 { border-bottom: none; font-size: 42px; margin: 0 0 6px 0; padding: 0; }
@@ -77,7 +83,7 @@ section.title::after { content: "" !important; }
 
 # World Commander
 
-<p class="sub">Natural-language command of agent crowds in strategy games, under real-time compute budgets</p>
+<p class="sub">Natural-language command of agent crowds in real-time strategy games, under latency and memory budgets</p>
 
 <p class="by">This proposal grew from Yubo Huang's interest and insight, under the guidance of Dr. Enmao Diao.</p>
 
@@ -130,15 +136,15 @@ The background this work builds on:
 ---
 
 <!-- _class: tight -->
-# <span class="sec">3</span> The Roadmap: Three Projects
+# <span class="sec">3</span> The Roadmap: Three Phases of One Program
 
-**World Commander** is a research **program**, delivered as three **projects** (each a top-tier paper's worth of work) across environments of growing complexity (a toy room → StarCraft II → multiplayer → a full game), under one shared **harness**. The end-state game is the long-term goal, not a deliverable; each project answers a question its community already cares about, beyond the game.
+**World Commander** is one **program**: an LLM executing a human commander's intent at game speed, under latency and memory budgets, matured in three **phases** over environments of growing complexity (a toy room → StarCraft II → multiplayer → a full game), under one shared **harness**. The end-state game is the long-term goal, not a deliverable; each phase answers a question its community already cares about, beyond the game.
 
-| Project | Phase | The question | Who cares |
+| Phase | Goal | Environment | Deliverable (one paper) |
 |---|---|---|---|
-| Real-time commander benchmark | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning |
-| Game-state tokenizer | 1 to 2 | Does compact tokenization extend to entity and event streams? | Tokenization beyond text |
-| Crowd motion under budget (embodiment) | 3 | Can language-commanded crowds move in real time on one GPU? | Motion generation, graphics |
+| **1 Benchmarks** | Measure the cost of command at game speed | command arena → real-time SC2 | which efficiency methods survive a live, closed-loop clock (eviction scored by win rate, not perplexity) |
+| **2 Methods** | Drive that cost down | SC2 (harder) → multiplayer | the game-state tokenizer (fewer tokens per decision, hence less latency and memory); better eviction; action-level speculation |
+| **3 Interface** | Ship a playable system | multiplayer → full game | voice-commanded play; crowd motion under budget (embodiment), deferred |
 
 ---
 
@@ -163,4 +169,28 @@ The background this work builds on:
 
 </div>
 </div>
+
+---
+
+<!-- _class: landscape -->
+# Appendix: Related-Work Landscape (1 of 2)
+
+<p class="lead">Agents at game speed, and the methods under test. The fuller field behind slides 1 and 2; the canonical review with every link is <code>LITERATURE.md</code>.</p>
+
+**Agents in real-time games.** [AlphaStar](https://www.nature.com/articles/s41586-019-1724-z) (Nature 2019) mastered StarCraft II by full reinforcement learning (no language, datacentre scale, fully autonomous); the precedent we deliberately do not repeat. LLMs now issue SC2 commands (TextStarCraft II, LLM-PySC2, AVA), but only with the clock paused or slowed. Real-time is the new axis: VideoGameBench and AgileThinker show models collapse once it keeps running. Closest to us, [HLA](https://arxiv.org/abs/2312.15224), Adaptive Command, and DPT-Agent put a human in command with a fast-slow split, but cooperatively, or by steering a hand-built behaviour tree. CivRealm is the turn-based-strategy contrast.
+
+**Efficient inference, under latency and memory.** The methods we put on the clock: KV-cache eviction (H2O, SnapKV, StreamingLLM, [OBCache](https://arxiv.org/abs/2510.07651)), plus action-level Speculative Actions, which cuts latency losslessly. The warning shots: Pitfalls of KV Cache Compression, DefensiveKV, and SideQuest show eviction silently drops the wrong token, and that its quality is task-dependent. [WorldMemArena](https://arxiv.org/abs/2605.29341) pushes agent-memory evaluation into a closed interaction loop: a different "memory" from the KV-cache, but the same methodological turn we make.
+
+---
+
+<!-- _class: landscape -->
+# Appendix: Related-Work Landscape (2 of 2)
+
+<p class="lead">Fast-slow execution, game-state representation, and the Phase-3 motion stack.</p>
+
+**Hierarchical and VLA fast-slow execution.** [π0](https://arxiv.org/abs/2410.24164) pairs a slow vision-language brain with a fast action expert (up to 50 Hz); Fast-in-Slow folds both into one backbone; OpenVLA is the open "tokens-as-actions" baseline. This is the split we adapt for commander plus executors. Language-conditioned precedents: NL-to-StarCraft II grounding (2019) and CALVIN.
+
+**Game-state representation and world models.** Toward fewer tokens per decision: Diao's [graph tokenization](https://arxiv.org/abs/2603.11099) (ICLR 2026), VQ-VAE, and IRIS / Δ-IRIS (context-aware delta tokenization). Action-conditioned world models, WHAM / WHAMM (Nature 2025), GameNGen, and DreamerV3, are the engines behind any what-if forecaster.
+
+**Crowd and real-time motion (Phase 3, embodiment).** CrowdMoGen has an LLM plan a crowd's motion, but makes no real-time claim. Per-character real-time generators under budget: MotionLCM, MotionPCM, MotionStreamer, and [MotionBricks](https://arxiv.org/abs/2604.24833) (NVIDIA, SIGGRAPH 2026; 350k skills from one backbone). Single-character today; language-commanded crowds under one GPU is the gap we name.
 

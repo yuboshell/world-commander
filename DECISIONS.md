@@ -5,6 +5,70 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-18: Adopted an index.md hub (LLM-wiki structure); README demoted to a pointer
+
+**Decision**: created index.md as the repository's entry hub — a Map of Content
+linking every node (proposal, deck, literature, decisions, sources) with one-line
+summaries — adapting the LLM-wiki pattern (see llm-wiki.md). README.md is slimmed to
+a one-line pointer to index.md; the slide deck stays a leaf node (a presentation
+view), not the entrance.
+**Why not the deck as entrance**: world-commander.md is a Marp render artifact
+(frontmatter, `<style>`, slide-break `---`, HTML layout); it presents, it does not
+navigate.
+**Why index.md, not README, as the hub**: the repo is browsed in Obsidian, with
+GitHub as the backup/sharing remote rather than a reading surface, so GitHub's
+auto-rendered-README advantage does not apply, and index.md matches the borrowed
+pattern. README stays as a courtesy landing for any GitHub visitor.
+**Decision (links)**: cross-references use relative markdown links (`[text](file.md)`),
+not `[[wikilinks]]`. They are clickable on GitHub and in Obsidian, and Obsidian's
+graph view includes them, so the graph and backlinks work without breaking GitHub.
+**Rejected**: `[[wikilinks]]` (Obsidian-only, break on GitHub) — revisit only if
+Obsidian becomes the sole surface and the authoring ergonomics are wanted.
+**Revisit when**: the repo outgrows a hand-maintained index (the LLM-wiki pattern
+suggests a search tool such as qmd around ~100 sources); far off at the current size.
+
+## 2026-06-18: Subtitle fixed; Roadmap recast as phases (not "three projects"); related-work Landscape appendix added
+
+**Decision (subtitle)**: changed the one-liner from "...in strategy games, under
+real-time compute budgets" to "...in real-time strategy games, under latency and
+memory budgets", synced across deck, README, PROPOSAL, CLAUDE.md. The old wording
+split the standard genre term "real-time strategy (RTS)" in half (real-time
+modified *budgets*, not the game) and used the vaguer "compute budget".
+**Why "budget" stays**: it is standard top-tier vocabulary in this subfield
+(compute budget in scaling laws; cache/memory budget in KV-cache work; latency
+budget in real-time ML). The fix was precision, not dropping the word.
+
+**Decision (roadmap)**: recast the Roadmap slide from a "three projects" table into
+a three-phase ladder (1 Benchmarks: measure the cost; 2 Methods: drive it down;
+3 Interface: ship), with the environment ladder and one paper-sized deliverable per
+phase. **Rejected**: keeping "three projects" alongside "three phases" — they are
+different cuts (phases = maturity stages, projects = deliverables within), so
+presenting them as parallel axes read as incoherent.
+
+**Decision (tokenizer)**: reframed the game-state tokenizer as the flagship Phase-2
+method, justified by its mechanism: tokens per decision is the multiplier on both
+latency and KV-cache memory, so compressing structured game state attacks the
+central cost directly (and extends "tokenization beyond text" to dynamic
+entity/event streams, building on Diao's graph tokenization). The prior slide
+stated the question but hid the stakes.
+
+**Decision (related work)**: added a two-slide "Related-Work Landscape" appendix
+(themed, condensed from LITERATURE.md, vertically centred), leaving the argument
+slide untouched; added AlphaStar, WorldMemArena, MotionBricks to LITERATURE.md
+(AlphaStar was a genuine gap, absent from all prior refs). **Rejected**: expanding
+the argument slide, which is at its legibility ceiling.
+
+**Decision (style)**: slides never use publication-tier words ("top-tier",
+"world-class"); recorded in CLAUDE.md deck conventions and scrubbed the one
+occurrence on the Roadmap slide.
+
+**Decision (wording)**: avoid "lever" in formal paper prose (a colloquial
+metaphor); prefer "mechanism / technique / knob". Kept out of the deck text;
+"latency lever" remains in LITERATURE.md notes only.
+
+**Revisit when**: phase boundaries firm up after arena v0 and the RL survey; the
+appendix depth may grow if a talk audience wants more.
+
 ## 2026-06-14: Folded the literature review into the proposal and deck; narrowed the novelty claim
 
 **Decision**: integrated the top new papers from LITERATURE.md into PROPOSAL.md

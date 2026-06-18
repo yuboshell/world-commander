@@ -1,10 +1,13 @@
 # World Commander
 
-Natural-language command of agent crowds in strategy games, under real-time compute budgets.
+Natural-language command of agent crowds in real-time strategy games, under latency and memory budgets.
 
 Created 2026-06-10; its own git repo under `~/github/world-commander`.
 
 ## What's here
+- `index.md` — **the entry hub** (start here): a Map of Content that links
+  every node below with a one-line summary, adapting the `llm-wiki.md` pattern.
+  Update its catalog whenever a file is added, renamed, or removed.
 - `PROPOSAL.md` — the research program ("World Commander"). One spine,
   **execution** (the LLM carries out the human commander's intent at game
   speed, under latency and memory budgets), rolled out across three phases
@@ -25,7 +28,7 @@ Created 2026-06-10; its own git repo under `~/github/world-commander`.
   for presenting and sharing at any time, and Yubo's own review artifact.
   Style: Keynote-White (ported from the weekly-report decks); no em-dashes
   anywhere (external audience), Canadian spelling, self-contained slides,
-  citations as Handle (Venue Year). Slide 1 is a dense title-plus-abstract
+  citations as Handle (Venue Year); never use publication-tier words ("top-tier", "world-class") on slides, even though every project still targets a top-tier venue. Slide 1 is a dense title-plus-abstract
   page (top-aligned, no wasted whitespace).
 - `DECISIONS.md` — append-only decision log: one entry per decision
   (what / why / rejected / revisit-when), newest first.
@@ -42,6 +45,9 @@ Created 2026-06-10; its own git repo under `~/github/world-commander`.
   GIF/video once the project has its own footage).
 - Any decision made in conversation gets a DECISIONS.md entry in the
   same session.
+- index.md is the entry hub; cross-references use relative links
+  (`[text](file.md)`), not `[[wikilinks]]`, so they work on GitHub and in
+  Obsidian's graph view alike.
 - Transferable lessons still get proposed for memex ingestion at
   milestones; DECISIONS.md holds project-local rationale only.
 

@@ -6,3 +6,9 @@ node_modules/
 *.aux
 *.log
 *.out
+
+# Downloaded reference papers — kept local (heavy binaries); cited via LITERATURE.md + arXiv
+papers/*.pdf
+
+# Obsidian vault config and local workspace state (browsed locally, not shared)
+.obsidian/
