@@ -187,6 +187,7 @@ The end-state game is the long-term goal, not a deliverable.
 - Colour-tagged agents in a room; each moves in **one of four directions** on command.
 - One command is trivial; the test is the **stream**: many, fast.
 - Harder with **rate**, **grouping** ("everyone except the yellow one"), and **memory** ("the one I sent west earlier, now move it north").
+- **Not single-sided:** uncontrolled agents move on their own, so a late command concedes ground.
 - Measured: **grounding accuracy**, **command-to-action latency**, **deadline misses**.
 
 </div>
