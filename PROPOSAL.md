@@ -115,9 +115,19 @@ The first project needs two things at once: the efficiency-methods stack (cache 
 
 **2026-06-14 — input from Hongsong Tang (potential co-author, RL).** Pointed to [CivRealm (ICLR 2024)](https://arxiv.org/abs/2401.10568), an LLM-plus-RL decision-making environment on the turn-based strategy game Freeciv, as adjacent prior art (added to the literature review). Framed the real-time-versus-turn-based distinction as essentially latency: a turn-based game becomes real-time once each step is fast enough. Refinement carried forward: real-time also means the clock does not pause for the decision (the opponent keeps acting and a late decision is forfeited), so per-decision latency under an unpausable, concurrent clock is the binding constraint.
 
+**2026-06-19 — micro-operation versus big-picture command (WeChat, with Hongsong Tang and Dr. Diao).** A near-term framing axis surfaced.
+
+- **Two regimes.** *Big-picture* (strategic) command: the LLM interprets high-level language and issues actions through the game API; Dr. Diao frames this as an **agent** problem ("do it more agent-leaning"). *Micro-operation* (per-unit tactical) control: Dr. Diao frames it as embodiment, the [vision-language-action (VLA)](https://en.wikipedia.org/wiki/Vision%E2%80%93language%E2%80%93action_model) approach of the π0 line. Near-term action for Yubo: read the VLA literature.
+- **Interface.** For big-picture command the LLM acts through the game's API, not by simulating mouse input; mouse emulation is unnecessary at the strategic level. This sharpens the slow-brain / fast-executor split already in Preliminaries: big-picture is the slow LLM brain (agent); micro-operation is the fast VLA executor below it.
+- **RL's role depends on the choice (Hongsong).** For autonomous play, RL trains top-level strategy; for a big-picture *interactive* RTS, RL instead trains the bottom-level execution that turns one language command into a sequence of in-game micro-actions.
+- **Command arena.** Hongsong: sound as an early latency-validation task. Suggestion to adopt: it is currently single-sided control, so adding uncontrolled NPCs (or an opponent) would better exercise the real-time, unpausable clock that defines an RTS.
+- **New reference.** [SMAC-R1 (Deng, Ma et al., 2024)](https://arxiv.org/abs/2410.16024): an LLM generates interpretable decision-tree scripts for the StarCraft Multi-Agent Challenge, refined by environment feedback and distilled into a smaller model. The offline-script-generation alternative to real-time language command (compare PORTAL); added to the literature review.
+- **Open decision, near-term plan.** Yubo: long-term, build both regimes; short-term, decide which first (unresolved, added to open questions). Plan: finish the arena, get a preliminary result, then pitch the full program to 程立 (Cheng Li).
+
 ## Open questions for discussion
 
 1. Venue and timing for the first project (ICLR 2027 versus a slower, stronger NeurIPS 2027 submission).
 2. Model scale and compute: which open-weight families, and on whose GPUs the frontier sweep runs.
 3. Whether the state-tokenization module belongs in the first project or stands alone as a second project.
 4. Whether DreamSoul has product interest in the commander interface beyond the projects.
+5. Which regime to build first: big-picture (agent) command, or micro-operation (VLA) execution. Long-term, both are in scope (Discussion log, 2026-06-19).

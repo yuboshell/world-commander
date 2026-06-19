@@ -28,7 +28,10 @@ Created 2026-06-10; its own git repo under `~/github/world-commander`.
   for presenting and sharing at any time, and Yubo's own review artifact.
   Style: Keynote-White (ported from the weekly-report decks); no em-dashes
   anywhere (external audience), Canadian spelling, self-contained slides,
-  citations as Handle (Venue Year); never use publication-tier words ("top-tier", "world-class") on slides, even though every project still targets a top-tier venue. Slide 1 is a dense title-plus-abstract
+  citations as Handle (Venue Year); never use publication-tier words ("top-tier", "world-class") on slides, even though every project still targets a top-tier venue. Plain academic register
+  throughout: no promotional or slogan-style vocabulary and no coined catchphrases
+  (e.g. "gap", "lever", "the new axis", "loses the match", "warning shots"); describe
+  prior work plainly and keep claims measured. Slide 1 is a dense title-plus-abstract
   page (top-aligned, no wasted whitespace).
 - `DECISIONS.md` — append-only decision log: one entry per decision
   (what / why / rejected / revisit-when), newest first.

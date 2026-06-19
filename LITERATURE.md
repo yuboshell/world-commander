@@ -72,6 +72,10 @@ An interactive turn-based environment on Freeciv (a Civilization-style strategy 
 Reached Grandmaster rank in StarCraft II via supervised pretraining on human replays plus league-based multi-agent RL, acting on the game interface under human-like action-rate and camera limits.
 *Relevance:* the landmark full-RL StarCraft II agent, the prior art any RTS proposal must position against. It proves the game is solvable, but by an autonomous policy trained at datacentre scale with no language in the loop; our axis is orthogonal — one human commanding by natural language, under an inference budget, training no policy of our own. The scope-setter: we do not rebuild AlphaStar, we put a human-plus-LLM in the loop and pay for it in latency and VRAM.
 
+**SMAC-R1** — SMAC-R1: The Emergence of Intelligence in Decision-Making Tasks. Deng, Ma, Fan, Song, Zhang, Zhang, Zhao. *arXiv 2024*. [arXiv 2410.16024](https://arxiv.org/abs/2410.16024). **[N]**
+An LLM generates interpretable decision-tree scripts for the StarCraft Multi-Agent Challenge (SMAC); the scripts are refined by environment feedback and distilled into a smaller model.
+*Relevance:* the offline-script-generation alternative to real-time language command (compile intent into a decision tree, then run it cheaply), in SMAC micro-management rather than full StarCraft II. Sits with PORTAL on the "LLM as offline architect, not per-frame actor" axis; flagged by Hongsong Tang (2026-06-19).
+
 *Also relevant (verified):* TextStarCraft II (NeurIPS 2024, [2312.11865](https://arxiv.org/abs/2312.11865)) **[P]**; LLM-PySC2 (NeurIPS 2025, [2411.05348](https://arxiv.org/abs/2411.05348)) **[P]**; the ACM Computing Surveys survey of LLM game agents (CSUR 2026, [2404.02039](https://arxiv.org/abs/2404.02039)) **[P]**; the 1.3M-parameter real-time DOOM model ([2604.07385](https://arxiv.org/abs/2604.07385)) **[P]**; and, for a small-model-for-SC2 thread, Hierarchical Expert Prompt ([2502.11122](https://arxiv.org/abs/2502.11122)) and SC-Phi2 ([2409.18989](https://arxiv.org/abs/2409.18989)).
 
 ## 2. Efficient LLM inference under latency and memory budgets

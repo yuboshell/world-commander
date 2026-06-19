@@ -5,6 +5,36 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-19: Roadmap recast as a continuous arc; a NeurIPS-styled web article becomes the sharing format
+
+**Decision (roadmap)**: replaced the three-phase roadmap with a single continuous
+framing: one question (the cost of command at game speed) pursued across the only
+thing that progresses, the environment (toy arena -> StarCraft II -> multiplayer ->
+full game). Benchmarking, methods, and the interface are a constant loop, not phases;
+the deliverable papers are milestones along the arc. Dropped the Preliminaries slide
+(redundant with Related Work and the appendix); merged the related-work appendix into
+the Related Work section; restored the Command Arena as a detail slide. **Supersedes**
+the earlier 2026-06-18 "three phases" recast.
+**Why**: the phase table sliced always-true activities (benchmark / method / interface)
+into false sequential stages; the environment is the only real axis of progress.
+
+**Decision (sharing format)**: the program is shared as an unlisted, NeurIPS-styled
+web article (GitHub Pages, a personal repo with an opaque slug), in place of mailing a
+PDF; the Marp deck stays as the presentation version. "Unlisted" is obscurity only
+(noindex + unguessable URL, source kept in a deck-only repo); the link is treated as a
+semi-secret password, not true access control.
+**Why**: a readable article suits a browsing audience better than slides, and a link is
+easier to share than a file. ICML's two-column layout does not translate to a scrolling
+page, so NeurIPS (single-column) is the faithful template.
+**Rejected**: ICML web styling (two columns) and a public Pages site (would expose the
+proposal and enable scooping).
+
+**Decision (register)**: slides and the article use a plain academic register, with no
+promotional or slogan vocabulary; recorded in CLAUDE.md deck conventions.
+
+**Discussion**: the 2026-06-19 micro-operation-vs-big-picture round is in PROPOSAL.md's
+Discussion log; the open decision (which regime to build first) is Open Question #5.
+
 ## 2026-06-18: Adopted an index.md hub (LLM-wiki structure); README demoted to a pointer
 
 **Decision**: created index.md as the repository's entry hub — a Map of Content

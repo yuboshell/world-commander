@@ -66,6 +66,10 @@ section.landscape h1 { font-size: 30px; }
 section.landscape p { margin: 0.62em 0; }
 section.landscape .lead { font-size: 0.78em; color: #555; margin: 0 0 0.5em 0; }
 
+/* outline / agenda slide: vertically centred list */
+section.outline { justify-content: center !important; }
+section.outline li { margin: 0.55em 0; }
+
 /* title slide: title + scope + two captioned figures, then author */
 section.title { justify-content: flex-start !important; }
 section.title h1 { border-bottom: none; font-size: 42px; margin: 0 0 6px 0; padding: 0; }
@@ -99,12 +103,23 @@ section.title::after { content: "" !important; }
 
 <img src="fig/command-station.png" style="max-height: 280px;">
 
-<div class="caption">The long-term goal: the next revolutionary video game, played by voice from the commander's chair.</div>
+<div class="caption">The long-term goal: a new kind of video game, played by voice from the commander's chair.</div>
+
+<div class="credit">Image generated with GPT Image 2.</div>
 
 </div>
 </div>
 
 <p class="date">June 2026</p>
+
+---
+
+<!-- _class: outline -->
+# Outline
+
+1. **Related Work**: agents, real-time benchmarks, and efficient inference
+2. **The Roadmap**: one question, across steadily harder environments
+3. **The Command Arena**: the first step, before StarCraft II
 
 ---
 
@@ -120,62 +135,10 @@ section.title::after { content: "" !important; }
 
 ---
 
-<!-- _class: tight -->
-# <span class="sec">2</span> Preliminaries
-
-The background this work builds on:
-
-| Area | What it gives us |
-|---|---|
-| **Reinforcement learning** | A game is a Markov decision process: an agent acts, and win rate is the reward. We need to *understand* this to read the field; the work runs models by prompting, training none of its own. |
-| **Efficient LLM inference** | KV-cache eviction (H2O, SnapKV, StreamingLLM, [OBCache](https://arxiv.org/abs/2510.07651)), structured pruning, quantization, distillation: the methods this work puts to the test. |
-| **Vision-language-action models** | [π0](https://arxiv.org/abs/2410.24164): a slow vision-language backbone driving a fast action expert, trained by imitation. A model for splitting a slow strategic brain from fast executors. |
-| **The StarCraft II agent stack** | [PySC2](https://github.com/google-deepmind/pysc2), [TextStarCraft II](https://arxiv.org/abs/2312.11865), LLM-PySC2: the environment we inherit rather than rebuild. |
-| **Tokenization beyond text** | Byte-pair encoding and [graph tokenization (ICLR 2026)](https://www.diaoenmao.com): the basis for a learned game-state tokenizer. |
-
----
-
-<!-- _class: tight -->
-# <span class="sec">3</span> The Roadmap: Three Phases of One Program
-
-**World Commander** is one **program**: an LLM executing a human commander's intent at game speed, under latency and memory budgets, matured in three **phases** over environments of growing complexity (a toy room → StarCraft II → multiplayer → a full game), under one shared **harness**. The end-state game is the long-term goal, not a deliverable; each phase answers a question its community already cares about, beyond the game.
-
-| Phase | Goal | Environment | Deliverable (one paper) |
-|---|---|---|---|
-| **1 Benchmarks** | Measure the cost of command at game speed | command arena → real-time SC2 | which efficiency methods survive a live, closed-loop clock (eviction scored by win rate, not perplexity) |
-| **2 Methods** | Drive that cost down | SC2 (harder) → multiplayer | the game-state tokenizer (fewer tokens per decision, hence less latency and memory); better eviction; action-level speculation |
-| **3 Interface** | Ship a playable system | multiplayer → full game | voice-commanded play; crowd motion under budget (embodiment), deferred |
-
----
-
-# <span class="sec">4</span> The Command Arena
-
-**The first step:** a warm-up task that validates the streaming-command infrastructure cheaply, before StarCraft II.
-
-<div class="columns" style="grid-template-columns: 41% 56%">
-<div>
-
-- Colour-tagged agents in a room; each moves in **one of four directions** on command.
-- One command is trivial; the test is the **stream**: many, fast.
-- Harder with **rate**, **compositional orders** ("everyone but the yellow one"), and **memory** ("the one I moved west").
-- Measured: **grounding accuracy**, **command-to-action latency**, **deadline misses**.
-
-</div>
-<div class="col-img">
-
-<img src="fig/arena.svg" style="max-height: 384px;">
-
-<div class="caption"><strong>Figure 2: the command arena.</strong> Colour-tagged agents, each moving in one of four directions on command.</div>
-
-</div>
-</div>
-
----
-
 <!-- _class: landscape -->
-# Appendix: Related-Work Landscape (1 of 2)
+# Related Work: The Landscape (1 of 2)
 
-<p class="lead">Agents at game speed, and the methods under test. The fuller field behind slides 1 and 2; the canonical review with every link is <code>LITERATURE.md</code>.</p>
+<p class="lead">Agents at game speed, and the methods under test. The fuller field behind the argument; the canonical review with every link is <code>LITERATURE.md</code>.</p>
 
 **Agents in real-time games.** [AlphaStar](https://www.nature.com/articles/s41586-019-1724-z) (Nature 2019) mastered StarCraft II by full reinforcement learning (no language, datacentre scale, fully autonomous); the precedent we deliberately do not repeat. LLMs now issue SC2 commands (TextStarCraft II, LLM-PySC2, AVA), but only with the clock paused or slowed. Real-time is the new axis: VideoGameBench and AgileThinker show models collapse once it keeps running. Closest to us, [HLA](https://arxiv.org/abs/2312.15224), Adaptive Command, and DPT-Agent put a human in command with a fast-slow split, but cooperatively, or by steering a hand-built behaviour tree. CivRealm is the turn-based-strategy contrast.
 
@@ -184,13 +147,55 @@ The background this work builds on:
 ---
 
 <!-- _class: landscape -->
-# Appendix: Related-Work Landscape (2 of 2)
+# Related Work: The Landscape (2 of 2)
 
-<p class="lead">Fast-slow execution, game-state representation, and the Phase-3 motion stack.</p>
+<p class="lead">Fast-slow execution, game-state representation, and the motion stack.</p>
 
 **Hierarchical and VLA fast-slow execution.** [π0](https://arxiv.org/abs/2410.24164) pairs a slow vision-language brain with a fast action expert (up to 50 Hz); Fast-in-Slow folds both into one backbone; OpenVLA is the open "tokens-as-actions" baseline. This is the split we adapt for commander plus executors. Language-conditioned precedents: NL-to-StarCraft II grounding (2019) and CALVIN.
 
 **Game-state representation and world models.** Toward fewer tokens per decision: Diao's [graph tokenization](https://arxiv.org/abs/2603.11099) (ICLR 2026), VQ-VAE, and IRIS / Δ-IRIS (context-aware delta tokenization). Action-conditioned world models, WHAM / WHAMM (Nature 2025), GameNGen, and DreamerV3, are the engines behind any what-if forecaster.
 
-**Crowd and real-time motion (Phase 3, embodiment).** CrowdMoGen has an LLM plan a crowd's motion, but makes no real-time claim. Per-character real-time generators under budget: MotionLCM, MotionPCM, MotionStreamer, and [MotionBricks](https://arxiv.org/abs/2604.24833) (NVIDIA, SIGGRAPH 2026; 350k skills from one backbone). Single-character today; language-commanded crowds under one GPU is the gap we name.
+**Crowd and real-time motion (embodiment, deferred).** CrowdMoGen has an LLM plan a crowd's motion, but makes no real-time claim. Per-character real-time generators under budget: MotionLCM, MotionPCM, MotionStreamer, and [MotionBricks](https://arxiv.org/abs/2604.24833) (NVIDIA, SIGGRAPH 2026; 350k skills from one backbone). Single-character today; language-commanded crowds under one GPU is the gap we name.
+
+---
+
+<!-- _class: tight -->
+# <span class="sec">2</span> The Roadmap
+
+**One program, one question:** what does command cost at game speed, and how do we drive it down? That question holds across the whole program; the one thing that grows is the environment we test it in:
+
+<p style="text-align: center; font-size: 1.18em; margin: 0.7em 0;"><strong>toy arena&nbsp;&nbsp;→&nbsp;&nbsp;StarCraft II&nbsp;&nbsp;→&nbsp;&nbsp;multiplayer&nbsp;&nbsp;→&nbsp;&nbsp;a full game</strong></p>
+
+Throughout, one loop: **measure** the cost of command, **build methods** to cut it, behind a single **commander interface**. Three milestones fall out along the way, each a paper a community already wants:
+
+- **Real-time commander benchmark:** the cost, measured against a live clock (KV-cache and pruning)
+- **Game-state tokenizer:** fewer tokens per decision, so less latency and memory (tokenization beyond text)
+- **Crowd-motion embodiment:** command at scale on one GPU, deferred (motion generation and graphics)
+
+The end-state game is the long-term goal, not a deliverable.
+
+---
+
+<!-- _class: tight -->
+# <span class="sec">3</span> The Command Arena
+
+**The first step:** a warm-up task that validates the streaming-command infrastructure cheaply, before StarCraft II.
+
+<div class="columns" style="grid-template-columns: 41% 56%">
+<div>
+
+- Colour-tagged agents in a room; each moves in **one of four directions** on command.
+- One command is trivial; the test is the **stream**: many, fast.
+- Harder with **rate**, **grouping** ("everyone except the yellow one"), and **memory** ("the one who was sitting earlier, move west").
+- Measured: **grounding accuracy**, **command-to-action latency**, **deadline misses**.
+
+</div>
+<div class="col-img">
+
+<img src="fig/arena.svg" style="max-height: 360px;">
+
+<div class="caption"><strong>The command arena.</strong> Colour-tagged agents, each moving in one of four directions on command.</div>
+
+</div>
+</div>
 
