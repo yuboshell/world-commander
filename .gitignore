@@ -12,3 +12,8 @@ papers/*.pdf
 
 # Obsidian vault config and local workspace state (browsed locally, not shared)
 .obsidian/
+
+# Web clips (Obsidian Web Clipper) — a local reading inbox. Distil each clip into a
+# curated node (LITERATURE.md here, or a memex concept note) and commit that, not the dump.
+raw/*
+!raw/README.md
