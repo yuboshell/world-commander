@@ -124,14 +124,14 @@ section.title::after { content: "" !important; }
 ---
 
 <!-- _class: tight -->
-# <span class="sec">1</span> Related Work: Efficiency, Untested at Game Speed
+# <span class="sec">1</span> Related Work
 
 - The interface shipped once ([Tom Clancy's EndWar (2008)](https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar)), but on a 70-word grammar. Language models lifted that limit; they still **cannot act at game pace**.
 - LLMs already play StarCraft II, by text ([TextStarCraft II (NeurIPS 2024)](https://arxiv.org/abs/2312.11865)) or screenshots ([AVA (2026)](https://arxiv.org/abs/2503.05383)), but only by **pausing or slowing the clock**.
-- Real-time is only now being measured ([VideoGameBench (2025)](https://arxiv.org/abs/2505.18134): models collapse once the clock keeps running), and only for single agents, **not the efficiency methods**.
-- Eviction, quantization, and distillation are tuned on perplexity, where they already drop the wrong instruction ([Pitfalls of KV Cache Compression (ACL 2026)](https://arxiv.org/abs/2510.00231)); none is **scored by win rate in a live RTS**, where that lost context loses the match.
+- Real-time is only now being measured ([VideoGameBench (2025)](https://arxiv.org/abs/2505.18134): performance drops once the clock runs), and only for single agents, **not the efficiency methods**.
+- Eviction, quantization, and distillation are tuned on perplexity, where they already drop the wrong instruction ([Pitfalls of KV Cache Compression (ACL 2026)](https://arxiv.org/abs/2510.00231)); none is **tested inside a running game**, where a discarded detail can decide the match.
 
-> How much does command cost, in latency and memory, at game speed, and how do we drive it down?
+> How much does command cost, in latency and memory, at game speed, and how can it be reduced?
 
 ---
 
@@ -140,9 +140,9 @@ section.title::after { content: "" !important; }
 
 <p class="lead">Agents at game speed, and the methods under test. The fuller field behind the argument; the canonical review with every link is <code>LITERATURE.md</code>.</p>
 
-**Agents in real-time games.** [AlphaStar](https://www.nature.com/articles/s41586-019-1724-z) (Nature 2019) mastered StarCraft II by full reinforcement learning (no language, datacentre scale, fully autonomous); the precedent we deliberately do not repeat. LLMs now issue SC2 commands (TextStarCraft II, LLM-PySC2, AVA), but only with the clock paused or slowed. Real-time is the new axis: VideoGameBench and AgileThinker show models collapse once it keeps running. Closest to us, [HLA](https://arxiv.org/abs/2312.15224), Adaptive Command, and DPT-Agent put a human in command with a fast-slow split, but cooperatively, or by steering a hand-built behaviour tree. CivRealm is the turn-based-strategy contrast.
+**Agents in real-time games.** [AlphaStar](https://www.nature.com/articles/s41586-019-1724-z) (Nature 2019) mastered StarCraft II by full reinforcement learning (no language, datacentre scale, fully autonomous); the precedent we deliberately do not repeat. LLMs now issue SC2 commands (TextStarCraft II, LLM-PySC2, AVA), but only with the clock paused or slowed. Real-time play has only recently been benchmarked: VideoGameBench and AgileThinker show performance dropping under time pressure. Closest to us, [HLA](https://arxiv.org/abs/2312.15224), Adaptive Command, and DPT-Agent put a human in command with a fast-slow split, but cooperatively, or by steering a hand-built behaviour tree. CivRealm is the turn-based-strategy contrast.
 
-**Efficient inference, under latency and memory.** The methods we put on the clock: KV-cache eviction (H2O, SnapKV, StreamingLLM, [OBCache](https://arxiv.org/abs/2510.07651)), plus action-level Speculative Actions, which cuts latency losslessly. The warning shots: Pitfalls of KV Cache Compression, DefensiveKV, and SideQuest show eviction silently drops the wrong token, and that its quality is task-dependent. [WorldMemArena](https://arxiv.org/abs/2605.29341) pushes agent-memory evaluation into a closed interaction loop: a different "memory" from the KV-cache, but the same methodological turn we make.
+**Efficient inference, under latency and memory.** The methods evaluated here: KV-cache eviction (H2O, SnapKV, StreamingLLM, [OBCache](https://arxiv.org/abs/2510.07651)), plus action-level Speculative Actions, which cuts latency losslessly. Recent analyses (Pitfalls of KV Cache Compression, DefensiveKV, SideQuest) show eviction can discard the wrong information, and that its effect is task-dependent. [WorldMemArena](https://arxiv.org/abs/2605.29341) pushes agent-memory evaluation into a closed interaction loop: a different "memory" from the KV-cache, but the same methodological turn we make.
 
 ---
 
@@ -155,16 +155,16 @@ section.title::after { content: "" !important; }
 
 **Game-state representation and world models.** Toward fewer tokens per decision: Diao's [graph tokenization](https://arxiv.org/abs/2603.11099) (ICLR 2026), VQ-VAE, and IRIS / Δ-IRIS (context-aware delta tokenization). Action-conditioned world models, WHAM / WHAMM (Nature 2025), GameNGen, and DreamerV3, are the engines behind any what-if forecaster.
 
-**Crowd and real-time motion (embodiment, deferred).** CrowdMoGen has an LLM plan a crowd's motion, but makes no real-time claim. Per-character real-time generators under budget: MotionLCM, MotionPCM, MotionStreamer, and [MotionBricks](https://arxiv.org/abs/2604.24833) (NVIDIA, SIGGRAPH 2026; 350k skills from one backbone). Single-character today; language-commanded crowds under one GPU is the gap we name.
+**Crowd and real-time motion (embodiment, deferred).** CrowdMoGen has an LLM plan a crowd's motion, but makes no real-time claim. Per-character real-time generators under budget: MotionLCM, MotionPCM, MotionStreamer, and [MotionBricks](https://arxiv.org/abs/2604.24833) (NVIDIA, SIGGRAPH 2026; 350k skills from one backbone). Single-character today; language-commanded crowds on one GPU remain open.
 
 ---
 
 <!-- _class: tight -->
 # <span class="sec">2</span> The Roadmap
 
-**One program, one question:** what does command cost at game speed, and how do we drive it down? That question holds across the whole program; the one thing that grows is the environment we test it in:
+**One program, one question:** what does command cost at game speed, and how can it be reduced? That question holds across the whole program; the one thing that grows is the environment we test it in:
 
-<p style="text-align: center; font-size: 1.18em; margin: 0.7em 0;"><strong>toy arena&nbsp;&nbsp;→&nbsp;&nbsp;StarCraft II&nbsp;&nbsp;→&nbsp;&nbsp;multiplayer&nbsp;&nbsp;→&nbsp;&nbsp;a full game</strong></p>
+<p style="text-align: center; font-size: 1.18em; margin: 0.7em 0;"><strong>Toy Arena&nbsp;&nbsp;→&nbsp;&nbsp;StarCraft II&nbsp;&nbsp;→&nbsp;&nbsp;Multiplayer&nbsp;&nbsp;→&nbsp;&nbsp;Full Game</strong></p>
 
 Throughout, one loop: **measure** the cost of command, **build methods** to cut it, behind a single **commander interface**. Three milestones fall out along the way, each a paper a community already wants:
 
@@ -186,7 +186,7 @@ The end-state game is the long-term goal, not a deliverable.
 
 - Colour-tagged agents in a room; each moves in **one of four directions** on command.
 - One command is trivial; the test is the **stream**: many, fast.
-- Harder with **rate**, **grouping** ("everyone except the yellow one"), and **memory** ("the one who was sitting earlier, move west").
+- Harder with **rate**, **grouping** ("everyone except the yellow one"), and **memory** ("the one I sent west earlier, now move it north").
 - Measured: **grounding accuracy**, **command-to-action latency**, **deadline misses**.
 
 </div>

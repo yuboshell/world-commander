@@ -34,34 +34,34 @@
 </ol>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="3" style="--paginate:true;--class:tight;" data-marpit-pagination-total="7" data-size="16:9">
-<h1 id="span-classsec1span-related-work-efficiency-untested-at-game-speed"><span class="sec">1</span> Related Work: Efficiency, Untested at Game Speed</h1>
+<h1 id="span-classsec1span-related-work"><span class="sec">1</span> Related Work</h1>
 <ul>
 <li>The interface shipped once (<a href="https://en.wikipedia.org/wiki/Tom_Clancy's_EndWar">Tom Clancy's EndWar (2008)</a>), but on a 70-word grammar. Language models lifted that limit; they still <strong>cannot act at game pace</strong>.</li>
 <li>LLMs already play StarCraft II, by text (<a href="https://arxiv.org/abs/2312.11865">TextStarCraft II (NeurIPS 2024)</a>) or screenshots (<a href="https://arxiv.org/abs/2503.05383">AVA (2026)</a>), but only by <strong>pausing or slowing the clock</strong>.</li>
-<li>Real-time is only now being measured (<a href="https://arxiv.org/abs/2505.18134">VideoGameBench (2025)</a>: models collapse once the clock keeps running), and only for single agents, <strong>not the efficiency methods</strong>.</li>
-<li>Eviction, quantization, and distillation are tuned on perplexity, where they already drop the wrong instruction (<a href="https://arxiv.org/abs/2510.00231">Pitfalls of KV Cache Compression (ACL 2026)</a>); none is <strong>scored by win rate in a live RTS</strong>, where that lost context loses the match.</li>
+<li>Real-time is only now being measured (<a href="https://arxiv.org/abs/2505.18134">VideoGameBench (2025)</a>: performance drops once the clock runs), and only for single agents, <strong>not the efficiency methods</strong>.</li>
+<li>Eviction, quantization, and distillation are tuned on perplexity, where they already drop the wrong instruction (<a href="https://arxiv.org/abs/2510.00231">Pitfalls of KV Cache Compression (ACL 2026)</a>); none is <strong>tested inside a running game</strong>, where a discarded detail can decide the match.</li>
 </ul>
 <blockquote>
-<p>How much does command cost, in latency and memory, at game speed, and how do we drive it down?</p>
+<p>How much does command cost, in latency and memory, at game speed, and how can it be reduced?</p>
 </blockquote>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-class="landscape" lang="en-CA" class="landscape" data-marpit-pagination="4" style="--paginate:true;--class:landscape;" data-marpit-pagination-total="7" data-size="16:9">
 <h1 id="related-work-the-landscape-1-of-2">Related Work: The Landscape (1 of 2)</h1>
 <p class="lead">Agents at game speed, and the methods under test. The fuller field behind the argument; the canonical review with every link is <code>LITERATURE.md</code>.</p>
-<p><strong>Agents in real-time games.</strong> <a href="https://www.nature.com/articles/s41586-019-1724-z">AlphaStar</a> (Nature 2019) mastered StarCraft II by full reinforcement learning (no language, datacentre scale, fully autonomous); the precedent we deliberately do not repeat. LLMs now issue SC2 commands (TextStarCraft II, LLM-PySC2, AVA), but only with the clock paused or slowed. Real-time is the new axis: VideoGameBench and AgileThinker show models collapse once it keeps running. Closest to us, <a href="https://arxiv.org/abs/2312.15224">HLA</a>, Adaptive Command, and DPT-Agent put a human in command with a fast-slow split, but cooperatively, or by steering a hand-built behaviour tree. CivRealm is the turn-based-strategy contrast.</p>
-<p><strong>Efficient inference, under latency and memory.</strong> The methods we put on the clock: KV-cache eviction (H2O, SnapKV, StreamingLLM, <a href="https://arxiv.org/abs/2510.07651">OBCache</a>), plus action-level Speculative Actions, which cuts latency losslessly. The warning shots: Pitfalls of KV Cache Compression, DefensiveKV, and SideQuest show eviction silently drops the wrong token, and that its quality is task-dependent. <a href="https://arxiv.org/abs/2605.29341">WorldMemArena</a> pushes agent-memory evaluation into a closed interaction loop: a different &quot;memory&quot; from the KV-cache, but the same methodological turn we make.</p>
+<p><strong>Agents in real-time games.</strong> <a href="https://www.nature.com/articles/s41586-019-1724-z">AlphaStar</a> (Nature 2019) mastered StarCraft II by full reinforcement learning (no language, datacentre scale, fully autonomous); the precedent we deliberately do not repeat. LLMs now issue SC2 commands (TextStarCraft II, LLM-PySC2, AVA), but only with the clock paused or slowed. Real-time play has only recently been benchmarked: VideoGameBench and AgileThinker show performance dropping under time pressure. Closest to us, <a href="https://arxiv.org/abs/2312.15224">HLA</a>, Adaptive Command, and DPT-Agent put a human in command with a fast-slow split, but cooperatively, or by steering a hand-built behaviour tree. CivRealm is the turn-based-strategy contrast.</p>
+<p><strong>Efficient inference, under latency and memory.</strong> The methods evaluated here: KV-cache eviction (H2O, SnapKV, StreamingLLM, <a href="https://arxiv.org/abs/2510.07651">OBCache</a>), plus action-level Speculative Actions, which cuts latency losslessly. Recent analyses (Pitfalls of KV Cache Compression, DefensiveKV, SideQuest) show eviction can discard the wrong information, and that its effect is task-dependent. <a href="https://arxiv.org/abs/2605.29341">WorldMemArena</a> pushes agent-memory evaluation into a closed interaction loop: a different &quot;memory&quot; from the KV-cache, but the same methodological turn we make.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-class="landscape" lang="en-CA" class="landscape" data-marpit-pagination="5" style="--paginate:true;--class:landscape;" data-marpit-pagination-total="7" data-size="16:9">
 <h1 id="related-work-the-landscape-2-of-2">Related Work: The Landscape (2 of 2)</h1>
 <p class="lead">Fast-slow execution, game-state representation, and the motion stack.</p>
 <p><strong>Hierarchical and VLA fast-slow execution.</strong> <a href="https://arxiv.org/abs/2410.24164">π0</a> pairs a slow vision-language brain with a fast action expert (up to 50 Hz); Fast-in-Slow folds both into one backbone; OpenVLA is the open &quot;tokens-as-actions&quot; baseline. This is the split we adapt for commander plus executors. Language-conditioned precedents: NL-to-StarCraft II grounding (2019) and CALVIN.</p>
 <p><strong>Game-state representation and world models.</strong> Toward fewer tokens per decision: Diao's <a href="https://arxiv.org/abs/2603.11099">graph tokenization</a> (ICLR 2026), VQ-VAE, and IRIS / Δ-IRIS (context-aware delta tokenization). Action-conditioned world models, WHAM / WHAMM (Nature 2025), GameNGen, and DreamerV3, are the engines behind any what-if forecaster.</p>
-<p><strong>Crowd and real-time motion (embodiment, deferred).</strong> CrowdMoGen has an LLM plan a crowd's motion, but makes no real-time claim. Per-character real-time generators under budget: MotionLCM, MotionPCM, MotionStreamer, and <a href="https://arxiv.org/abs/2604.24833">MotionBricks</a> (NVIDIA, SIGGRAPH 2026; 350k skills from one backbone). Single-character today; language-commanded crowds under one GPU is the gap we name.</p>
+<p><strong>Crowd and real-time motion (embodiment, deferred).</strong> CrowdMoGen has an LLM plan a crowd's motion, but makes no real-time claim. Per-character real-time generators under budget: MotionLCM, MotionPCM, MotionStreamer, and <a href="https://arxiv.org/abs/2604.24833">MotionBricks</a> (NVIDIA, SIGGRAPH 2026; 350k skills from one backbone). Single-character today; language-commanded crowds on one GPU remain open.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-class="tight" lang="en-CA" class="tight" data-marpit-pagination="6" style="--paginate:true;--class:tight;" data-marpit-pagination-total="7" data-size="16:9">
 <h1 id="span-classsec2span-the-roadmap"><span class="sec">2</span> The Roadmap</h1>
-<p><strong>One program, one question:</strong> what does command cost at game speed, and how do we drive it down? That question holds across the whole program; the one thing that grows is the environment we test it in:</p>
-<p style="text-align: center; font-size: 1.18em; margin: 0.7em 0;"><strong>toy arena&nbsp;&nbsp;→&nbsp;&nbsp;StarCraft II&nbsp;&nbsp;→&nbsp;&nbsp;multiplayer&nbsp;&nbsp;→&nbsp;&nbsp;a full game</strong></p>
+<p><strong>One program, one question:</strong> what does command cost at game speed, and how can it be reduced? That question holds across the whole program; the one thing that grows is the environment we test it in:</p>
+<p style="text-align: center; font-size: 1.18em; margin: 0.7em 0;"><strong>Toy Arena&nbsp;&nbsp;→&nbsp;&nbsp;StarCraft II&nbsp;&nbsp;→&nbsp;&nbsp;Multiplayer&nbsp;&nbsp;→&nbsp;&nbsp;Full Game</strong></p>
 <p>Throughout, one loop: <strong>measure</strong> the cost of command, <strong>build methods</strong> to cut it, behind a single <strong>commander interface</strong>. Three milestones fall out along the way, each a paper a community already wants:</p>
 <ul>
 <li><strong>Real-time commander benchmark:</strong> the cost, measured against a live clock (KV-cache and pruning)</li>
@@ -78,7 +78,7 @@
 <ul>
 <li>Colour-tagged agents in a room; each moves in <strong>one of four directions</strong> on command.</li>
 <li>One command is trivial; the test is the <strong>stream</strong>: many, fast.</li>
-<li>Harder with <strong>rate</strong>, <strong>grouping</strong> (&quot;everyone except the yellow one&quot;), and <strong>memory</strong> (&quot;the one who was sitting earlier, move west&quot;).</li>
+<li>Harder with <strong>rate</strong>, <strong>grouping</strong> (&quot;everyone except the yellow one&quot;), and <strong>memory</strong> (&quot;the one I sent west earlier, now move it north&quot;).</li>
 <li>Measured: <strong>grounding accuracy</strong>, <strong>command-to-action latency</strong>, <strong>deadline misses</strong>.</li>
 </ul>
 </div>
