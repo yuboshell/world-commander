@@ -5,6 +5,46 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-19: Arena concurrent clock done; StarCraft II readiness and sequencing
+
+**Decision (clock)**: the command arena now runs a real concurrent clock. A
+background thread ticks the uncontrolled agents every tick_ms of wall-clock time
+while the model thinks, so a slow response sees and concedes to a changed world,
+not merely a dropped action. Implemented in the bench repo
+(`arena/clock.py`, thread-safe `GridWorld`, separate RNGs for command stream vs
+NPC moves). This is the shared real-time primitive every later environment reuses,
+so it was built and validated in the cheap arena first.
+**Why**: a single synchronous tick per command did not model the binding RTS
+constraint (the opponent keeps acting during your decision); the concurrent clock
+makes "correct but late" cost something, which is what the benchmark measures.
+
+**Decision (SC2 readiness)**: not ready to run StarCraft II today, but
+well-positioned. The arena has de-risked the streaming-command core (command to
+served-LLM to parsed action to metrics), the served Qwen3-14B endpoint, the
+reporting/visualization, and now the concurrent clock. Remaining gaps before a
+first SC2 game: (1) install the SC2 Linux game and maps on amax41; (2) stand up
+LLM-PySC2 (Python 3.9 env) and point its LLM client at our vLLM; (3) add our
+real-time layer on top (wall-clock deadline enforcement, dropped late actions,
+VRAM ceiling, metric logging), which neither reference repo provides.
+
+**Decision (sequencing)**: (a) finish the arena concurrent clock first [done];
+(b) bring up SC2 + LLM-PySC2 plumbing and run one built-in scenario as a smoke
+test; (c) port the real-time deadline layer onto it; (d) the efficiency frontier
+sweep (KV-cache, VRAM budgets) comes last and needs our own controllable vLLM,
+not the shared inventory-bot instance.
+**Why LLM-PySC2 as the base**: it exposes the full PySC2 action space to LLMs and
+uses an asynchronous query architecture that keeps latency roughly constant as the
+agent population grows, the closest existing match to our concurrent-clock needs.
+We add the real-time benchmark layer rather than reinventing the interface.
+
+**Vendored** (gitignored, bench repo `reference/`): `NKAI-Decision-Team/LLM-PySC2`
+and `histmeisah/Large-Language-Models-play-StarCraftII` (TextStarCraft II,
+Chain-of-Summarization; defeats built-in AI to level 5 on modest hardware), for
+interface study.
+**Rejected (for now)**: building the SC2 harness from scratch (the references
+already wrap PySC2); attempting the efficiency sweep on the shared vLLM (no
+control over KV-cache policy or VRAM budget there).
+
 ## 2026-06-19: Phase-1 implementation repo, and the compute plan for the first task
 
 **Decision (repo)**: the Phase-1 code lives in a separate repo,
