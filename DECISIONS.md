@@ -5,6 +5,27 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-19: Phase-1 implementation repo, and the compute plan for the first task
+
+**Decision (repo)**: the Phase-1 code lives in a separate repo,
+`DreamSoul-AI/world-commander-bench` (private), not in this docs repo. It holds the
+command arena now and the StarCraft II harness later (shared streaming-command core).
+**Why**: keeps the docs repo (deck, Obsidian vault, proposal) clean, is light to clone
+on servers, and lets the benchmark open-source at publication without exposing the
+proposal. Synced across machines via GitHub; Claude Code runs on each.
+**Rejected**: a `code/` subdirectory in this repo (mixes docs and code, and the private
+proposal would block opening the code).
+
+**Decision (compute)**: develop on the MacBook (editor only; M2, 8 GB); run the first
+task on **amax41** (3x RTX 2080 Ti, headless, interactive, internet) against its
+already-deployed vLLM (Qwen3-14B-AWQ, OpenAI-compatible API) -> no model download.
+**yubopc** (RTX 4060, 8 GB, Ada sm_89, Windows/WSL2) is earmarked as the modern
+consumer-GPU measurement box; Alliance for the later 1B-70B sweep.
+**Why**: fastest path to a first result, and a fleet spanning consumer GPU (yubopc) to
+datacentre (Alliance). The shared deployed model is fine for command-following
+validation; the efficiency sweep (KV-cache, VRAM budgets) will need our own controllable
+vLLM instance -- a later step, not the first task.
+
 ## 2026-06-19: Roadmap recast as a continuous arc; a NeurIPS-styled web article becomes the sharing format
 
 **Decision (roadmap)**: replaced the three-phase roadmap with a single continuous
