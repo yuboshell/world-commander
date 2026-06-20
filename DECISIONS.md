@@ -5,6 +5,31 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-20: StarCraft II testbed bring-up (smoke test passing)
+
+**Decision (milestone)**: the StarCraft II testbed runs end-to-end against our own
+controllable vLLM. SC2 4.10 Linux (headless) + LLM-PySC2 + Qwen3-4B-AWQ on a
+dedicated GPU runs the `2s3z` SMAC task: the LLM agent observed the game, queried
+our vLLM, and issued 120 actions with zero errors, completing an episode and
+saving a replay. The streaming-command core proven in the arena transfers up, as
+intended. Reproducible recipe + integration patches are documented in the bench
+repo's `SC2.md`.
+
+**Decision (base + integration)**: build on LLM-PySC2 (full PySC2 action space,
+OpenAI-compatible client) rather than reimplement the interface. Three small
+patches were needed and are recorded: disable Qwen3 thinking in the API call
+(the same gotcha as the arena), route arbitrary served model ids to the OpenAI
+client, and point the example config at our endpoint. These live in the gitignored
+vendored copy, so the recipe is captured in `SC2.md` to survive re-clone.
+
+**Decision (what's next, unchanged sequencing)**: this is a "the loop drives the
+game" smoke test, not the benchmark. Next is to port the arena's real-time layer
+onto it (wall-clock decision deadlines, drop late actions, VRAM ceiling, metric
+logging), then scale the model for win-rate and sweep KV-cache policies on our own
+vLLM (long SC2 context is where eviction finally bites).
+**Rejected**: treating the smoke test as a result (no deadline enforcement or
+metrics yet); running win-rate on a 4B (used only to validate the pipeline).
+
 ## 2026-06-19: Arena concurrent clock done; StarCraft II readiness and sequencing
 
 **Decision (clock)**: the command arena now runs a real concurrent clock. A
