@@ -5,6 +5,25 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-21: SC2 drop-late implemented — the real-time frontier appears (yubopc), confirming the prediction
+
+Closes the loop on the two entries below. yubopc implemented hard **drop-late**
+(`WCB_SC2_DROP_LATE=1`: discard a reply that arrives past its deadline — a true real-time clock,
+the arena's deadline-miss semantics). Validated: at MAX_WAIT=10 s (< the ~25 s latency), 13/13
+late replies were discarded → the agent falls back to auto-attack.
+
+**Drop-late frontier (3s5z): declining ~87% → ~62%** as the deadline crosses the ~25 s latency —
+**vs the flat soft-deadline curve**. So the prediction held: under a *soft* deadline win-rate is
+deadline-invariant (late replies still applied); under **hard drop-late the clock binds**, and
+win-rate falls toward the auto-attack floor (58%) as the deadline tightens. This is the program's
+**real-time-viability frontier**, now demonstrated at SC2 scale — and it matches the arena's
+deadline-frontier logic exactly. The World Commander clock layer (wall-clock deadline + drop-late)
+now exists in the SC2 harness and behaves as designed.
+
+**Caveat:** camera calibration is run-fragile (some batches never queried the LLM), so a clean
+high-n curve is still pending; the trend is clear on the valid points. Remaining: stabilize
+calibration for a high-n frontier; add the VRAM ceiling.
+
 ## 2026-06-21: SC2 win-rate has an auto-attack confound — the LLM's marginal value is suggestive, not proven (yubopc)
 
 Refines the entry below. yubopc added **no-LLM controls** (`MAX_QUERIES=0`, 0 LLM calls
