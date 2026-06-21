@@ -5,6 +5,42 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-21: Phase-1 efficiency findings — the levers, and where the latency actually is
+
+Synthesis of the overnight arena experiments (amax41, GPU 2; numbers in the bench
+repo's `REPORT.md`). These set Phase-1 direction; all are preliminary (n=60–200,
+single GPU) but consistent.
+
+**1. The deadline is time-to-consequence, and at human pace the LLM is viable.** Recut
+the latency data by deadline: at the arbitrary 500 ms tick 4B/8B miss 63%, but at a
+**1 s** budget they miss **0%**. Voice-paced command has seconds of time-to-consequence,
+so the program's question is not "beat a game clock" but "stay viable at the world's
+consequence deadline, and how cheaply."
+
+**2. Macro is capability-bound; micro is solved cheaply.** Micro (reference resolution)
+saturates at 4B (1.00). Macro (spatial planning) climbs with size and is never solved
+(1.7B ~0, 4B/8B ~0.35, 14B 0.59). The 4B "sweet spot" holds only for micro.
+
+**3. Decision (architecture): route by granularity.** A `RouterClient` sending micro→
+small/fast (4B) and macro→large/capable (14B) gets **large-only's accuracy at lower
+latency** (Pareto win) — pay the big model only where it's needed. This is the Phase-1
+answer to "micro vs macro": one NL channel, a hierarchy underneath.
+
+**4. Decision (where the latency is): output × decode, and *cacheable* input.** Input
+context is NOT the primary latency wall — true prefill is ~linear (~0.2 ms/token) and,
+crucially, **prefix-cacheable**: caching an SC2-scale ~4.6 k-token static prefix cut a
+decision ~927 ms (76%). The bigger driver is **output length × decode speed**. So the
+efficiency levers are: **(a) terse output schema** (~3.5× in the arena), **(b) prefix-
+cache the static system+wiki prefix**, **(c) right-size / hierarchy**, **(d) faster decode
+(CUDA graphs)**. yubopc SC2 win-rate should apply (b)+(d) to close the 25 s→15 s-deadline gap.
+
+**5. Load is bursty, not steady.** The realistic stress is a crisis flurry; a fast model
+clears ~3-command bursts within a 2 s deadline.
+
+**Rejected**: a single model for all granularities (hierarchy dominates); input-context
+reduction (KV eviction) as the primary *latency* lever — it mainly helps the VRAM budget,
+since input prefill is modest and cacheable; an esports-grade latency target (wrong regime).
+
 ## 2026-06-20: StarCraft II on the correct version (5.0.15, yubopc) — LLM queried; latency > the agent's real-time deadline
 
 First run on a *supported* SC2 build (5.0.15 / Base96883, Windows/Battle.net on
