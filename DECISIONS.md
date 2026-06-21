@@ -5,6 +5,22 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-20: Hosting migrated GitHub → GitLab (account suspension)
+
+**Decision**: after the `yubohuangai` GitHub account was auto-suspended (bursty
+automated git/CLI activity during an overnight run tripped GitHub's abuse
+detection), all repos were mirrored to **GitLab**, which is now canonical. The two
+project repos live in a private GitLab group **`worldcommander`**
+(`worldcommander/world-commander`, `worldcommander/world-commander-bench`); the
+private HTML report is served from GitLab Pages (members-only). Collaborators are
+added as **group members** (the GitLab equivalent of the old DreamSoul-AI org).
+The bench-repo and report links in this docs repo now point to GitLab.
+**Note**: older log entries below still reference `DreamSoul-AI/...` (GitHub) — left
+as-is, since they record where things lived at the time. Transferable lessons (how
+the suspension happened, recovery, distributed-git resilience) are captured in memex.
+**Rejected**: blocking work on a GitHub appeal; a second GitHub account to evade the
+suspension (would risk the same).
+
 ## 2026-06-20: Scope locked — discrete, voice-paced command under a time-to-consequence deadline (no fast-reaction layer)
 
 Prompted by discussion with Enmao on micro vs macro ("微操 = VLA/embodied; 大局观 =

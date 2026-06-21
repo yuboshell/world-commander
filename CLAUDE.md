@@ -19,10 +19,11 @@ Created 2026-06-10; its own git repo under `~/github/world-commander`.
   Phase-1 wedge spec (real-time StarCraft II commander benchmark plus the
   command-arena warm-up, KV-cache eviction evaluated by win rate), project
   inventory, prior-art map with verified links, discussion log. Drafted
-  2026-06-10 for discussion with Dr. Enmao Diao. Canonical remote:
-  `DreamSoul-AI/world-commander` (private org repo — Diao sees it as org owner,
-  no invite needed; visible to all org members). A frozen v1 snapshot sits
-  archived at `yubohuangai/game-commander`.
+  2026-06-10 for discussion with Dr. Enmao Diao. Canonical remote (since the
+  2026-06-20 GitHub suspension): GitLab `worldcommander/world-commander` (private
+  group; add collaborators as group members). The former GitHub remote
+  `DreamSoul-AI/world-commander` is retired; a frozen v1 snapshot was archived at
+  `yubohuangai/game-commander` (GitHub, now inaccessible).
 - `world-commander.md` / `.pdf` / `.html` — the Marp slide deck
   (named after the title, not "deck"): a clean, small mirror of PROPOSAL.md
   for presenting and sharing at any time, and Yubo's own review artifact.
