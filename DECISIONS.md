@@ -5,6 +5,32 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-21: SC2 win-rate is capability-bound + deadline-invariant (yubopc) — why the arena's hard drop-late is the real-time metric
+
+yubopc ran a full deadline frontier on SC2 5.0.15 (4B; results in the bench repo's
+`results/sc2/sweep_2s3z_4B.md`):
+- **3s5z: ~75% win (30/40), deadline-invariant** — 8/8 at *both* the loosest (60 s) and the
+  tightest (5 s) MAX_WAIT; timeouts rise 0→74 as the deadline tightens but win-rate doesn't fall.
+- **2s3z: 0/8 even synchronously** — a capability/matchup wall (beyond 4B), also deadline-invariant.
+
+**Why there's no clock effect (the key):** LLM-PySC2's deadline is **soft** — a reply that
+misses the deadline fires a `no_op` that cycle but is **still applied on a later cycle**. So
+commands execute, just delayed; 3s5z's larger force tolerates the delay. The deadline knob
+changes *timeout counts*, not *outcomes*.
+
+**Implication for the program.** SC2 win-rate under a soft deadline measures **capability**,
+not real-time viability. To measure the real-time effect you need **hard drop-late** — discard
+a decision whose deadline has passed instead of applying it late. **That is exactly the command
+arena's deadline-miss semantics** (a late action is dropped). So the arena is not merely a
+warm-up: it is the harness that already isolates the real-time axis SC2's soft deadline hides —
+and it agrees that capability/matchup binds until a hard deadline is enforced.
+
+**Decision / next:** implement hard **drop-late** in the SC2 harness (the World Commander clock
+layer SC2.md lists as "still to add"), then re-run the 3s5z frontier for a *true*
+win-rate-vs-deadline curve; the arena's drop-late is the template.
+**Rejected**: reading SC2's soft-deadline 3s5z result as a real-time-viability frontier (it
+isn't — it's a capability measurement until drop-late is enforced).
+
 ## 2026-06-21: Phase-1 efficiency findings — the levers, and where the latency actually is
 
 Synthesis of the overnight arena experiments (amax41, GPU 2; numbers in the bench
