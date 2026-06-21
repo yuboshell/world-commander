@@ -21,10 +21,16 @@ consequence deadline, and how cheaply."
 saturates at 4B (1.00). Macro (spatial planning) climbs with size and is never solved
 (1.7B ~0, 4B/8B ~0.35, 14B 0.59). The 4B "sweet spot" holds only for micro.
 
-**3. Decision (architecture): route by granularity.** A `RouterClient` sending micro→
-small/fast (4B) and macro→large/capable (14B) gets **large-only's accuracy at lower
-latency** (Pareto win) — pay the big model only where it's needed. This is the Phase-1
-answer to "micro vs macro": one NL channel, a hierarchy underneath.
+**3. Decision (architecture): route by granularity — and prefer code over a bigger LLM
+for computable goals.** A `RouterClient` sending micro→small/fast (4B) and macro→large
+(14B) gets large-only's accuracy at lower latency (Pareto win). But the stronger finding:
+the macro cliff is *planning*, not perception — 4B does spatial **reference** at 0.97
+("top half") and classifies macro **intent** at **1.00** (converge/scatter/home/flee),
+yet does goal **geometry** at only 0.38. Since the geometry is exact in code, the right
+move is **classify intent (LLM) + execute geometry (code)** → macro grounding ~1.00 on a
+*small* model, no big model needed. So the hierarchy routes computable goals to **code**,
+and reserves a bigger LLM for genuinely open-ended planning. Phase-1 answer to "micro vs
+macro": one NL channel; underneath, classify→(reference | code-execute | escalate).
 
 **4. Decision (where the latency is): output × decode, and *cacheable* input.** Input
 context is NOT the primary latency wall — true prefill is ~linear (~0.2 ms/token) and,
