@@ -5,6 +5,26 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-21: SC2 final high-n verdict — 4B LLM edge ~+10 pp, NOT significant; the durable result is the drop-late clock (yubopc)
+
+Final convergence of the SC2 thread (high-n, honest-science). The 4B LLM's win-rate edge on
+balanced 3s5z is **~+10 pp and NOT statistically significant** (LLM-acts 49/64 ≈ 77% vs
+no-effective-LLM 32/48 ≈ 67%, p≈0.25) — and it **shrank as n grew (+22 → +17 → +10 pp):
+regression to the mean**, so the earlier "+20 pp, p≈0.11" was small-sample optimism.
+Qualitatively, the 4B's commands are **tactically sensible but largely redundant with
+auto-attack** ("attack the nearest/weakest" is what SC2 units already do) — which explains the
+null edge.
+
+**So the durable SC2 contribution is not a win-rate number — it is the validated drop-late
+real-time clock** (the declining frontier, entry below). SC2 win-rate is capability/matchup-bound
+and a noisy, auto-attack-heavy signal; a clean LLM-over-auto-attack effect would need a matchup
+where micro/macro matters beyond auto-attack, plus far more episodes.
+
+**Implication (program direction):** this strengthens the **command arena** as the primary
+Phase-1 instrument — it isolates grounding + the real-time deadline cleanly, without SC2's
+auto-attack confound and tiny-n noise. SC2 contributes the real-time *mechanism* (drop-late) and
+a realistic context-scale latency, not the headline metric.
+
 ## 2026-06-21: SC2 drop-late implemented — the real-time frontier appears (yubopc), confirming the prediction
 
 Closes the loop on the two entries below. yubopc implemented hard **drop-late**
