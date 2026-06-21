@@ -5,6 +5,37 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-20: StarCraft II on the correct version (5.0.15, yubopc) — LLM queried; latency > the agent's real-time deadline
+
+First run on a *supported* SC2 build (5.0.15 / Base96883, Windows/Battle.net on
+yubopc), correcting the 4.10 dead end. Documented in the bench repo's `SC2.md`.
+
+**Result**: on 5.0.15 the camera centers and the **LLM is genuinely queried**
+end-to-end (Qwen3-4B-AWQ in WSL2 on the RTX 4060, reached from the Windows pysc2
+process). Decision latency **~25 s** (~2710 in / 166 out tokens, ~7 tok/s — slow
+because `--enforce-eager` disables CUDA graphs). **Win-rate still ~0**, but now for a
+clean, on-thesis reason: the agent's real-time deadline `MAX_LLM_WAITING_TIME` (~15 s)
+is *shorter than the latency*, so decisions time out to `no_op`.
+
+**Correction (clock model)**: LLM-PySC2 v0.1 is **asynchronous with a real-time
+deadline** — it fires the query, keeps ticking the game, and `no_op`s if no response
+arrives within `MAX_LLM_WAITING_TIME` game-loops. It is **not synchronous** (the game
+does *not* wait for the model). So the unpausable clock we planned to "add" already
+exists in basic form; our layer **refines** it (wall-clock deadline *sweep*, explicit
+drop-late accounting, VRAM ceiling), not builds it from scratch. This supersedes the
+"synchronous" framing and the "port the real-time layer" next-step in the bring-up
+entry below.
+
+**Correction (the earlier "120 actions")**: those were rule-based camera-calibration
+moves on 4.10, where broken centering meant the LLM was ~never queried — not LLM
+decisions. The genuine LLM-in-the-loop result is this 5.0.15 run.
+
+**Next**: faster decode (drop `--enforce-eager` → CUDA graphs ~2×; smaller/quantized
+KV) so latency < deadline, then measure win-rate *against* the deadline — the
+efficiency-under-a-real-clock question the program exists to answer.
+**Rejected**: treating 25 s-latency `no_op` timeouts as a win-rate result; raising the
+deadline indefinitely (that just re-creates the paused-clock setting we reject).
+
 ## 2026-06-20: Hosting migrated GitHub → GitLab (account suspension)
 
 **Decision**: after the `yubohuangai` GitHub account was auto-suspended (bursty
