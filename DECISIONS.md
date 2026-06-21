@@ -5,6 +5,52 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-20: Scope locked — discrete, voice-paced command under a time-to-consequence deadline (no fast-reaction layer)
+
+Prompted by discussion with Enmao on micro vs macro ("微操 = VLA/embodied; 大局观 =
+agent"). The clarification below sharpens the program's scope; the implementation
+sweeps (deadline frontier, command-rate load curve, model-size sweep) are in the
+bench repo and already measure the right thing.
+
+**Decision (latency is set by *time-to-consequence*, not command frequency)**:
+commands are issued by a human in natural language (voice-paced), so the command
+*arrival rate* is low and bursty, never sustained-high. The binding constraint is
+the **per-command latency budget = how long until the world punishes inaction**
+(the "stop Adam before the pit" reaction deadline), which comes from world dynamics,
+not from how often the human speaks. This regime is far more forgiving than esports
+real-time control (seconds, not 60 Hz), which is *why* an LLM commander is viable.
+The end-to-end budget is `speak + ASR + decide + actuate < time-to-consequence`;
+the LLM decision is one term.
+
+**Decision (macro/micro is a *content* axis, orthogonal to urgency)**: granularity
+(macro: "repair the city's factory damage" ↔ micro: "farmer #1 in group 1, step
+forward") is independent of the deadline. Both flow through one NL command channel.
+Macro tests planning/decomposition (one intent → many sub-actions, longer output);
+micro tests precise **NL→entity grounding** ("which farmer?") + one discrete action.
+The command taxonomy samples the (granularity × time-to-consequence) grid.
+
+**Decision (no fast-reaction / VLA layer in scope; no handoff to measure)**: we
+deliberately scope to **discrete, symbolic, voice-paced** commands. There is no
+continuous high-frequency control, so there is no VLA/embodied fast-reaction layer
+and **no agent↔VLA handoff boundary to engineer or measure**. The benchmark
+measures the **agent's own feasibility + efficiency envelope**: does decision
+latency stay under the time-to-consequence deadline, and how that scales with model
+size, world size, command burst, and VRAM budget — i.e. "can the agent do it, and
+how cheaply," not "when to hand off."
+
+**Positioning vs VLA (the answer to "isn't micro just VLA?")**: real-time
+*continuous* micro (kiting, dodging splash at high APM) *would* be VLA/embodied
+territory — but our micro is discrete and human-paced, so it's grounding, not motor
+control. In this regime the LLM-agent suffices; the latency-vs-deadline numbers are
+the evidence. If a future scenario needs continuous real-time micro, that slice is
+delegated to a fast reactive controller — explicitly out of the current scope.
+
+**Rejected**: framing the benchmark as measuring an agent↔VLA "handoff boundary"
+(no second layer exists in scope — this was an over-import of Enmao's dichotomy);
+equating micro with VLA (our micro is discrete/symbolic NL grounding); treating
+command *frequency* as the latency driver (it's time-to-consequence); an
+esports-grade latency target (wrong regime).
+
 ## 2026-06-20: StarCraft II testbed bring-up (smoke test passing)
 
 **Decision (milestone)**: the StarCraft II testbed runs end-to-end against our own
