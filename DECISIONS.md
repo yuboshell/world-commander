@@ -5,6 +5,26 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-21: SC2 win-rate has an auto-attack confound — the LLM's marginal value is suggestive, not proven (yubopc)
+
+Refines the entry below. yubopc added **no-LLM controls** (`MAX_QUERIES=0`, 0 LLM calls
+verified): SC2 units **auto-attack**, so a strong force wins with no LLM at all (1c3s5z 8/8
+with 0 decisions). Raw win-rate therefore overstates the LLM's role.
+
+Controlled (auto-attack baseline vs with-LLM, 4B, synchronous):
+- **3s5z: 58% (14/24) → 78% (25/32)** — **+20 pp, but p≈0.11, NOT significant** at n≈28/side.
+- **2s3z: 0% → 0%** — unwinnable for the force regardless.
+
+**Takeaways:** the 4B LLM's benefit is **modest, noisy, and only on a *balanced* matchup**,
+not yet conclusive. SC2 win-rate is a noisy, auto-attack-heavy signal. This supersedes the
+unqualified "3s5z ~75% win" in the entry below: ~75–78% is largely the scripted force; the
+LLM's **marginal contribution** is the right metric (~+20 pp, suggestive, pending statistical
+power). Good honest-science catch by yubopc — analogous to the arena's prefix-cache / macro
+methodology artifacts.
+
+**Decision / next:** report SC2 win-rate **only as LLM-vs-auto-attack on a balanced matchup
+with adequate n**; pair with the hard drop-late clock (below) for the real-time axis.
+
 ## 2026-06-21: SC2 win-rate is capability-bound + deadline-invariant (yubopc) — why the arena's hard drop-late is the real-time metric
 
 yubopc ran a full deadline frontier on SC2 5.0.15 (4B; results in the bench repo's
