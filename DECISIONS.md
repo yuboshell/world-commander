@@ -5,6 +5,32 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-21: Two LLM roles — executor (optimize) vs commander stand-in (convenience); the efficiency target is parse+ground latency
+
+Making the framing unambiguous (it's implied across `LITERATURE.md` / `CLAUDE.md`, worth stating
+as a decision). The **human** is the world-state viewer and **strategic commander** (intent +
+planning). The LLM appears in two distinct roles that must not be conflated:
+
+1. **Executor — the real system role, the one we optimize.** Parse the human's natural-language
+   command and **ground it to actions, fast**. This is the only role on the system's critical
+   path; its metrics are **command-to-action latency + grounding accuracy**. It plays to the LLM's
+   strength (reference resolution — named/spatial/temporal — is ~solved and fast on a small model,
+   ~1.0 on 4B) and *avoids its weakness* (planning/macro is the human's job, not the executor's).
+
+2. **Commander stand-in — a test convenience, NOT optimized.** For short-term/automated runs we
+   let a script (or an LLM) *generate* commands in place of the human, so experiments run without a
+   person in the loop. That's command *generation*, a different job; in Phase 1 the arena uses a
+   scripted stand-in (`sample_command`).
+
+**Decision:** the Phase-1 efficiency target is **minimizing executor parse+ground latency** under
+the time-to-consequence deadline, via the measured levers (terse output schema, prefix-cache the
+static prefix, right-size/4B, route computable goals to code / the hierarchy). We do **not**
+optimize the commander stand-in, and we do **not** ask the executor to plan — so the macro/planning
+cliff is *not* a blocker; it simply delimits what to leave to the human (or to code).
+
+**Implication:** the third (embodiment/motion) direction inherits this — human commands → LLM
+grounds "press X" fast → motion controller executes; the LLM never plans the reach.
+
 ## 2026-06-21: SC2 final high-n verdict — 4B LLM edge ~+10 pp, NOT significant; the durable result is the drop-late clock (yubopc)
 
 Final convergence of the SC2 thread (high-n, honest-science). The 4B LLM's win-rate edge on
