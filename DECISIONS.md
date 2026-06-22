@@ -9,8 +9,8 @@ project-local; transferable lessons still go to memex at milestones.
 
 Refines the "two LLM roles" entry below with an implementation and a cross-environment view.
 **E3 now runs a genuine two-LLM pipeline:** an **LLM commander** (stand-in for the human) views
-the world, reasons, and issues a natural-language order; an **LLM executor** parses + grounds it
-and acts. Commander and executor are timed separately; only the **executor's parse+ground time is
+the world, reasons, and issues a natural-language order; an **LLM executor** grounds it
+and acts. Commander and executor are timed separately; only the **executor's grounding time is
 on the deadline path** (the commander stands in for the human, who is off the system's critical
 path). First two-LLM L0 run (4B, 100 rounds): commander p50 143 ms, executor p50 69 ms, grounding 1.00.
 
@@ -29,14 +29,14 @@ whether the commander should be scripted or an LLM:
 **Invariant across all three: we measure the executor's processing time** under the
 time-to-consequence deadline. The commander's fidelity (scripted vs LLM) is a per-environment choice.
 
-## 2026-06-21: Two LLM roles — executor (optimize) vs commander stand-in (convenience); the efficiency target is parse+ground latency
+## 2026-06-21: Two LLM roles — executor (optimize) vs commander stand-in (convenience); the efficiency target is grounding latency
 
 Making the framing unambiguous (it's implied across `LITERATURE.md` / `CLAUDE.md`, worth stating
 as a decision). The **human** is the world-state viewer and **strategic commander** (intent +
 planning). The LLM appears in two distinct roles that must not be conflated:
 
-1. **Executor — the real system role, the one we optimize.** Parse the human's natural-language
-   command and **ground it to actions, fast**. This is the only role on the system's critical
+1. **Executor — the real system role, the one we optimize.** **Ground** the human's natural-language
+   command into actions, fast. This is the only role on the system's critical
    path; its metrics are **command-to-action latency + grounding accuracy**. It plays to the LLM's
    strength (reference resolution — named/spatial/temporal — is ~solved and fast on a small model,
    ~1.0 on 4B) and *avoids its weakness* (planning/macro is the human's job, not the executor's).
@@ -46,7 +46,7 @@ planning). The LLM appears in two distinct roles that must not be conflated:
    person in the loop. That's command *generation*, a different job; in Phase 1 the arena uses a
    scripted stand-in (`sample_command`).
 
-**Decision:** the Phase-1 efficiency target is **minimizing executor parse+ground latency** under
+**Decision:** the Phase-1 efficiency target is **minimizing executor grounding latency** under
 the time-to-consequence deadline, via the measured levers (terse output schema, prefix-cache the
 static prefix, right-size/4B, route computable goals to code / the hierarchy). We do **not**
 optimize the commander stand-in, and we do **not** ask the executor to plan — so the macro/planning

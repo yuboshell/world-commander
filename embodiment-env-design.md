@@ -6,14 +6,14 @@ embodiment interest.
 
 ## 1. Why a third environment
 World Commander = a human gives natural-language commands to agents in real time,
-under latency/memory budgets; the LLM is the **executor** that parses + grounds the
+under latency/memory budgets; the LLM is the **executor** that grounds the
 command (see DECISIONS: "two LLM roles"). E1 and E2 measure grounding + decision
 latency, but in both, *acting is instantaneous* (a move is applied as a discrete
 event). E3 adds the axis they miss:
 
 > **Physical execution time.** The agent has a body; carrying out a command takes
 > *motion*, which takes *time and space*. So the real-time budget becomes
-> `parse + ground (LLM) + execute the motion (body) < deadline`, not just decision latency.
+> `executor grounding (LLM) + reach (body) < deadline`, not just decision latency.
 
 E3 is also the natural testbed for the **LLM → motion-controller handoff** (the
 embodiment instance of the hierarchy we found: LLM for intent, a fast controller for
@@ -44,7 +44,7 @@ time* and (b) enriching the command so the executor does genuine grounding (belo
   (it views the state, reasons, and issues the order — a genuine two-LLM pipeline); E1 uses
   a scripted stand-in (`sample_command`). Either way the order targets the lit button, and
   the commander is **timed but off the deadline path** (it stands in for the human).
-- **LLM executor** = parse the command + **ground it to a target** ("press button k"),
+- **LLM executor** = **ground the command to a target** ("press button k"),
   fast. *Optimized — its processing time is the metric on the deadline path.* Never plans the reach.
 - **Motion controller** (fast layer) = turn "press k" into a reach **trajectory** and
   execute it. The **handoff** is this LLM→controller boundary.
@@ -52,7 +52,7 @@ time* and (b) enriching the command so the executor does genuine grounding (belo
 ## 4. What's genuinely new: motion makes the deadline physical
 Pressing is a **timed reach**: motion duration scales with hand-to-button distance and
 the character's speed. So:
-`success ⇔ parse+ground latency + motion duration ≤ W` (the lit window).
+`success ⇔ executor grounding latency + motion duration ≤ W` (the lit window).
 Sweep **W** → a **success-vs-deadline frontier**, exactly mirroring the arena's
 deadline frontier — but now the budget includes an *execution* term, not just decision.
 This is E3's contribution.
@@ -70,12 +70,12 @@ Each command resolves to a target set + is scored by **acceptable-set grounding*
 
 ## 6. Metrics
 - **Grounding accuracy** — did the executor resolve the command to the right target?
-- **End-to-end success rate** — pressed the right button *while lit* (parse+ground +
+- **End-to-end success rate** — pressed the right button *while lit* (grounding +
   motion within W).
-- **Latency breakdown** — LLM parse+ground latency vs motion duration; the
+- **Latency breakdown** — LLM grounding latency vs motion duration; the
   **success-vs-W frontier** is the headline (per model size / schema).
 - **Efficiency levers carry over** — terse output, prefix-cache, right-size/4B, the
-  hierarchy/code-route — all shrink parse+ground latency → widen the viable-W frontier.
+  hierarchy/code-route — all shrink grounding latency → widen the viable-W frontier.
 
 ## 7. The LLM → motion handoff: fidelity ladder
 Keep the program's "light harness" rule; escalate fidelity only as needed.
@@ -88,7 +88,7 @@ Keep the program's "light harness" rule; escalate fidelity only as needed.
   generating the reach — realistic motion *and* realistic timing; the fast layer is a
   genuine motion generator / VLA-style controller.
 
-**Recommendation:** build **L0 first** — it answers the core question (does parse+ground
+**Recommendation:** build **L0 first** — it answers the core question (does grounding
 + motion fit the deadline, and how do the efficiency levers move the frontier) with no
 heavy deps. Escalate to L1/L2 to study real motion generation and the fast controller.
 
@@ -102,7 +102,7 @@ heavy deps. Escalate to L1/L2 to study real motion generation and the fast contr
 ## 9. Phase-1 scope (minimal first slice)
 L0: N=2 buttons at fixed positions, window W, scripted stand-in commander, LLM executor
 (reuse `RealClient`), a `reach_time` model, and a **success-vs-W sweep** across W,
-command type, and model size — output a frontier + a parse+ground/motion latency
+command type, and model size — output a frontier + a grounding/motion latency
 breakdown, mirroring the arena report. Reuse E1's `commands`, `metrics`, `rate`,
 deadline-frontier, and `RouterClient`.
 
@@ -110,7 +110,7 @@ deadline-frontier, and `RouterClient`.
 Built in the bench repo (`desk/`, `scripts/run_desk.py`; 5 TDD tests). First run, 4B on
 GPU 2, 80 rounds, 2 buttons:
 - **Executor grounding 0.91** — resolves the reference (direct/colour/spatial) to the lit button.
-- **Parse+ground p50 ≈ 69 ms** — far below the arena's ~500 ms, because the prompt is tiny and
+- **Grounding p50 ≈ 69 ms** — far below the arena's ~500 ms, because the prompt is tiny and
   the output is one word (consistent with "output length dominates latency").
 - **Reach time — not LLM latency — gates the tight window:** at W=300 ms the cross-desk reaches
   (~340 ms) drop success to 0.53; by W≥500 ms success ≈ the grounding ceiling (0.91).
