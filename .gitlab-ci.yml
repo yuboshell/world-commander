@@ -1,0 +1,16 @@
+image: alpine:latest
+
+# Publish the research proposal deck (world-commander.html) as a private GitLab
+# Pages site (members-only — the project is private). Only the 3 images the deck
+# references are copied (fig/ also holds large unused assets).
+pages:
+  stage: deploy
+  script:
+    - mkdir -p public/fig
+    - cp world-commander.html public/index.html
+    - cp fig/arena.svg fig/command-station.png fig/hero.svg public/fig/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
