@@ -103,6 +103,21 @@ command type, and model size — output a frontier + a parse+ground/motion laten
 breakdown, mirroring the arena report. Reuse E1's `commands`, `metrics`, `rate`,
 deadline-frontier, and `RouterClient`.
 
+## 9a. First L0 result (2026-06-21) — the axis works
+Built in the bench repo (`desk/`, `scripts/run_desk.py`; 5 TDD tests). First run, 4B on
+GPU 2, 80 rounds, 2 buttons:
+- **Executor grounding 0.91** — resolves the reference (direct/colour/spatial) to the lit button.
+- **Parse+ground p50 ≈ 69 ms** — far below the arena's ~500 ms, because the prompt is tiny and
+  the output is one word (consistent with "output length dominates latency").
+- **Reach time — not LLM latency — gates the tight window:** at W=300 ms the cross-desk reaches
+  (~340 ms) drop success to 0.53; by W≥500 ms success ≈ the grounding ceiling (0.91).
+
+So physical execution time is the binding term at short windows, as designed — E3's new axis is
+real and measurable. **Caveat:** hand carry-over + only 2 buttons means ~half the reaches are 0
+(the lit button is already under the hand); to surface reach more cleanly, return the hand to a
+rest position each round and/or use more, wider-spaced buttons. Next: that refinement, then add
+the LLM↔motion handoff at higher fidelity (L1/L2 with a real reach/motion model).
+
 ## 10. Open questions
 - Fidelity to commit to (L0 now; trigger for L1/L2).
 - Which text-to-motion model for L2 (the lab tie-in).
