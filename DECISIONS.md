@@ -5,6 +5,30 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-22: Two-LLM pipeline (LLM commander stand-in + executor) — implemented in E3; the general structure across E1/E2/E3
+
+Refines the "two LLM roles" entry below with an implementation and a cross-environment view.
+**E3 now runs a genuine two-LLM pipeline:** an **LLM commander** (stand-in for the human) views
+the world, reasons, and issues a natural-language order; an **LLM executor** parses + grounds it
+and acts. Commander and executor are timed separately; only the **executor's parse+ground time is
+on the deadline path** (the commander stands in for the human, who is off the system's critical
+path). First two-LLM L0 run (4B, 100 rounds): commander p50 143 ms, executor p50 69 ms, grounding 1.00.
+
+**This pipeline is the program's general structure — it applies to all three environments** (it
+is "two LLM roles" instantiated). What differs is **how hard the commander's job is**, which sets
+whether the commander should be scripted or an LLM:
+- **E1 (Grid Arena) / E3 (desk):** commanding is trivial (reference commands). A **scripted**
+  commander is cleaner for measuring the executor (no commander-error confound); an LLM commander
+  only adds human-stand-in realism. E1 stays scripted; E3 uses an LLM commander for the framing.
+- **E2 (StarCraft II):** commanding is **hard** (strategy/planning). Here a separate LLM commander
+  genuinely matters — the **slow strategic-commander / fast-executor split** (HLA-style slow-mind /
+  fast-mind, see LITERATURE) becomes a real research question. SC2 currently has one LLM doing both;
+  splitting it is the natural next step and connects to the hierarchy finding (LLM for intent, fast
+  layer for execution).
+
+**Invariant across all three: we measure the executor's processing time** under the
+time-to-consequence deadline. The commander's fidelity (scripted vs LLM) is a per-environment choice.
+
 ## 2026-06-21: Two LLM roles — executor (optimize) vs commander stand-in (convenience); the efficiency target is parse+ground latency
 
 Making the framing unambiguous (it's implied across `LITERATURE.md` / `CLAUDE.md`, worth stating

@@ -40,9 +40,12 @@ time* and (b) enriching the command so the executor does genuine grounding (belo
 
 ## 3. Roles (per the locked "two LLM roles" decision)
 - **Human** = commander: views the world, issues the natural-language command (intent).
-  Phase 1 uses a **scripted stand-in** (as E1's `sample_command` does).
+  In automated runs a **stand-in** plays this role. **E3 uses an LLM commander stand-in**
+  (it views the state, reasons, and issues the order — a genuine two-LLM pipeline); E1 uses
+  a scripted stand-in (`sample_command`). Either way the order targets the lit button, and
+  the commander is **timed but off the deadline path** (it stands in for the human).
 - **LLM executor** = parse the command + **ground it to a target** ("press button k"),
-  fast. *Optimized.* It never plans the reach.
+  fast. *Optimized — its processing time is the metric on the deadline path.* Never plans the reach.
 - **Motion controller** (fast layer) = turn "press k" into a reach **trajectory** and
   execute it. The **handoff** is this LLM→controller boundary.
 
@@ -117,6 +120,13 @@ real and measurable. **Caveat:** hand carry-over + only 2 buttons means ~half th
 (the lit button is already under the hand); to surface reach more cleanly, return the hand to a
 rest position each round and/or use more, wider-spaced buttons. Next: that refinement, then add
 the LLM↔motion handoff at higher fidelity (L1/L2 with a real reach/motion model).
+
+**Update (2026-06-22) — two-LLM pipeline + return-to-rest.** The commander is now an **LLM
+stand-in** (not scripted): a genuine two-LLM pipeline (LLM commander → LLM executor), with the
+hand returning to rest each round so reach is a clean function of position. 4B, 100 rounds:
+**commander p50 143 ms** (reported, off the deadline path), **executor (the focus) p50 69 ms**,
+grounding **1.00**; reach-gated frontier **0 → 0.5 → 0.98 → 1.0** (W = 300/500/800/≥1200 ms). The
+report (`embodiment.html`) opens with the experiment description and a stick-figure demo video.
 
 ## 10. Open questions
 - Fidelity to commit to (L0 now; trigger for L1/L2).
