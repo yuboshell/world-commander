@@ -30,7 +30,10 @@ rows = list(csv.DictReader(open(CSV)))
 # fields surfaced in the interactive table (subset of the 23 columns)
 COLS = ["Index", "Pillar", "Theme", "Article", "Author", "Venue", "Date",
         "Command_freeform", "Real_time", "Multi_agent", "Budget_aware", "Executor_type",
-        "Novelty", "Link"]
+        "Novelty", "Link",
+        # Diao's full record, revealed on row click:
+        "Method", "Dataset", "Metric", "Baselines", "Models", "Result",
+        "Evaluation Methods", "Others", "Code"]
 data = [{c: r.get(c, "") for c in COLS} for r in rows]
 data_js = json.dumps(data)
 
@@ -79,6 +82,10 @@ HTML = f"""<!doctype html>
   .y {{ background:#d8f0d8; color:#161; }} .nn {{ background:#eee; color:#777; }}
   .pill {{ font-weight:600; }}
   td.novelty {{ max-width:340px; }}
+  table.lit tr.main {{ cursor:pointer; }}
+  table.lit tr.detail td {{ background:#fbfbf7; }}
+  dl.d {{ display:grid; grid-template-columns:max-content 1fr; gap:2px 14px; margin:.3rem 0; font-size:.82rem; }}
+  dl.d dt {{ font-weight:600; color:#555; }} dl.d dd {{ margin:0; }}
 </style></head>
 <body>
 <div style="font-size:.9rem;color:#666;border-bottom:1px solid #eee;padding-bottom:.6rem;margin-bottom:1rem">
@@ -157,13 +164,24 @@ function render() {{
     return true;
   }});
   rows.sort((a,b)=> (a[sortK]>b[sortK]?1:a[sortK]<b[sortK]?-1:0)*sortDir);
-  tbody.innerHTML = rows.map(r => `<tr>
+  tbody.innerHTML = rows.map(r => `<tr class="main" onclick="this.nextElementSibling.hidden=!this.nextElementSibling.hidden">
     <td class="pill">${{r.Pillar}}</td><td>${{r.Theme}}</td>
-    <td>${{r.Link? `<a href="${{r.Link}}" target="_blank">${{r.Article}}</a>` : r.Article}}</td>
+    <td>${{r.Link? `<a href="${{r.Link}}" target="_blank" onclick="event.stopPropagation()">${{r.Article}}</a>` : r.Article}}</td>
     <td>${{r.Author}}</td><td>${{r.Venue}}</td><td>${{r.Date}}</td>
     <td>${{badge(r.Command_freeform)}}</td><td>${{badge(r.Real_time)}}</td>
     <td>${{badge(r.Multi_agent)}}</td><td>${{badge(r.Budget_aware)}}</td>
-    <td>${{r.Executor_type}}</td><td class="novelty">${{r.Novelty}}</td></tr>`).join("");
+    <td>${{r.Executor_type}}</td><td class="novelty">${{r.Novelty}}</td></tr>
+    <tr class="detail" hidden><td colspan="12"><dl class="d">
+      <dt>Method</dt><dd>${{r.Method||'–'}}</dd>
+      <dt>Dataset</dt><dd>${{r.Dataset||'–'}}</dd>
+      <dt>Metric</dt><dd>${{r.Metric||'–'}}</dd>
+      <dt>Baselines</dt><dd>${{r.Baselines||'–'}}</dd>
+      <dt>Models</dt><dd>${{r.Models||'–'}}</dd>
+      <dt>Result</dt><dd>${{r.Result||'–'}}</dd>
+      <dt>Evaluation</dt><dd>${{r['Evaluation Methods']||'–'}}</dd>
+      ${{r.Others? `<dt>Other</dt><dd>${{r.Others}}</dd>` : ''}}
+      ${{r.Code? `<dt>Code</dt><dd><a href="${{r.Code}}" target="_blank" onclick="event.stopPropagation()">${{r.Code}}</a></dd>` : ''}}
+    </dl></td></tr>`).join("");
   document.getElementById("shown").textContent = rows.length + " / " + DATA.length + " shown";
 }}
 render();
