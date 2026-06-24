@@ -7,11 +7,46 @@ Related-work survey for the World Commander program, compiled 2026-06-14.
 - Links are arXiv abstract pages or official venue pages, verified during the
   search. A few residual uncertainties are flagged at the end.
 
-The program in one line: a human commander gives natural-language commands and
-an LLM executes them as in-game actions in real-time strategy games, under hard
-latency and memory budgets and a live (unpausable) game clock; the research bet
-is to measure and drive down that cost, and to test efficient-inference methods
-closed-loop inside a live game (scored by win rate), which prior work does not do.
+**The program in one line.** A human commander gives **free-form natural-language
+commands**; an **LLM-based pipeline executes** them as **coordinated multi-agent
+behaviour** — *RTS game units* or *full-body crowd motion* — **in real time, under a
+latency/memory budget** and a live clock. The research bet is the **budget-aware corner**
+of that space, measured closed-loop (e.g. by win rate), which prior work does not do.
+
+## Positioning — the paradigm and the open quadrant
+
+The pipeline has a **domain-agnostic middle** and a **domain-specific edge**:
+
+`command (free-form NL) → [interpreter: LLM] → [coordination: assignment / MARL] → executor`
+
+— only the **executor** is domain-specific: *game units* (RTS) or *full-body motion*
+(crowd). So the 73-ref survey (`survey/command-crowds.csv`, now tagged per row) groups
+under three shared **pillars** plus a cross-cutting **budget** wedge:
+
+| Pillar | what it covers | refs | main themes |
+|---|---|---|---|
+| **Command** | the free-form / abstract NL command & interface | 7 | 1 |
+| **Executor** | goal → one agent's actions or motion (units / full-body / robot) | 33 | 2, 3, 5, 7 |
+| **Coordination** | multi-agent assignment / MARL / crowd behaviour | 21 | 6, 8 |
+| *(Datasets)* | command / coaching corpora | 12 | 4 |
+| *cross-cutting:* **Budget** | latency / FPS / VRAM / tokens measured? (an attribute) | 17 of 73 | — |
+
+*(Pillar is tagged per row by primary role, so it doesn't sum exactly by theme.)*
+
+**The open quadrant = the contribution.** Tag the four axes the program actually claims:
+
+| axis | "yes" / 73 |
+|---|---|
+| free-form / abstract command | 43 |
+| real-time / streaming | 22 |
+| multi-agent / crowd | 31 |
+| budget-aware (measures compute) | 17 |
+| **all four at once** | **0** |
+
+**No paper in the survey hits all four.** The closest — free-form × real-time × multi-agent,
+*ignoring* budget — is **5 papers, every one budget-blind** (4 RTS units; 1 full-body motion).
+So the wedge is the **budget-aware corner**, open in **both** executor domains — more so for
+motion (1 of the 5). The detailed per-pillar related work follows.
 
 ---
 
