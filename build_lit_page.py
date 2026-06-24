@@ -37,13 +37,51 @@ COLS = ["Index", "Pillar", "Theme", "Article", "Author", "Venue", "Date",
 data = [{c: r.get(c, "") for c in COLS} for r in rows]
 data_js = json.dumps(data)
 
-fig_uri = "data:image/png;base64," + base64.b64encode(FIG.read_bytes()).decode()
 generated = time.strftime("%Y-%m-%d, %I:%M %p %Z")
 n = len(rows)
 
 
 def count(col, val):
     return sum(1 for r in rows if r.get(col) == val)
+
+
+# Native 2x2 open-quadrant grid (over free-form-command papers), so it matches the page type
+# instead of a baked-in PNG. Each cell: total / budget-aware / top executors.
+_ff = [r for r in rows if r.get("Command_freeform") == "yes"]
+
+
+def _cell(ma, rt):
+    sub = [r for r in _ff if (r.get("Multi_agent") == "yes") == ma
+           and (r.get("Real_time") == "yes") == rt]
+    bud = sum(1 for r in sub if r.get("Budget_aware") == "yes")
+    ex = {}
+    for r in sub:
+        e = r.get("Executor_type", "")
+        if e and e != "na":
+            ex[e] = ex.get(e, 0) + 1
+    top = " · ".join(f"{k} {v}" for k, v in sorted(ex.items(), key=lambda kv: -kv[1])[:2])
+    return len(sub), bud, top
+
+
+_maxc = max(_cell(m, t)[0] for m in (False, True) for t in (False, True)) or 1
+
+
+def _qcell(ma, rt, target=False):
+    nn, bud, top = _cell(ma, rt)
+    a = 0.08 + 0.5 * nn / _maxc
+    bcls = "qb0" if bud == 0 else "qb"
+    star = " &#9733;" if target else ""
+    gap = ' <span class="qgap">&larr; the gap</span>' if target else ""
+    tcls = " qtarget" if target else ""
+    return (f'<td class="qc{tcls}" style="background:rgba(31,119,180,{a:.2f})">'
+            f'<b>{nn}</b> papers{star}<br><span class="{bcls}">{bud} budget-aware</span>{gap}'
+            f'<br><small>{top}</small></td>')
+
+
+quad = ('<table class="quad"><tr><td></td><th>offline</th><th>real-time</th></tr>'
+        '<tr><th class="qrh">single-agent</th>' + _qcell(False, False) + _qcell(False, True) + '</tr>'
+        '<tr><th class="qrh">multi-agent / crowd</th>'
+        + _qcell(True, False) + _qcell(True, True, True) + '</tr></table>')
 
 
 axes = [("free-form / abstract command", count("Command_freeform", "yes")),
@@ -63,7 +101,15 @@ HTML = f"""<!doctype html>
   h1 {{ font-size:1.5rem; margin-bottom:.2rem; }}
   h2 {{ font-size:1.15rem; margin-top:2.2rem; border-bottom:1px solid #eee; padding-bottom:.2rem; }}
   .hint {{ color:#666; font-size:.86rem; }}
-  img.fig {{ max-width:100%; border:1px solid #e2e2e2; border-radius:6px; display:block; margin:12px auto; }}
+  /* open-quadrant 2x2 — native, matches the body type (no baked-in PNG) */
+  table.quad {{ border-collapse:separate; border-spacing:7px; margin:14px auto; }}
+  table.quad th {{ font-weight:600; color:#555; font-size:.84rem; }}
+  table.quad th.qrh {{ text-align:right; white-space:nowrap; padding-right:4px; }}
+  table.quad td.qc {{ border-radius:8px; padding:14px; text-align:center; line-height:1.45;
+                      min-width:200px; font-size:.86rem; border:1px solid #d6e3f0; }}
+  table.quad td.qtarget {{ outline:2.5px solid crimson; border-color:crimson; }}
+  .qb {{ color:#161; font-weight:600; }} .qb0 {{ color:#b00; font-weight:600; }}
+  .qgap {{ color:#b00; }} table.quad small {{ color:#555; }}
   /* pipeline diagram (self-contained, no JS) */
   .pipe {{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:16px 0; }}
   .box {{ border-radius:8px; padding:10px 12px; font-size:.9rem; text-align:center; border:2px solid; }}
@@ -118,7 +164,8 @@ interpreter; <b>coordination</b> is the multi-agent layer). Red = the domain-spe
 <p class="hint"><b>No paper in the survey hits all four.</b> The closest (free-form × real-time ×
 multi-agent, ignoring budget) is 5 papers, every one budget-blind — 4 RTS units, 1 full-body motion.
 The wedge is the budget-aware corner, open in both executor domains.</p>
-<img class="fig" src="{fig_uri}" alt="open-quadrant positioning">
+{quad}
+<p class="hint" style="text-align:center">Free-form-command papers (n={count('Command_freeform','yes')}) by real-time × multi-agent — the target corner (multi-agent × real-time × budget-aware) is empty.</p>
 
 <h2>The survey ({n} refs) — filter &amp; sort</h2>
 <div class="controls">

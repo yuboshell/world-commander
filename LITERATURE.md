@@ -56,7 +56,7 @@ under three shared **pillars** plus a cross-cutting **budget** wedge:
 | budget-aware (measures compute) | 17 |
 | **all four at once** | **0** |
 
-![Open quadrant — free-form-command papers (n=43) by real-time × multi-agent; the target corner (multi-agent × real-time × budget-aware) is empty](fig/lit-positioning.png)
+<img src="fig/lit-positioning.png" width="640" alt="Open quadrant — free-form-command papers (n=43) by real-time × multi-agent; the target corner (multi-agent × real-time × budget-aware) is empty">
 
 **No paper in the survey hits all four.** The closest — free-form × real-time × multi-agent,
 *ignoring* budget — is **5 papers, every one budget-blind** (4 RTS units; 1 full-body motion).
