@@ -17,7 +17,20 @@ of that space, measured closed-loop (e.g. by win rate), which prior work does no
 
 The pipeline has a **domain-agnostic middle** and a **domain-specific edge**:
 
-`command (free-form NL) → [interpreter: LLM] → [coordination: assignment / MARL] → executor`
+```mermaid
+flowchart LR
+  C["free-form / abstract<br/>command"] --> I["interpreter<br/>(LLM)"]
+  I --> K["coordination<br/>assignment / MARL"]
+  K --> U["RTS:<br/>game-unit commands"]
+  K --> M["crowd:<br/>full-body motion"]
+  classDef shared fill:#e8eefc,stroke:#5577bb,color:#111
+  classDef edge fill:#fdeeee,stroke:#bb5555,color:#111
+  class C,I,K shared
+  class U,M edge
+```
+
+*Blue = the domain-agnostic shared middle (the **budget** wedge sits on the interpreter;
+**coordination** is the multi-agent layer). Red = the domain-specific **executor** edge.*
 
 — only the **executor** is domain-specific: *game units* (RTS) or *full-body motion*
 (crowd). So the 73-ref survey (`survey/command-crowds.csv`, now tagged per row) groups
@@ -42,6 +55,8 @@ under three shared **pillars** plus a cross-cutting **budget** wedge:
 | multi-agent / crowd | 31 |
 | budget-aware (measures compute) | 17 |
 | **all four at once** | **0** |
+
+![Open quadrant — free-form-command papers (n=43) by real-time × multi-agent; the target corner (multi-agent × real-time × budget-aware) is empty](fig/lit-positioning.png)
 
 **No paper in the survey hits all four.** The closest — free-form × real-time × multi-agent,
 *ignoring* budget — is **5 papers, every one budget-blind** (4 RTS units; 1 full-body motion).
