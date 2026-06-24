@@ -5,6 +5,19 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-23: Reports = self-contained HTML on one PRIVATE GitLab Pages hub (Crowd Motion = E4)
+
+**Decision**: experiment reports are self-contained HTML pages on ONE shared
+**private** GitLab Pages hub (the `world-commander-bench` Pages site), cross-linked by
+a switcher bar (Grid Arena E1 · StarCraft II E2 · Embodiment E3 · Crowd Motion E4). The
+crowd-motion v0 de-risk report is **E4**:
+https://world-commander-bench-087cae.gitlab.io/motion.html (members-only). The demo
+videos lead the report (people care about the demo; stats follow); built and published
+via `world-commander-motion/experiments/build_report.py --publish`.
+**Why**: one hub, one bookmark, members-only; CI just copies the self-contained file (no
+toolchain). **Rejected**: public GitHub Pages — auto-publishing reports there caused a
+GitHub account suspension (2026-06-20), so reports are private-only.
+
 ## 2026-06-22: Two-LLM pipeline (LLM commander stand-in + executor) — implemented in E3; the general structure across E1/E2/E3
 
 Refines the "two LLM roles" entry below with an implementation and a cross-environment view.
