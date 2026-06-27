@@ -5,6 +5,41 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-27: Methodological independence from Diao's toolkit; tokenization is a means, not the contribution
+
+**Decision**:
+- Judge every method by **fit-to-goal × lab-alignment × novelty**, not by whether
+  it appears in Diao's prior work (KV-cache eviction, BPE, tokenization). When
+  reaching for a tokenization/KV-cache solution, name at least one non-Diao
+  alternative and why it loses.
+- **Tokenization is a means to the budget wedge, not a contribution.** It is also
+  **sequence-native**: legitimate for motion and the command/action *stream*, but
+  勉强 for a static game-state graph (a set/graph, not a sequence — BPE applies only
+  through a serialization crutch, where continuous fields fragment it). If used: the
+  lever is **structure-aware serialization** (not BPE), it must be **reversible /
+  permutation-invariant**, and the contribution is the **closed-loop budget
+  measurement**, not the compression ratio.
+- **Motion BPE is a building block, not a contribution** (1 of 4 axes: budget +
+  motion domain, but missing free-form-command / real-time / multi-agent, and on the
+  executor edge, not the interpreter). It lives in the Graph-Tokenization repo at
+  `applications/motion-bpe/`, cross-linked — not here.
+- This **qualifies `plan/research-plan.md` §9 ("Diao = tokenization") and §10
+  ("tokenized command of a crowd")**: tokenization is one option competing on
+  merits, not a baked-in assumption.
+
+**Why**: (user feedback, this session) over-anchoring on a collaborator's last paper
+narrows imagination; the open quadrant can be attacked many ways, most not
+token-shaped (distillation to take the LLM off the inner loop; hierarchical/async
+control; classical coordination; motion matching / physics / diffusion; SSM /
+retrieval for memory). The lab's real moat is reconstruction / mocap / human-animal
+pose (Li Cheng), not LLM compression.
+
+**Rejected**: defaulting to "serialize-a-modality-and-BPE-it" across mesh / motion /
+state; treating Motion BPE as the headline contribution.
+
+**See**: `plan/open-quadrant-options.md` (the method-agnostic menu); Graph-Tokenization
+repo `applications/motion-bpe/README.md`; memex `analyses/mesh-generation-tokenization-landscape.md`.
+
 ## 2026-06-23: Reports = self-contained HTML on one PRIVATE GitLab Pages hub (Crowd Motion = E4)
 
 **Decision**: experiment reports are self-contained HTML pages on ONE shared

@@ -18,6 +18,8 @@ and a schema file (`CLAUDE.md`) that says how to maintain them.
 - [Decisions and log](DECISIONS.md) — append-only, newest first: what was chosen, why, and what was rejected. Doubles as the project's chronological work log.
 - [Embodiment env (E3) design note](embodiment-env-design.md) — proposed third environment (button-press / motion): adds *physical execution time* as a budget term and the LLM→motion-controller handoff. Sibling to the command arena (E1) and StarCraft II (E2).
 - [SC2 split (E2) design note](sc2-split-design.md) — spec (for yubopc, Windows) for the slow-commander / fast-executor decomposition in StarCraft II: the hierarchy finding tested on the hard environment.
+- [Research plan (crowd-motion)](plan/research-plan.md) — the concrete experimental protocol for the dual-aligned (Li Cheng) direction: system, synthetic-data pipeline, evaluation, milestones.
+- [Open-quadrant options](plan/open-quadrant-options.md) — method-agnostic map of how to attack the open quadrant per pillar, so no single tool (tokenization included) is assumed; the substrate for planning.
 - [Agent guide](CLAUDE.md) — the schema: conventions, the documentation contract, and how this repo is maintained.
 
 ## Sources and assets
