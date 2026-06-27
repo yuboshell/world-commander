@@ -5,6 +5,47 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-27: Research act = A (a slow language reasoner commands a fast multi-agent world); focus on the act, not the artifact; keep a portfolio
+
+**Decision**:
+- **What we do is "A":** keep a slow natural-language reasoner in command of a fast,
+  multi-agent world, in real time. A person issues free-form, *evolving* orders; the
+  system turns shifting intent into coordinated multi-agent action continuously while
+  the world moves and compute is capped. The research is the **live-clock control
+  problem**: the slow-intent / fast-execution decomposition, *when* to re-invoke the
+  slow reasoner, and handling its stale understanding of a world that has moved.
+- **Focus on the act, not the artifact.** Whether the output is a benchmark, a
+  dataset, or a method is a side-product; we decide *what to do*, and the artifact
+  follows. (Supersedes the prior turn's "benchmark-led" framing.)
+- **Direction = community white space**, chosen by *important × meaningful ×
+  under-explored*, **not** by lab moat. Survey evidence: Command is the least-explored
+  pillar (7/73), Executor the most crowded (33/73), budget-aware rare (17/73), the
+  four-axis corner empty (0/73). So the white space is the **command/control loop
+  under budget**, not the output modality.
+- **B (grounding evolving/abstract intent) is set aside as the spine** — it stays a
+  sub-capability inside A, not the research focus.
+- **Keep a portfolio; do not kill an idea for being "off-thesis."** More good ideas =
+  more researcher benefit. Off-A ideas are *parked as parallel tracks*, not rejected.
+
+**Parked ideas (off-A, kept):**
+- **BPE for motion generation.** Motion is sequence-native, so BPE is a *natural* fit
+  (unlike static game state, where it is a stretch). Standalone novelty looks
+  low-to-modest: discrete-token motion via learned **VQ codebooks** is the mainstream
+  (T2M-GPT, MotionGPT, MoMask), and "BPE a non-text modality" is already published
+  (FreeMesh for mesh, MDBPE for visual). For A it would be a *reusable component*, not
+  the contribution. Verdict: keep as a portfolio probe (Graph-Tokenization repo
+  `applications/motion-bpe/`); run a focused novelty search before investing.
+
+**Why**: (user feedback, this session) (1) artifact-type is downstream of the research
+act; (2) pick direction by community white space, not convenience/moat; (3) a research
+group benefits from a portfolio — off-thesis ideas still have value.
+
+**Rejected / set aside**: framing the choice as benchmark-vs-dataset-vs-method; B as
+the spine; killing off-thesis ideas.
+
+**See**: `plan/open-quadrant-options.md`; prior entry below (2026-06-27, methodological
+independence).
+
 ## 2026-06-27: Methodological independence from Diao's toolkit; tokenization is a means, not the contribution
 
 **Decision**:
@@ -14,7 +55,7 @@ project-local; transferable lessons still go to memex at milestones.
   alternative and why it loses.
 - **Tokenization is a means to the budget wedge, not a contribution.** It is also
   **sequence-native**: legitimate for motion and the command/action *stream*, but
-  勉强 for a static game-state graph (a set/graph, not a sequence — BPE applies only
+  a stretch for a static game-state graph (a set/graph, not a sequence — BPE applies only
   through a serialization crutch, where continuous fields fragment it). If used: the
   lever is **structure-aware serialization** (not BPE), it must be **reversible /
   permutation-invariant**, and the contribution is the **closed-loop budget
