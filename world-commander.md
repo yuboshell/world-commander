@@ -200,3 +200,17 @@ The end-state game is the long-term goal, not a deliverable.
 </div>
 </div>
 
+---
+
+<!-- _class: tight -->
+# Team
+
+<p style="margin: 0.2em 0 0.7em 0;">Who builds what, across the command-to-action loop.</p>
+
+| Member | Focus |
+|---|---|
+| **Yubo Huang** | Command interpreter, benchmark and harness, the budget framing |
+| **Enmao Diao** (advisor) | Efficient inference: KV-cache eviction, pruning, tokenization |
+| **Hongsong Tang** (Tencent Timi Studio) | Multi-agent coordination (RL / MARL) |
+| **Xirui Shi** (University of Alberta, Amii) | Embodiment and VLA (vision-language-action) execution: model-generated motion for commanded units |
+

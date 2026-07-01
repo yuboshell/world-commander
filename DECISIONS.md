@@ -5,6 +5,41 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-30: GitHub is canonical again; GitLab kept as a mirror; add Xirui Shi to the team
+
+**Decision**:
+- **Canonical remote flips back to GitHub.** The working repo is GitHub
+  `yuboshell/world-commander`, served publicly via GitHub Pages at
+  https://yuboshell.github.io/world-commander/. GitLab `worldcommander/world-commander`
+  is retained as a **mirror** (push both). Supersedes the 2026-06-20 "GitLab canonical
+  after the GitHub suspension" note.
+- **Stale remotes.** The local `origin` still points at the retired
+  `DreamSoul-AI/world-commander` (suspended org); the frozen v1 snapshot
+  `yubohuangai/game-commander` is also dead. Push by explicit remote name (`yuboshell`,
+  `gitlab`) until `origin` is cleaned up.
+- **New team member: Xirui (Dalen) Shi** (University of Alberta, Amii;
+  github.com/SIRI611). Continual RL and embodied AI; VLA / movement-primitive
+  background. Provisionally assigned to the embodiment and VLA-execution direction.
+  Added `people/xirui-shi.md` (bio + portrait) and a **Team** slide to the deck.
+
+**Why**:
+- The GitHub Pages site is the live, public "report" (`index.html` redirects to
+  `world-commander.html`); GitLab Pages was members-only. Prioritizing GitHub makes the
+  shared page the canonical, linkable artifact.
+- The member section is only visible on the public page once it is on a deck slide;
+  `people/` bios are not published. So the Team slide, not just the bio, is what
+  fulfils "update the member section in the report".
+- Xirui's research (VLA, movement primitives, embodied AI) fits the program's
+  embodiment / motion-execution layer.
+
+**Rejected**:
+- Dropping GitLab entirely: kept as a mirror for redundancy after the suspension scare.
+- A `people/` bio only (no slide): would not change the public page, the explicit ask.
+
+**Revisit when**: the dead `origin` remote is removed or repointed, or if Xirui's
+project role shifts from embodiment to another layer (the `plan/` roster was left
+unchanged pending his confirmed project).
+
 ## 2026-06-27: Research act = A (a slow language reasoner commands a fast multi-agent world); focus on the act, not the artifact; keep a portfolio
 
 **Decision**:
