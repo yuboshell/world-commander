@@ -5,6 +5,19 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-06-30: remote cleanup, `origin` now points at GitHub
+
+**Decision**: In both working repos (`world-commander`, `world-commander-bench`),
+removed the dead `origin` (`DreamSoul-AI`) and renamed `yuboshell` to `origin`, so a
+plain `git push` targets GitHub (canonical) and `main` tracks `origin/main`. `gitlab`
+stays as the mirror (`git push gitlab`). Closes the "push by explicit remote name"
+workaround from the entry below.
+
+**Why**: the stale `origin` was a foot-gun. It had already bitten us once: the
+`world-commander-bench` tree-colour re-skin (478a3dd) was pushed to GitLab but not
+GitHub, so the public Pages report lagged. Making `origin` = GitHub means the default
+push updates the live page.
+
 ## 2026-06-30: GitHub is canonical again; GitLab kept as a mirror; add Xirui Shi to the team
 
 **Decision**:
