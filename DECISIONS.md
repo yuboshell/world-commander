@@ -5,6 +5,27 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-07-02: per-project research plans drafted (hub plans.html)
+
+**Decision**: Each project in the portfolio now has a compact research plan on the hub
+(`plans.html`, linked from the home projects table): objective, falsifiable hypothesis,
+approach, experimental design (environment, baselines, metrics), milestones, risks with
+de-risking, and target venue. P1/P2 assemble the already-decided facts (drop-late frontier,
+macro-fidelity metric, Milestone 1/2, game-aware eviction as the P2 method bet); P3–P5 and
+Motion BPE are drafted from the plan docs (P5 condenses `plan/research-plan.md`) plus the
+recorded probe results. Venue targets: P1 NeurIPS D&B/ICLR, P2 ICML/NeurIPS, P3 ICLR/NeurIPS,
+P4 AAMAS/MARL tracks, P5 SIGGRAPH/CVPR, Motion BPE CVPR/ECCV/SIGGRAPH Asia.
+
+**Why**: the projects table gave titles and questions but no way to act on them; Yubo asked
+for practical plans he could execute without yet being an RL / efficient-ML / motion expert.
+Plans are explicitly living documents: P2 to be sanity-checked with Enmao, P4 with Hongsong,
+P5 with the motion side before work starts (stated on the page).
+
+**Rejected**: putting the plans in the docs repo only (the ask was the report hub; the deep
+P5 protocol stays in `plan/research-plan.md` and is referenced, not forked).
+
+**Revisit when**: any plan survives first contact with its lead or its Milestone 1.
+
 ## 2026-07-02: text-to-motion foundations join the survey (73 → 81); generator re-synced with the deployed page
 
 **Decision**: The eight text-to-motion foundations (T2M/HumanML3D, TM2T, MDM, MotionDiffuse,
