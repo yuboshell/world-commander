@@ -5,6 +5,27 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-07-02: arena demoted to ablation reserve; "M" labels spelled out as Milestone
+
+**Decision**: The command arena is **no longer a parallel milestone**. Near-term staging is
+two milestones on the coarse track — **Milestone 1**: the SC2 macro-fidelity harness
+(yubopc, now); **Milestone 2**: one efficiency method on the binding cost — with the arena
+**held in reserve as the paper's ablation instrument**: its preliminary drop-late frontier
+numbers already exist, and it returns for targeted grounding / command-rate / memory sweeps
+once the SC2 result defines what needs isolating. Report pages spell out "Milestone"
+instead of the M0/M1/M2 shorthand (the "M" read as cryptic; it stood for milestone).
+
+**Why**: the arena already delivered its de-risking (drop-late template + preliminary
+frontiers, 2026-06-21), and as an unrecognized environment its results serve the paper only
+as ablations (2026-07-02, arena = instrument). An active parallel run would split attention
+without adding a publishable number; concentrating on SC2 reaches the main result faster.
+(Also fixed a leftover "at equal win rate" in the Milestone-2 line — fidelity is the metric.)
+
+**Rejected**: running the arena in parallel (the 2026-07-01 staging — superseded by this
+entry); dropping the arena entirely (its controlled sweeps are the ablation section).
+
+**Revisit when**: the SC2 macro-fidelity task runs and the paper's ablation needs are known.
+
 ## 2026-07-02: Motion BPE = standalone parallel-track project, not a core program component
 
 **Decision**: Motion BPE (the graph/BPE motion-tokenization thread; v0 probe: BPE compresses

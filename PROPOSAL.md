@@ -69,11 +69,11 @@ State tokenization module. Game state is a structured, non-text modality: entiti
 
 Deliverables: the open-source harness and the two benchmarks, the efficiency-frontier study, and the memory-probe suite.
 
-**Near-term execution (practical staging).** Both testbeds are on the coarse (discrete-action) track, and both run now, in parallel, because neither needs model training: off-the-shelf and pruned models, prompted.
+**Near-term execution (practical staging).** The milestones are on the coarse (discrete-action) track and need no model training: off-the-shelf and pruned models, prompted.
 
-- *M0, the arena, on amax.* The E1 scaffold already exists; run it against a deployed model to produce the first drop-late frontier (command-grounding accuracy, utterance-to-action latency, deadline misses versus command rate). It de-risks the streaming-command and deadline harness with no game engineering.
-- *M1, StarCraft II, on yubopc.* Stand up LLM-PySC2 with the clock unpaused; the LLM executes a fixed scripted strategy, so the benchmark isolates execution, not strategy. The headline metric is **macro command-following fidelity across the deadline frontier**, not raw win rate (auto-attack-confounded).
-- *M2, one method.* Apply a single efficiency technique (KV-cache eviction, a distilled small commander, or speculative actions) to whatever M1 exposes as the binding cost, and show it moves the frontier at equal win rate.
+- *Milestone 1, StarCraft II, on yubopc (now).* Stand up LLM-PySC2 with the clock unpaused; the LLM executes a fixed scripted strategy, so the benchmark isolates execution, not strategy. The headline metric is **macro command-following fidelity across the deadline frontier**, not raw win rate (auto-attack-confounded).
+- *Milestone 2, one method.* Apply a single efficiency technique (KV-cache eviction, a distilled small commander, or speculative actions) to whatever Milestone 1 exposes as the binding cost, and show it moves the frontier at equal fidelity.
+- *In reserve, the command arena (amax).* Preliminary drop-late frontier numbers already exist, so the arena is not a parallel milestone: it is the paper's ablation instrument, returning for targeted grounding, command-rate, and memory sweeps once the StarCraft II result defines what needs isolating.
 
 The fine (continuous-motion) track stays deferred to Phase 3: it needs motion synthesis, real-time rendering, a synthetic-data pipeline, and abstract-intent grounding, none of which the coarse track requires. Starting coarse yields a shippable result while those problems remain open.
 

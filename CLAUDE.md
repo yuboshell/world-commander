@@ -63,11 +63,11 @@ Created 2026-06-10; its own git repo under `~/github/world-commander`.
   sc2-split-design.md). First discussion round with Dr. Diao (WeChat, 2026-06-11)
   endorsed the direction (pointers to VLA architectures like π0 and to the long
   arc being "RL in a virtual world"); outcomes are in PROPOSAL.md (Discussion log).
-- Near-term (2026-07): run M0 and M1 in parallel. M0 = the E1 arena on amax against
-  a deployed model (first drop-late frontier); M1 = StarCraft II via LLM-PySC2 on
-  yubopc (LLM executes a fixed strategy; deadline-frontier metric, not raw win rate).
-  Then M2: one efficiency method on the binding cost. Fine (crowd-motion) track
-  deferred to Phase 3.
+- Near-term (2026-07): Milestone 1 = StarCraft II via LLM-PySC2 on yubopc (LLM
+  executes a fixed strategy; headline = macro command-following fidelity across the
+  deadline frontier, not win rate). Milestone 2 = one efficiency method on the
+  binding cost. The E1 arena is in reserve as the paper's ablation instrument
+  (preliminary frontiers exist on amax). Fine (crowd-motion) track deferred to Phase 3.
 
 ## Build & run
 - (no build yet — proposal stage)
