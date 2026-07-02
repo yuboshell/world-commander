@@ -5,6 +5,30 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-07-01: executor domains distinguished by level of detail, not "units vs crowd"
+
+**Decision**: The two executor domains are distinguished by one clean axis, the **level of
+detail of the executor's output**:
+- **Coarse (low detail):** discrete, high-level actions issued through the game API; the
+  game engine actuates them (movement, animation). Domain: RTS / StarCraft II.
+- **Fine (high detail):** continuous full-body motion the model generates itself, frame by
+  frame. Domain: embodiment / crowd animation.
+
+Both regimes are multi-agent; **scale (few → crowd) is a separate axis**, shared by both,
+not the discriminator.
+
+**Why**: the previous hub labels ("game units / discrete commands" vs "crowd / full-body
+motion") conflated two axes — a crowd is also made of game units, and the human's command
+is discrete in both regimes — so the categorization was not logical. Level of detail is one
+orthogonal discriminator and matches the canonical big-picture-via-API vs
+micro-operation-VLA split (Discussion log, 2026-06-19).
+
+**Rejected**: "abstraction level" (Yubo preferred the more concrete "level of detail");
+"action space" (discrete vs continuous — the same axis, different wording); keeping scale
+("units vs crowd") as the discriminator (not orthogonal).
+
+**Revisit when**: a third executor regime appears that this two-way axis does not cover.
+
 ## 2026-06-30: remote cleanup, `origin` now points at GitHub
 
 **Decision**: In both working repos (`world-commander`, `world-commander-bench`),
