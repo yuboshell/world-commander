@@ -1,6 +1,6 @@
 # World Commander — Literature Review
 
-Related-work survey for the World Commander program, compiled 2026-06-14.
+Related-work survey for the World Commander program, compiled 2026-06-14; text-to-motion foundations added 2026-07-02.
 
 - **[N]** = new from this review; **[P]** = already cited in PROPOSAL.md.
 - **★** = read first.
@@ -208,6 +208,38 @@ A diffusion model conditioned on past frames and user actions simulates DOOM int
 
 ## 5. Crowd and real-time motion generation (the embodiment project)
 
+### Text-to-motion foundations (added 2026-07-02)
+
+The single-character text-to-motion line that the real-time and crowd work below builds on — and the benchmark suite any motion-side claim of ours will be scored against.
+
+**★ T2M / HumanML3D** — Generating Diverse and Natural 3D Human Motions from Text. Guo, Zou, Zuo, Wang, Ji, Li, Cheng (University of Alberta). *CVPR 2022*. [CVF open access](https://openaccess.thecvf.com/content/CVPR2022/html/Guo_Generating_Diverse_and_Natural_3D_Human_Motions_From_Text_CVPR_2022_paper.html) · [project](https://ericguo5513.github.io/text-to-motion/). **[N]**
+Temporal VAE with a text2length module, and — the durable contribution — **HumanML3D**: 14k+ motions with 45k textual descriptions, plus the metric suite (R-precision, FID, diversity, multimodality) that nearly every later text-to-motion paper evaluates on.
+*Relevance:* the field's reference benchmark: Motion BPE's ablations and any Phase-3 executor will be scored on HumanML3D metrics. From Li Cheng's group at the University of Alberta — the group the plan's P5 supervision aligns with (MoMask below is the same group's current line).
+
+**TM2T** — Stochastic and Tokenized Modeling for the Reciprocal Generation of 3D Human Motions and Texts. Guo, Zuo, Wang, Cheng. *ECCV 2022*. [arXiv 2207.01696](https://arxiv.org/abs/2207.01696). **[N]**
+First discretizes motion into VQ tokens and treats text↔motion as two-way translation — the token-based line (T2M-GPT, MotionGPT, MoMask) starts here.
+*Relevance:* the direct ancestor of "motion as tokens for a language model" — the discretization Motion BPE presupposes.
+
+**MDM** — Human Motion Diffusion Model. Tevet, Raab, Gordon, Shafir, Cohen-Or, Bermano. *ICLR 2023*. [arXiv 2209.14916](https://arxiv.org/abs/2209.14916). **[N]**
+Lightweight classifier-free diffusion transformer over raw motion; with [MotionDiffuse (TPAMI 2024)](https://arxiv.org/abs/2208.15001) it establishes the diffusion branch of the field.
+*Relevance:* the quality reference that the real-time line below (MotionLCM, MotionPCM, FloodDiffusion) accelerates — the other fork from tokens-plus-LM.
+
+**T2M-GPT** — Generating Human Motion from Textual Descriptions with Discrete Representations. Zhang, Zhang, Cun et al. *CVPR 2023*. [arXiv 2301.06052](https://arxiv.org/abs/2301.06052). **[N]**
+VQ-VAE (EMA + code reset) plus a GPT generating motion-token sequences from text; the plain tokenize-then-LM recipe matching diffusion quality on HumanML3D.
+*Relevance:* the minimal working instance of the pipeline Motion BPE extends — its VQ tokens are exactly the "raw VQ" baseline in our key ablation.
+
+**MotionGPT** — Human Motion as a Foreign Language. Jiang, Chen, Ji et al. *NeurIPS 2023*. [arXiv 2306.14795](https://arxiv.org/abs/2306.14795). **[N]**
+Folds motion tokens into a pretrained LLM's vocabulary (T5), one model for generation, captioning, and prediction.
+*Relevance:* Motion BPE's named differentiator target — it stops at fixed-length VQ codes; what BPE adds (reversible, training-free, variable-length motifs, fewer autoregressive steps) is the thesis.
+
+**MoMask** — Generative Masked Modeling of 3D Human Motions. Guo, Mu, Javed, Wang, Cheng. *CVPR 2024*. [arXiv 2312.00063](https://arxiv.org/abs/2312.00063). **[N]**
+Residual VQ (a base code layer plus refinement layers) with a masked generative transformer; a current high-quality reference on HumanML3D, faster than autoregressive decoding.
+*Relevance:* the plan's named basis for the P5 executor ("the MoMask line", Li Cheng's group); residual VQ is also the natural upgrade path for Motion BPE's tokenizer milestone.
+
+*Also relevant (verified):* TEMOS (ECCV 2022, [2204.14109](https://arxiv.org/abs/2204.14109)) — VAE-based diverse generation, the main pre-diffusion baseline.
+
+### The real-time and crowd line
+
 **★ CrowdMoGen** — Zero-Shot Text-Driven Collective Motion Generation. Cao, Guo, Zhang, Xie, Gu, Liu. *IJCV 2025*. [arXiv 2407.06188](https://arxiv.org/abs/2407.06188). **[P]**
 A two-stage zero-shot framework: an LLM-driven Crowd Scene Planner (groups individuals, assigns activities/trajectories from text) plus a transformer Collective Motion Generator that respects spatial constraints.
 *Relevance:* the closest existing work to "an LLM commands a crowd" — its planner/generator split mirrors our command-to-motion decomposition. Its gap (verified): no real-time / inference-speed claims, which is exactly the budget angle we would fill.
@@ -245,3 +277,4 @@ Diffusion model for two-person interactive motion from text via weight-sharing c
 - **InterGen**: title, authors (Liang et al.), IJCV 2024, and the InterHuman dataset are confirmed; the arXiv id 2304.05684 is from the project-page lineage and should be double-checked before citing.
 - A candidate on discrete tokenization of tabular data (arXiv 2603.07448) surfaced but its authors/venue were not confirmed, so it is omitted here.
 - Several 2026 arXiv ids (e.g. Graph Tokenization 2603.x, SideQuest 2602.x, the DOOM model 2604.x) are recent; they were resolved against their abstract pages during the search but post-date the assistant's training data, so re-confirm before formal citation.
+- **Text-to-motion foundations (2026-07-02)**: all seven arXiv ids were resolved against the arXiv API (titles matched); Guo CVPR 2022 was confirmed via CVF open access (author list includes Li Cheng). Venues are the commonly cited proceedings (TM2T/TEMOS ECCV 2022, MDM ICLR 2023, T2M-GPT CVPR 2023, MotionGPT NeurIPS 2023, MoMask CVPR 2024, MotionDiffuse TPAMI 2024); the arXiv pages do not all state them.
