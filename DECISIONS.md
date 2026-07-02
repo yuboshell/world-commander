@@ -5,6 +5,37 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-07-02: Motion BPE = standalone parallel-track project, not a core program component
+
+**Decision**: Motion BPE (the graph/BPE motion-tokenization thread; v0 probe: BPE compresses
+real motion to 0.13x vs 0.43x shuffled control, motifs up to 32 frames) stays a **standalone
+project in the portfolio**, not a component of the near-term World Commander program.
+- **Own thesis**: what BPE buys over raw VQ tokens — reversible, training-free,
+  interpretable, variable-length motifs, and a measured latency/memory win (fewer AR steps
+  per second of motion). Baselines and venue are the motion-generation community
+  (MotionGPT / T2M-GPT), not the commander benchmark.
+- **Its track's next milestones** (recorded here, not in PROPOSAL.md): (1) replace the
+  k-means stand-in with a trained VQ-VAE and verify round-trip reconstruction (the quality
+  ceiling); (2) small AR generator on BPE-motif tokens with the key ablation BPE-motifs vs
+  raw VQ tokens at equal budget; (3) single character first; crowd deferred.
+- **Link to the program**: exactly one sentence in PROPOSAL.md Phase 3 — the thread is the
+  fine (generated-motion) executor's on-ramp, since cheap motion tokens are what make a
+  real-time generated executor affordable. No more than that sentence.
+
+**Why**: gluing it into the first project would be far-fetched (Yubo's word): it serves the
+fine track we just deferred to Phase 3, its community/baselines differ from the commander
+benchmark's, and today the link is thematic (Diao's tokenize-a-modality program), not a
+dependency. As a parallel track it preserves the portfolio property: if both mature they
+merge at Phase 3; if either dies the other is untouched. The repo already treats the thread
+as standalone (CI comment: "graph-bpe-motion.html — standalone, not E1–E4").
+
+**Rejected**: folding motion-BPE metrics/milestones into PROPOSAL.md Phase 1 (scope creep,
+forced coherence); dropping the thread (it is the Phase-3 on-ramp and Diao-aligned);
+presenting it as part of the first paper.
+
+**Revisit when**: Phase 3 embodiment starts (merge point), or the Motion BPE paper ships
+(then the one-sentence link can cite it).
+
 ## 2026-07-02: SC2 metric = macro command-following fidelity under budget; win-rate demoted; arena = instrument not benchmark
 
 **Decision**:
