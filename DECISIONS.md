@@ -5,6 +5,33 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-07-02: text-to-motion foundations join the survey (73 → 81); generator re-synced with the deployed page
+
+**Decision**: The eight text-to-motion foundations (T2M/HumanML3D, TM2T, MDM, MotionDiffuse,
+T2M-GPT, MotionGPT, MoMask, TEMOS) are added to `survey/command-crowds.csv` as theme
+**9. Text-to-motion foundations** (Executor pillar; free-form yes / real-time no / multi no /
+budget no). New axis counts: free-form 51, real-time 22, multi 31, budget 17 of **81**; the
+closest three-axis set is unchanged (5 papers, all budget-blind) and **the target corner stays
+empty (0/81)**. All prose counts updated (LITERATURE.md positioning, plan docs, index, home page).
+
+**Why**: the survey already included offline single-character motion papers (MotionLCM,
+MotionPCM, theme 5/7 rows), so excluding the foundations they build on was inconsistent with
+its own inclusion criteria — an earlier judgment to keep them out was reversed on that ground.
+The quadrant argument is unaffected; the foundations land in the offline × single-agent cell.
+
+**Also**: `build_lit_page.py` had drifted far behind the hand-evolved deployed page; it now
+generates the current design (Jon Barron scaffold + topnav, tree-colour flowchart with
+sentence-case labels, CSV download link, "public" footer, attribution) and computes the
+"closest N papers" line from the data instead of hard-coding it. `literature.html` is again
+reproducible from the CSV; the bench copy of the CSV is synced.
+
+**Rejected**: keeping the survey at 73 and the foundations only in LITERATURE.md (inconsistent
+inclusion criteria); hand-editing the deployed page's embedded data (would deepen the
+generator drift).
+
+**Revisit when**: `fig/lit-positioning.png` (still the n=43 tagging) is regenerated, or the
+next batch of references lands.
+
 ## 2026-07-02: arena demoted to ablation reserve; "M" labels spelled out as Milestone
 
 **Decision**: The command arena is **no longer a parallel milestone**. Near-term staging is

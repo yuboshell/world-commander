@@ -1,7 +1,7 @@
 # World Commander — Research Program Plan
 
 A concrete, executable decomposition of the program into **projects** and **tasks**,
-grounded in the E1–E4 experiments and the 73-paper survey (`survey/command-crowds.csv`).
+grounded in the E1–E4 experiments and the 81-paper survey (`survey/command-crowds.csv`).
 This supersedes the proposal's vision-level framing: every project below names its
 **challenge**, **prior-art density**, **metrics**, **datasets**, **baselines**, and the
 **data it must synthesize**.
@@ -58,7 +58,7 @@ human command ─▶ [interpreter / intent router] ─▶ [coordination] ─▶ 
 - **Team.** P1/P2: Yubo + Diao. P3: Diao. P4: Hongsong. P5: Li Cheng.
 - **Novelty gradient** (least → most open): **P1** (crowded, but anchored by our drop-late
   result) → **P3 / P4** (emerging) → **P2** (methods crowded, but the *in-game setting* is
-  empty) → **P5** (the open quadrant — 0/73 papers hit all four axes; the wedge).
+  empty) → **P5** (the open quadrant — 0/81 papers hit all four axes; the wedge).
 
 ---
 
@@ -174,7 +174,7 @@ human command ─▶ [interpreter / intent router] ─▶ [coordination] ─▶ 
   grounding** (the genuinely novel + hard part).
 - **Prior art — the open quadrant, sparsest/most novel.** Each closest paper misses ≥1 axis:
   Text-Crowd (offline), CAMDM (real-time, single-char), CrowdMoGen (offline crowd), DART /
-  MotionLCM / TLControl (real-time, single-char). **0/73 hit all four.**
+  MotionLCM / TLControl (real-time, single-char). **0/81 hit all four.**
 - **Metrics.** command-grounding (concrete measurable, abstract human-rated); motion quality
   (FID, foot-skating); the budget frontier (FPS, end-to-end latency, peak VRAM); coordination
   (collision, formation error).
@@ -223,5 +223,5 @@ tightens — that curve is the program's real-time-viability instrument.
 - **P4** — scoped, not built — needs the synthetic `(command → coordination)` dataset + the RL policy.
 - **P5** — v0 done (E4) — needs real-time motion + the coordination layer + the human eval.
 
-Basis: `survey/command-crowds.csv` (73 refs), `plan/research-plan.md` (P5 detail),
+Basis: `survey/command-crowds.csv` (81 refs), `plan/research-plan.md` (P5 detail),
 `DECISIONS.md` (the E1–E4 findings), and the bench-hub reports (E1–E4).

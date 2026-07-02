@@ -14,7 +14,7 @@ and a schema file (`CLAUDE.md`) that says how to maintain them.
 - [world-commander-bench](https://gitlab.com/worldcommander/world-commander-bench) — the Phase-1 code: the command arena now, the StarCraft II real-time harness later. Separate private repo, synced across machines; the arena harness is light Python plus an HTTP call to a served model.
 
 ## Working documents
-- [Literature review](LITERATURE.md) — related-work survey, 30+ verified references, grouped by theme: agents in real-time games, efficient inference, VLA fast/slow execution, game-state representation, and motion.
+- [Literature review](LITERATURE.md) — related-work survey, 81 verified references, grouped by theme: agents in real-time games, efficient inference, VLA fast/slow execution, game-state representation, and motion.
 - [Decisions and log](DECISIONS.md) — append-only, newest first: what was chosen, why, and what was rejected. Doubles as the project's chronological work log.
 - [Embodiment env (E3) design note](embodiment-env-design.md) — proposed third environment (button-press / motion): adds *physical execution time* as a budget term and the LLM→motion-controller handoff. Sibling to the command arena (E1) and StarCraft II (E2).
 - [SC2 split (E2) design note](sc2-split-design.md) — spec (for yubopc, Windows) for the slow-commander / fast-executor decomposition in StarCraft II: the hierarchy finding tested on the hard environment.

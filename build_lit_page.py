@@ -90,15 +90,26 @@ axes = [("free-form / abstract command", count("Command_freeform", "yes")),
         ("budget-aware (measures compute)", count("Budget_aware", "yes"))]
 axis_rows = "".join(f"<tr><td>{a}</td><td style='text-align:right'>{c}</td></tr>" for a, c in axes)
 
+# closest three-axis set (free-form x real-time x multi-agent), computed, not hard-coded
+_c3 = [r for r in _ff if r.get("Real_time") == "yes" and r.get("Multi_agent") == "yes"]
+_c3bud = sum(1 for r in _c3 if r.get("Budget_aware") == "yes")
+_c3ex = {}
+for r in _c3:
+    e = r.get("Executor_type", "")
+    if e and e != "na":
+        _c3ex[e] = _c3ex.get(e, 0) + 1
+c3_break = ", ".join(f"{v} {k}" for k, v in sorted(_c3ex.items(), key=lambda kv: -kv[1]))
+c3_bud_txt = "every one budget-blind" if _c3bud == 0 else f"{_c3bud} of them budget-aware"
+
 HTML = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{TITLE}</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet">
 <style>
-  body {{ font-family: system-ui, sans-serif; margin: 2rem auto; max-width: 1080px; color:#1a1a1a;
-         line-height:1.55; padding:0 1rem; }}
-  h1 {{ font-size:1.5rem; margin-bottom:.2rem; }}
+  /* page-specific literature styles (generic base + flowchart colours in style.css) */
   h2 {{ font-size:1.15rem; margin-top:2.2rem; border-bottom:1px solid #eee; padding-bottom:.2rem; }}
   .hint {{ color:#666; font-size:.86rem; }}
   /* open-quadrant 2x2 — native, matches the body type (no baked-in PNG) */
@@ -110,13 +121,6 @@ HTML = f"""<!doctype html>
   table.quad td.qtarget {{ outline:2.5px solid crimson; border-color:crimson; }}
   .qb {{ color:#161; font-weight:600; }} .qb0 {{ color:#b00; font-weight:600; }}
   .qgap {{ color:#b00; }} table.quad small {{ color:#555; }}
-  /* pipeline diagram (self-contained, no JS) */
-  .pipe {{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:16px 0; }}
-  .box {{ border-radius:8px; padding:10px 12px; font-size:.9rem; text-align:center; border:2px solid; }}
-  .shared {{ background:#e8eefc; border-color:#5577bb; }}
-  .edge {{ background:#fdeeee; border-color:#bb5555; }}
-  .arr {{ color:#999; font-size:1.3rem; }}
-  .execs {{ display:flex; flex-direction:column; gap:6px; }}
   /* controls + table */
   .controls {{ display:flex; gap:.6rem; flex-wrap:wrap; align-items:center; margin:.8rem 0; }}
   .controls select, .controls input {{ font-size:.9rem; padding:.25rem .4rem; }}
@@ -134,40 +138,53 @@ HTML = f"""<!doctype html>
   dl.d dt {{ font-weight:600; color:#555; }} dl.d dd {{ margin:0; }}
 </style></head>
 <body>
-<div style="font-size:.9rem;color:#666;border-bottom:1px solid #eee;padding-bottom:.6rem;margin-bottom:1rem">
-Reports: <a href="index.html">Grid Arena (E1)</a> &middot; <a href="sc2.html">StarCraft II (E2)</a>
-&middot; <a href="embodiment.html">Embodiment (E3)</a> &middot; <a href="motion.html">Crowd Motion (E4)</a>
-&middot; <b>Literature</b></div>
-<h1>{TITLE}</h1>
-<p class="hint">The paradigm: a human gives free-form natural-language commands; an LLM-based pipeline
+<div class="wrap">
+
+<header class="mast">
+  <h1>{TITLE}</h1>
+  <p class="subtitle">The paradigm: a human gives free-form natural-language commands; an LLM-based pipeline
 executes them as coordinated multi-agent behaviour — RTS units or full-body crowd motion — in real
 time, under a compute budget. {n} references, tagged.</p>
-<p class="hint"><b>Updated:</b> {generated} &middot; members-only</p>
+  <p class="upd"><b>Updated:</b> {generated} &middot; public</p>
+</header>
+
+<p class="topnav">
+  <a href="home.html">Home</a> &nbsp;/&nbsp;
+  <a href="proposal.html">Proposal</a> &nbsp;/&nbsp;
+  <a href="literature.html" class="active">Literature</a> &nbsp;/&nbsp;
+  <a href="index.html">Grid Arena (E1)</a> &nbsp;/&nbsp;
+  <a href="sc2.html">StarCraft II (E2)</a> &nbsp;/&nbsp;
+  <a href="embodiment.html">Embodiment (E3)</a> &nbsp;/&nbsp;
+  <a href="motion.html">Crowd Motion (E4)</a> &nbsp;/&nbsp;
+  <a href="graph-bpe-motion.html">Motion BPE</a>
+</p>
 
 <h2>The paradigm</h2>
 <div class="pipe">
-  <div class="box shared">free-form / abstract<br>command</div><span class="arr">&rarr;</span>
-  <div class="box shared">interpreter<br>(LLM)</div><span class="arr">&rarr;</span>
-  <div class="box shared">coordination<br>assignment / MARL</div><span class="arr">&rarr;</span>
+  <div class="box shared">Free-form / abstract<br>command</div><span class="arr">&rarr;</span>
+  <div class="box shared">Interpreter<br>(LLM)</div><span class="arr">&rarr;</span>
+  <div class="box shared">Coordination<br>assignment / MARL</div><span class="arr">&rarr;</span>
   <div class="execs">
-    <div class="box edge">RTS: game-unit commands</div>
-    <div class="box edge">crowd: full-body motion</div>
+    <div class="box edge">Coarse: discrete actions (game API)</div>
+    <div class="box edge">Fine: continuous motion (generated)</div>
   </div>
 </div>
-<p class="hint">Blue = the domain-agnostic shared middle (the <b>budget</b> wedge sits on the
-interpreter; <b>coordination</b> is the multi-agent layer). Red = the domain-specific
-<b>executor</b> edge.</p>
+<p class="hint">Colours follow the hub's tree: the <b>trunk</b> (brown) is the domain-agnostic shared
+pipeline (the <b>budget</b> wedge sits on the interpreter; <b>coordination</b> is the multi-agent
+layer); the <b>branches</b> (olive) are the domain-specific executors, split by the level of detail
+of their output.</p>
 
 <h2>The open quadrant = the contribution</h2>
 <table><tr><th>axis</th><th>“yes” / {n}</th></tr>{axis_rows}
 <tr><td><b>all four at once</b></td><td style="text-align:right"><b>0</b></td></tr></table>
 <p class="hint"><b>No paper in the survey hits all four.</b> The closest (free-form × real-time ×
-multi-agent, ignoring budget) is 5 papers, every one budget-blind — 4 RTS units, 1 full-body motion.
+multi-agent, ignoring budget) is {len(_c3)} papers, {c3_bud_txt} — {c3_break}.
 The wedge is the budget-aware corner, open in both executor domains.</p>
 {quad}
 <p class="hint" style="text-align:center">Free-form-command papers (n={count('Command_freeform','yes')}) by real-time × multi-agent — the target corner (multi-agent × real-time × budget-aware) is empty.</p>
 
 <h2>The survey ({n} refs) — filter &amp; sort</h2>
+<p class="hint">Download the full survey as a spreadsheet: <a href="survey/command-crowds.csv" download>command-crowds.csv</a> ({n} references, all columns).</p>
 <div class="controls">
   <input id="q" placeholder="search title / author / novelty…" size="26">
   <label>pillar <select id="f_Pillar"></select></label>
@@ -236,8 +253,11 @@ render();
 <footer style="margin-top:3rem;color:#777;font-size:.82rem;border-top:1px solid #eee;padding-top:.6rem">
 World Commander — literature review. Source of record: <code>survey/command-crowds.csv</code> +
 <code>LITERATURE.md</code>; regenerate with <code>python build_lit_page.py --publish</code>.
-Members-only; not for public hosting.
+Public.
 </footer>
+<p class="attribution">Design from <a href="https://jonbarron.info" target="_blank" rel="noopener">Jon Barron's website</a>, via <a href="https://github.com/leonidk/leonidk.github.io" target="_blank" rel="noopener">Leonid Keselman's Jekyll fork</a>.</p>
+
+</div>
 </body></html>"""
 
 OUT.write_text(HTML)

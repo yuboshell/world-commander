@@ -2,7 +2,7 @@
 
 A concrete experimental protocol for the dual-aligned World Commander direction
 (the one that brings in Li Cheng). This is the *machinery*, not the story.
-Grounded in `survey/command-crowds.csv` (73 verified references).
+Grounded in `survey/command-crowds.csv` (81 verified references).
 
 Drafted 2026-06-23.
 
@@ -130,7 +130,7 @@ generated rather than annotated.
 
 ## 10. Relationship to the rest of the repo
 
-- **Basis:** `survey/command-crowds.csv` (73 verified references).
+- **Basis:** `survey/command-crowds.csv` (81 verified references).
 - **Program:** `PROPOSAL.md` (the broader World Commander). The StarCraft II line
   shares the same core technology — efficient, real-time, tokenized command of a
   crowd under a budget — and is a parallel instantiation in game units rather than

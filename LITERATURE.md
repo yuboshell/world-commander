@@ -32,31 +32,36 @@ flowchart LR
 *Blue = the domain-agnostic shared middle (the **budget** wedge sits on the interpreter;
 **coordination** is the multi-agent layer). Red = the domain-specific **executor** edge.*
 
-— only the **executor** is domain-specific: *game units* (RTS) or *full-body motion*
-(crowd). So the 73-ref survey (`survey/command-crowds.csv`, now tagged per row) groups
-under three shared **pillars** plus a cross-cutting **budget** wedge:
+— only the **executor** is domain-specific: *coarse* discrete actions (game API) or *fine*
+continuous motion (generated). So the 81-ref survey (`survey/command-crowds.csv`, tagged per
+row; text-to-motion foundations added 2026-07-02) groups under three shared **pillars** plus
+a cross-cutting **budget** wedge:
 
 | Pillar | what it covers | refs | main themes |
 |---|---|---|---|
 | **Command** | the free-form / abstract NL command & interface | 7 | 1 |
-| **Executor** | goal → one agent's actions or motion (units / full-body / robot) | 33 | 2, 3, 5, 7 |
+| **Executor** | goal → one agent's actions or motion (units / full-body / robot) | 41 | 2, 3, 5, 7, 9 |
 | **Coordination** | multi-agent assignment / MARL / crowd behaviour | 21 | 6, 8 |
 | *(Datasets)* | command / coaching corpora | 12 | 4 |
-| *cross-cutting:* **Budget** | latency / FPS / VRAM / tokens measured? (an attribute) | 17 of 73 | — |
+| *cross-cutting:* **Budget** | latency / FPS / VRAM / tokens measured? (an attribute) | 17 of 81 | — |
 
 *(Pillar is tagged per row by primary role, so it doesn't sum exactly by theme.)*
 
 **The open quadrant = the contribution.** Tag the four axes the program actually claims:
 
-| axis | "yes" / 73 |
+| axis | "yes" / 81 |
 |---|---|
-| free-form / abstract command | 43 |
+| free-form / abstract command | 51 |
 | real-time / streaming | 22 |
 | multi-agent / crowd | 31 |
 | budget-aware (measures compute) | 17 |
 | **all four at once** | **0** |
 
-<img src="fig/lit-positioning.png" width="640" alt="Open quadrant — free-form-command papers (n=43) by real-time × multi-agent; the target corner (multi-agent × real-time × budget-aware) is empty">
+<img src="fig/lit-positioning.png" width="640" alt="Open quadrant — free-form-command papers by real-time × multi-agent; the target corner (multi-agent × real-time × budget-aware) is empty">
+
+*(The figure shows the pre-foundations tagging, n=43 free-form papers; the current counts are the
+table above — the eight foundations rows land in the offline × single-agent cell and the target
+corner stays empty. The generated `literature.html` quadrant is always current.)*
 
 **No paper in the survey hits all four.** The closest — free-form × real-time × multi-agent,
 *ignoring* budget — is **5 papers, every one budget-blind** (4 RTS units; 1 full-body motion).
