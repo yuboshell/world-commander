@@ -5,6 +5,43 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-07-02: SC2 metric = macro command-following fidelity under budget; win-rate demoted; arena = instrument not benchmark
+
+**Decision**:
+- **Drop win rate as the headline SC2 metric** (demoted to secondary context). It is
+  auto-attack-confounded and not a clean LLM signal — the observed edge was ~+10 pp and
+  not significant, regressing to the mean as n grew (2026-06-21). Yubo's intuition: an LLM
+  commander/executor will not beat the built-in auto-attack in a simple scenario. Agreed.
+- **New headline metric: macro command-following fidelity under a real-time budget.** Make
+  the SC2 executor task *macro* execution (build orders, expansions, tech switches, army
+  composition, positioning/timing), where auto-attack is irrelevant, so the metric is
+  unconfounded. Measure how faithfully the LLM executes the commander's macro orders and
+  how that fidelity degrades as the deadline + VRAM budget tighten and KV-eviction/pruning
+  kick in. The paper's payload is the **efficiency-method comparison**: which method
+  preserves execution fidelity most cheaply in a live game loop.
+- **Arena = controlled instrument, not a benchmark.** It is not a recognized benchmark, so
+  it is not a standalone deliverable and should not be over-invested in. It appears in the
+  SC2 paper as a ground-truth probe / ablation for command-following (clean command-rate,
+  compositionality, and memory sweeps). Preliminary results already exist; treat it as done.
+- **Effort shifts** to the SC2 macro-command-following task and the efficiency methods.
+
+**Why**: auto-attack only handles micro-combat, not macro, so a macro-fidelity metric is
+unconfounded and genuinely determines game state. This keeps the program's thesis
+(efficiency methods evaluated in a *running game*, not on static text) while fixing the
+metric that the 2026-06-21 experiments showed was broken.
+
+**Rejected**: keeping win rate as the headline (confounded, noisy, tiny-n); building the
+arena into a standalone benchmark (unrecognized, unpublishable as such); engineering harder
+SC2 micro scenarios to rescue win rate (more work, still risky).
+
+**Risk**: defining macro command-following metrics is real engineering (did it build /
+expand / tech / compose / position as ordered); the payload must be the efficiency-method
+comparison, not fidelity in isolation.
+
+**Applied**: PROPOSAL.md Phase 1 (Metrics, memory probes, tokenizer, and the M1 line
+reframed; arena flagged as instrument). Supersedes the 2026-06-13 "win rate while executing
+a fixed strategy" SC2 metric.
+
 ## 2026-07-01: start coarse first; run M0 (arena) and M1 (SC2) in parallel
 
 **Decision**: Start the program on the **coarse (discrete-action) track** and run the two
