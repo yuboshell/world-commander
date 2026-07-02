@@ -5,6 +5,33 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-07-01: start coarse first; run M0 (arena) and M1 (SC2) in parallel
+
+**Decision**: Start the program on the **coarse (discrete-action) track** and run the two
+Phase-1 testbeds **in parallel**, since neither needs training (off-the-shelf / pruned
+models, prompted):
+- **M0** — the E1 command arena on **amax** (already scaffolded): first drop-late frontier
+  (grounding accuracy, latency, deadline misses vs command rate).
+- **M1** — StarCraft II via LLM-PySC2 on **yubopc**: the LLM executes a *fixed scripted
+  strategy*; headline metric is the deadline frontier, not raw win rate (auto-attack-confounded).
+- **M2** — one efficiency method (KV-cache eviction / distilled commander / speculative
+  actions) on whatever M1 exposes as the binding cost.
+
+The fine (continuous-motion) track stays deferred to Phase 3.
+
+**Why**: coarse reuses mature environments (PySC2 / LLM-PySC2, the E1 arena), needs no
+training, has a clean discrete LLM interface and well-defined metrics, and sidesteps the
+fine track's open problems (motion synthesis, real-time rendering, the synthetic-data
+"crux", abstract-intent grounding). It yields a shippable result fastest.
+
+**Rejected**: starting with the fine/crowd-motion track (harder, open, data does not
+exist); a single-testbed start (the arena de-risks the harness cheaply while SC2 is the
+paper, so both in parallel is higher throughput given they run on different machines).
+
+**Applied**: folded the practical staging into PROPOSAL.md Phase 1 (per Yubo); refreshed
+the docs CLAUDE.md Status. The deck stays accurate at its abstraction level (roadmap +
+"real-time commander benchmark" milestone), so no slide change or re-render.
+
 ## 2026-07-01: executor domains distinguished by level of detail, not "units vs crowd"
 
 **Decision**: The two executor domains are distinguished by one clean axis, the **level of
