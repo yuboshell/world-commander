@@ -150,7 +150,7 @@ time, under a compute budget. {n} references, tagged.</p>
 
 <p class="topnav">
   <a href="home.html">Home</a> &nbsp;/&nbsp;
-  <a href="proposal.html">Proposal</a> &nbsp;/&nbsp;
+  <a href="ideation.html">Ideation</a> &nbsp;/&nbsp;
   <a href="literature.html" class="active">Literature</a> &nbsp;/&nbsp;
   <a href="plans.html">Plans</a> &nbsp;/&nbsp;
   <a href="index.html">Grid Arena (E1)</a> &nbsp;/&nbsp;

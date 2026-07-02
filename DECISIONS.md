@@ -5,6 +5,32 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-07-02: proposal page becomes the Ideation page (abstract + idea + outlook only)
+
+**Decision**: The hub's proposal page is reduced to an **Ideation** page holding only the
+abstract, the introduction (retitled "The idea", with the two vision figures), and the
+outlook, plus a "where the rest lives" pointer box and the single reference it still cites
+(EndWar). Everything else had become the third copy: related work → Literature, the plan
+and milestones → Plans (and Home's Growing now), the projects → Home's table. The file is
+renamed `ideation.html`; `proposal.html` remains as a redirect stub so old links survive;
+the nav label is now **Ideation** on all pages (generator template included); the GitLab CI
+publishes both.
+
+**Why**: the proposal page required three synchronization passes in a single day (metric
+reframe, staging, lint) because its §2–§3 duplicated content that other pages now own. One
+idea, one home; the ideation page keeps the only content that is uniquely its own — where
+the program comes from and where it is going. Kept beyond Yubo's "introduction only": the
+abstract and the one-paragraph outlook, which complete the vision arc and live nowhere else.
+
+**Rejected**: freezing proposal.html as a dated snapshot (stale-by-design next to live
+pages); deleting it outright (breaks links; loses the narrative entry point); keeping the
+full mirror and syncing forever (the failure mode this fixes). Note: the canonical full
+narrative remains PROPOSAL.md in this repo (and the deck for presenting).
+
+**Revisit when**: the program needs a single self-contained narrative on the hub again
+(e.g. for a formal submission), in which case generate it from PROPOSAL.md rather than
+hand-maintaining a mirror.
+
 ## 2026-07-02: per-project research plans drafted (hub plans.html)
 
 **Decision**: Each project in the portfolio now has a compact research plan on the hub
