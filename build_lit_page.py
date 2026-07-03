@@ -167,6 +167,7 @@ time, under a compute budget. {n} references, tagged.</p>
   <div class="box shared">Coordination<br>assignment / MARL</div><span class="arr">&rarr;</span>
   <div class="execs">
     <div class="box edge">Coarse: discrete actions (game API)</div>
+    <div class="box edge">Medium: trajectories (root paths)</div>
     <div class="box edge">Fine: continuous motion (generated)</div>
   </div>
 </div>

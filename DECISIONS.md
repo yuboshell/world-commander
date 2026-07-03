@@ -5,6 +5,26 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-07-02: trajectories adopted as the middle rung of the level-of-detail axis
+
+**Decision**: The executor axis gains a middle level: **discrete actions (game API) →
+trajectories (continuous root paths; the engine animates along them) → full-body motion
+(generated)**. Hub figures and executor bullets updated (home + the generated literature
+page); P4's plan names trajectories as its continuous output option (goals or root paths);
+the fine executor stays parked at Phase 3.
+
+**Why**: from the 2026-07-02 discussion with Xirui Shi and Ji Yang. Full-body generation is
+too costly for games near-term, but a root path is a few numbers per character per frame
+(vs ~70+ DoF for articulated motion), so trajectories keep a continuous, learnable output
+while the engine fills in the limbs — a feasible rung between the active coarse track and
+the parked fine track, adjacent to P4 coordination.
+
+**Rejected**: replacing the fine rung with trajectories (the embodiment vision stays,
+parked); making trajectories a separate project (it is an output option inside P4; revisit
+if it grows into its own paper).
+
+**Revisit when**: P4 wakes, or the fine executor unparks at Phase 3.
+
 ## 2026-07-02: proposal page becomes the Ideation page (abstract + idea + outlook only)
 
 **Decision**: The hub's proposal page is reduced to an **Ideation** page holding only the
