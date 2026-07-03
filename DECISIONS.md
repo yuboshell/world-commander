@@ -5,6 +5,56 @@ rejected and why it was rejected. Newest first. One entry per decision,
 written in the session the decision happens. Rationale recorded here is
 project-local; transferable lessons still go to memex at milestones.
 
+## 2026-07-02: phases discarded; dormancy unified (P3 and P5 become dormant buds; P2 stays next)
+
+**Decision** (Yubo):
+- **The Phase 1/2/3 numbering is dropped.** The program is *projects on a build order*
+  (benchmarks → methods → the real interface); the project concept plus the tree
+  statuses carry everything the phases did. PROPOSAL.md restructured (headings, plan
+  table, inventory column, in-body references); docs CLAUDE.md and the hub pages
+  updated; historical log entries keep their original wording.
+- **Dormancy unified.** "Parked" and "planned" collapse into **dormant bud** ("kept in
+  view, not being grown"): **P3** (game-state tokenizer) is dormant until the benchmark
+  harness exists and has shown where tokens actually cost — Yubo's point that P2/P3
+  presuppose intuition gained from building the benchmark; **P5** (crowd-motion
+  executor) is dormant, long-term.
+- **P2 stays "next", not dormant.** Milestone 2 (one efficiency method at the binding
+  cost) is the first paper's payload, so P2's start is *sequenced* (right after the
+  harness exposes the cost), not speculative. The prerequisite Yubo named is encoded in
+  the ordering rather than in a dormant status.
+
+**Why**: two status words for one state ("parked" vs "dormant") was taxonomy clutter,
+and the phase brand added a second numbering system on top of P1–P5 without carrying
+information the build order does not.
+
+**Rejected**: making P2 dormant too (it would detach the first paper from its payload);
+keeping "Phase 3" as a label for the long-term stage (renamed "long-term" / "the real
+interface").
+
+**Revisit when**: the first project ships and the next project must be chosen.
+
+## 2026-07-02: trajectory cluster joins the review and survey (81 → 89)
+
+**Decision**: A "Trajectory generation and prediction" cluster (LITERATURE.md §6; survey
+theme 10, Coordination pillar, executor type **trajectories**) with eight verified
+references: Social Force (Phys. Rev. E 1995), Social-LSTM (CVPR 2016), Social-GAN (CVPR
+2018), Trajectron++ (ECCV 2020), MID (CVPR 2022), LED (CVPR 2023; real-time + budget
+tagged), MotionLM (ICCV 2023; trajectories as tokens for an autoregressive LM), LCTGen
+(CoRL 2023; language-conditioned multi-agent trajectories, free-form tagged). New axis
+counts: free-form 52, real-time 23, multi-agent 39, budget 18 — of 89; the closest
+three-axis set is unchanged (5, all budget-blind) and **the corner stays 0/89**. All
+prose counts and the generated literature page updated; the LITERATURE.md positioning
+diagram modernized to the three-rung ladder and tree colours while at it.
+
+**Why**: the middle rung adopted earlier today had no literature behind it in our review;
+LCTGen ("language in, multi-agent trajectories out", offline, driving) is the closest
+existing system to P4's trajectory option, and MotionLM's motion-tokens-plus-LM recipe is
+the direct precedent for a BPE layer at trajectory level. LED shows the prediction field
+already treats inference speed as a first-class metric.
+
+**Revisit when**: P4 wakes (deepen with MARL-side trajectory work, ORCA/RVO, and game
+navigation systems, which were deliberately left out of this first pass).
+
 ## 2026-07-02: trajectories adopted as the middle rung of the level-of-detail axis
 
 **Decision**: The executor axis gains a middle level: **discrete actions (game API) →

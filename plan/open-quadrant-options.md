@@ -26,7 +26,7 @@ not pedigree.
 
 - Choose direction by **community white space** (important × meaningful ×
   under-explored), **not** by lab moat. The moat (mocap / reconstruction) sits in
-  the *most crowded* pillar (Executor, 41/81), so it is not a tiebreaker — the
+  the *most crowded* pillar (Executor, 41/89), so it is not a tiebreaker — the
   white space is the command/control loop under budget.
 - Do not privilege a method because a collaborator used it. When reaching for
   tokenization/KV-cache, name a non-Diao alternative and why it loses.

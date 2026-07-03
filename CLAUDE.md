@@ -10,14 +10,14 @@ Created 2026-06-10; its own git repo under `~/github/world-commander`.
   Update its catalog whenever a file is added, renamed, or removed.
 - `PROPOSAL.md` — the research program ("World Commander"). One spine,
   **execution** (the LLM carries out the human commander's intent at game
-  speed, under latency and memory budgets), rolled out across three phases
-  (1 Benchmarks / 2 Methods / 3 Real interface); environments are a
+  speed, under latency and memory budgets), rolled out along a build order
+  (benchmarks → methods → the real interface); environments are a
   complexity ladder (arena → StarCraft II → multiplayer → game) folded into
-  the phases. Embodiment (crowd-scale motion) is one later direction, not a
-  near-term job; the earlier "three jobs" axis and the Foresee what-if
-  advisor are dropped.
-  Phase-1 wedge spec (real-time StarCraft II commander benchmark plus the
-  command-arena warm-up, KV-cache eviction evaluated by win rate), project
+  that order. Embodiment (crowd-scale motion) is one later direction, not a
+  near-term job; the earlier "three jobs" axis, the Foresee what-if
+  advisor, and the phase numbering are dropped.
+  First-project spec (real-time StarCraft II commander benchmark plus the
+  command-arena instrument, efficiency methods scored by command-following fidelity), project
   inventory, prior-art map with verified links, discussion log. Drafted
   2026-06-10 for discussion with Dr. Enmao Diao. Canonical remote: GitHub
   `yuboshell/world-commander` (git remote `origin`; the working branch tracks it), served
@@ -58,7 +58,7 @@ Created 2026-06-10; its own git repo under `~/github/world-commander`.
   milestones; DECISIONS.md holds project-local rationale only.
 
 ## Status
-- Coarse (discrete-action) track underway. Phase-1 harness scaffolded in the
+- Coarse (discrete-action) track underway. The benchmark harness is scaffolded in the
   world-commander-bench repo (command arena E1; SC2 split spec in
   sc2-split-design.md). First discussion round with Dr. Diao (WeChat, 2026-06-11)
   endorsed the direction (pointers to VLA architectures like π0 and to the long
@@ -67,7 +67,7 @@ Created 2026-06-10; its own git repo under `~/github/world-commander`.
   executes a fixed strategy; headline = macro command-following fidelity across the
   deadline frontier, not win rate). Milestone 2 = one efficiency method on the
   binding cost. The E1 arena is in reserve as the paper's ablation instrument
-  (preliminary frontiers exist on amax). Fine (crowd-motion) track deferred to Phase 3.
+  (preliminary frontiers exist on amax). Fine (crowd-motion) track dormant (long-term).
 
 ## Build & run
 - (no build yet — proposal stage)

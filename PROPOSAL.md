@@ -26,31 +26,31 @@ Efficiency methods are never evaluated where the stakes are real. KV-cache evict
 
 The **human is the strategic commander**; the LLM-driven system carries the orders out. The whole near-term effort is one capability, **execution**: an LLM turning the commander's spoken intent into the right in-game actions, in real time, under hard latency and memory budgets, evaluated as performance against that budget.
 
-The LLM is the *executor* of the commander's intent, not an autonomous strategist: in Phase 1 the commander is a scripted command stream, so the benchmark isolates how well and how cheaply the LLM carries orders out, not whose strategy is better. (Earlier framings that scored an "LLM commander" by win rate are superseded; see the discussion log.)
+The LLM is the *executor* of the commander's intent, not an autonomous strategist: in the first project the commander is a scripted command stream, so the benchmark isolates how well and how cheaply the LLM carries orders out, not whose strategy is better. (Earlier framings that scored an "LLM commander" by win rate are superseded; see the discussion log.)
 
-Execution is the spine of every phase below. One direction sits further out and stays in view because it defines the end-state experience: **embodiment**, units carrying out orders with model-generated motion (synthesized for the order, not replayed animation clips) at crowd scale on one consumer GPU, aligned with the motion-generation direction in Yubo's prospective PhD work. It appears in Phase 3 and as one project in the inventory, not as near-term work.
+Execution is the spine of every stage below. One direction sits further out and stays in view because it defines the end-state experience: **embodiment**, units carrying out orders with model-generated motion (synthesized for the order, not replayed animation clips) at crowd scale on one consumer GPU, aligned with the motion-generation direction in Yubo's prospective PhD work. It appears in the long-term interface stage and as one project in the inventory, not as near-term work.
 
-## The plan: three phases
+## The plan: the build order
 
 We build in increasingly complex environments, with one shared **harness** under all of them (the command protocol, the unpausable clock, deadline enforcement, and metric logging), so the engineering and the evaluation transfer upward.
 
-| Phase | Focus | What happens |
+| Order | Focus | What happens |
 |---|---|---|
-| **Phase 1** | Benchmarks | Build the harness and the efficiency-frontier evaluation, on two testbeds: a command arena (warm-up) and StarCraft II with the clock unpaused (the first project). |
-| **Phase 2** | Methods | Attack whatever Phase 1 exposes as the bottleneck: game-aware eviction, a learned state tokenizer, distilled commanders, commander/executor scheduling. |
-| **Phase 3** | The real interface | Reintroduce the human (voice command), then humans plural (multiplayer competition); grow toward embodiment (crowd-scale motion). |
+| **First** | Benchmarks | Build the harness and the efficiency-frontier evaluation, on two testbeds: a command arena (warm-up) and StarCraft II with the clock unpaused (the first project). |
+| **Then** | Methods | Attack whatever the benchmark exposes as the bottleneck: game-aware eviction, a learned state tokenizer, distilled commanders, commander/executor scheduling. |
+| **Later** | The real interface | Reintroduce the human (voice command), then humans plural (multiplayer competition); grow toward embodiment (crowd-scale motion). |
 
-The environments grow with the phases, simplest to hardest:
+The environments grow along the build order, simplest to hardest:
 
 > a toy room (abstract agents)  →  StarCraft II  →  multiplayer  →  a full game
 
 The end state, a genuinely new kind of video game played by command rather than by frantic input, is a product vision years out, not a deliverable. We start with strategy (the best testbed), but the voice-command interface is not bound to one genre: the long-term goal is a revolutionary game, not a strategy game specifically. Its role here is to fix the two constraints every project inherits: an unpausable clock and a hard compute budget.
 
-## Phase 1: the benchmark (the first project)
+## The first project: the benchmark
 
 The **first project** is deliberately narrow and fast, the entry point that opens the program behind it. It builds the harness and asks: can an LLM command at game speed, and which efficiency techniques preserve its judgment? Two testbeds.
 
-**The command arena (warm-up).** Color-tagged agents in a minimal room move in discrete directions under streamed language commands, with no motion detail and no game engineering. It costs weeks, not months, and proves out the streaming-command infrastructure that StarCraft II and every later phase reuse. One command is trivially easy for any modern model, by design; the test is the *stream*. The room is not single-sided: a few uncontrolled agents move on their own clock, so that a late command concedes ground, the way a slow decision concedes to an opponent in a real game. Difficulty rises along three axes: command rate, compositional addressing ("everyone except the yellow one, gather at the door"), and commands that depend on remembered state ("the one I sent west earlier, now move it north"). Measured: command-grounding accuracy, utterance-to-action latency, and deadline misses as command rate rises. The arena is a controlled instrument, not a standalone benchmark: in the first project it serves as a ground-truth probe and ablation for command-following, supporting the StarCraft II result rather than standing alone.
+**The command arena (warm-up).** Color-tagged agents in a minimal room move in discrete directions under streamed language commands, with no motion detail and no game engineering. It costs weeks, not months, and proves out the streaming-command infrastructure that StarCraft II and every later stage reuse. One command is trivially easy for any modern model, by design; the test is the *stream*. The room is not single-sided: a few uncontrolled agents move on their own clock, so that a late command concedes ground, the way a slow decision concedes to an opponent in a real game. Difficulty rises along three axes: command rate, compositional addressing ("everyone except the yellow one, gather at the door"), and commands that depend on remembered state ("the one I sent west earlier, now move it north"). Measured: command-grounding accuracy, utterance-to-action latency, and deadline misses as command rate rises. The arena is a controlled instrument, not a standalone benchmark: in the first project it serves as a ground-truth probe and ablation for command-following, supporting the StarCraft II result rather than standing alone.
 
 **StarCraft II, clock unpaused (the first project).** Build on the TextStarCraft II / [LLM-PySC2](https://arxiv.org/pdf/2411.05348) stack with one decisive change: the game clock does not pause. The harness enforces wall-clock decision deadlines and a VRAM ceiling; a late decision simply does not happen, as it is for a human.
 
@@ -75,29 +75,29 @@ Deliverables: the open-source harness and the two benchmarks, the efficiency-fro
 - *Milestone 2, one method.* Apply a single efficiency technique (KV-cache eviction, a distilled small commander, or speculative actions) to whatever Milestone 1 exposes as the binding cost, and show it moves the frontier at equal fidelity.
 - *In reserve, the command arena (amax).* Preliminary drop-late frontier numbers already exist, so the arena is not a parallel milestone: it is the paper's ablation instrument, returning for targeted grounding, command-rate, and memory sweeps once the StarCraft II result defines what needs isolating.
 
-The fine (continuous-motion) track stays deferred to Phase 3: it needs motion synthesis, real-time rendering, a synthetic-data pipeline, and abstract-intent grounding, none of which the coarse track requires. Starting coarse yields a shippable result while those problems remain open.
+The fine (continuous-motion) track stays deferred (long-term): it needs motion synthesis, real-time rendering, a synthetic-data pipeline, and abstract-intent grounding, none of which the coarse track requires. Starting coarse yields a shippable result while those problems remain open.
 
-## Phase 2: methods
+## Methods (after the benchmark)
 
-Whatever Phase 1 exposes as the bottleneck becomes the method work. Candidates: game-aware KV eviction that exploits entity lifetimes and spatial locality; learned state tokenizers trained jointly with the policy; distilled small commanders trained on large-model match traces; commander/executor scheduling under a shared GPU budget.
+Whatever the benchmark exposes as the bottleneck becomes the method work. Candidates: game-aware KV eviction that exploits entity lifetimes and spatial locality; learned state tokenizers trained jointly with the policy; distilled small commanders trained on large-model match traces; commander/executor scheduling under a shared GPU budget.
 
-## Phase 3: the real interface
+## The real interface (long-term)
 
-Reintroduce the human. A voice-commanded mode (the commander speaks, agents execute) evaluated on intent throughput, cognitive load, and accessibility, extending what Adaptive Command began. Then humans, plural: a multiplayer arena where several players command their own units from their own machines in one shared real-time world. There, latency stops being a constraint to measure and becomes what decides the winner. The headline question — does a fast small commander beat a slow large one head-to-head? — turns the efficiency frontier into Elo-style ratings (chess's system for ranking players by match outcomes), an evaluation no static corpus can imitate, and surfaces the systems questions (per-client inference versus a shared server budget, fairness across heterogeneous player hardware) that extend the Phase 2 scheduling line.
+Reintroduce the human. A voice-commanded mode (the commander speaks, agents execute) evaluated on intent throughput, cognitive load, and accessibility, extending what Adaptive Command began. Then humans, plural: a multiplayer arena where several players command their own units from their own machines in one shared real-time world. There, latency stops being a constraint to measure and becomes what decides the winner. The headline question — does a fast small commander beat a slow large one head-to-head? — turns the efficiency frontier into Elo-style ratings (chess's system for ranking players by match outcomes), an evaluation no static corpus can imitate, and surfaces the systems questions (per-client inference versus a shared server budget, fairness across heterogeneous player hardware) that extend the methods scheduling line.
 
-In parallel, **embodiment** matures: crowd-scale language-conditioned motion generation under compute budgets, building on the real-time motion-generation line ([MotionLCM](https://arxiv.org/pdf/2404.19759), [MotionStreamer](https://arxiv.org/pdf/2503.15451), [MotionBricks](https://arxiv.org/abs/2604.24833), [CrowdMoGen](https://yukangcao.github.io/CrowdMoGen/)). For the motion-generation community, this reads as real-time control of multiple virtual characters. The motion-BPE tokenization thread (a standalone parallel project: BPE over discretized motion finds reusable multi-frame primitives, compressing sequences ~7x) is this phase's on-ramp: fewer tokens per second of motion is what makes a real-time generated executor affordable.
+In parallel, **embodiment** matures: crowd-scale language-conditioned motion generation under compute budgets, building on the real-time motion-generation line ([MotionLCM](https://arxiv.org/pdf/2404.19759), [MotionStreamer](https://arxiv.org/pdf/2503.15451), [MotionBricks](https://arxiv.org/abs/2604.24833), [CrowdMoGen](https://yukangcao.github.io/CrowdMoGen/)). For the motion-generation community, this reads as real-time control of multiple virtual characters. The motion-BPE tokenization thread (a standalone parallel project: BPE over discretized motion finds reusable multi-frame primitives, compressing sequences ~7x) is this stage's on-ramp: fewer tokens per second of motion is what makes a real-time generated executor affordable.
 
 ## Project inventory
 
 The program is research-first: the game is the long-term goal, the projects are the milestones. Each project is a top-tier paper's worth of work, and the test each must pass is to answer a question its community already cares about while caring nothing about the game; the budget-frontier evaluation is what passes it. The command arena is a warm-up task, not a project, so it does not appear here. Projects are listed roughly in build order.
 
-| Project | Phase | The question | Who cares, independent of the game |
+| Project | Order | The question | Who cares, independent of the game |
 |---|---|---|---|
 | Real-time commander benchmark | 1 | Which efficiency methods survive a closed-loop game clock? | KV-cache and pruning researchers, whose methods are scored on static corpora today, never by win rate |
 | Game-state tokenizer | 1 to 2 | Does byte-pair tokenization extend to entity and event streams, and what does a compact state code buy at equal win rate? | The tokenization-beyond-text program |
 | Crowd motion under budget (embodiment) | 3 | Can language-commanded full-body crowds run in real time on one consumer GPU? | The motion-generation and graphics community |
 
-Whether the game-state tokenizer ships inside the first project or stands alone as a second is an open question (below). Benchmark projects live or die on adoption: open source, one-command install, credible baselines, all of which the Phase 1 deliverables are scoped for.
+Whether the game-state tokenizer ships inside the first project or stands alone as a second is an open question (below). Benchmark projects live or die on adoption: open source, one-command install, credible baselines, all of which the first project's deliverables are scoped for.
 
 ## Why this collaboration
 
@@ -117,7 +117,7 @@ The first project needs two things at once: the efficiency-methods stack (cache 
 - Architecture pointer: borrow from robot vision-language-action models (the [π0](https://arxiv.org/abs/2410.24164) line), where a slow vision-language backbone drives a fast action expert at real-time rates. Added to the Phase 1 architecture variable; a game is the cheaper, safer place to iterate on the same split.
 - "Essentially RL in a virtual world": the long arc runs through reinforcement learning, so RL literacy is a prerequisite to build. Phase 1 itself needs no RL training (off-the-shelf and pruned models, prompted), but learned executors, the Foresee job, and any trained policy do. Near-term action: survey RL fundamentals and consult RL colleagues.
 
-**2026-06-13 — executor framing (to confirm with Dr. Diao).** The human is the strategic commander; the LLM is the *executor* of that intent, not an autonomous strategist. Earlier framing (inherited from TextStarCraft II) scored an "LLM commander" by win rate, which conflicts with the human-as-commander vision. Resolution: in Phase 1 the commander is a scripted command stream, and the benchmark measures how well and how cheaply the LLM carries orders out — command-following in the arena, and win rate while executing a fixed strategy in StarCraft II. Renamed the "Decide" job to **Execute**, and Foresee is a what-if advisor the commander queries. This changes what the benchmark measures, so it is the next thing to put to Dr. Diao (his efficiency methods are scored by whichever metric). Project also renamed to **World Commander**.
+**2026-06-13 — executor framing (to confirm with Dr. Diao).** The human is the strategic commander; the LLM is the *executor* of that intent, not an autonomous strategist. Earlier framing (inherited from TextStarCraft II) scored an "LLM commander" by win rate, which conflicts with the human-as-commander vision. Resolution: in the first project the commander is a scripted command stream, and the benchmark measures how well and how cheaply the LLM carries orders out — command-following in the arena, and win rate while executing a fixed strategy in StarCraft II. Renamed the "Decide" job to **Execute**, and Foresee is a what-if advisor the commander queries. This changes what the benchmark measures, so it is the next thing to put to Dr. Diao (his efficiency methods are scored by whichever metric). Project also renamed to **World Commander**.
 
 **2026-06-14 — scope narrowed to execution.** Dropped the three-jobs axis (Execute / Foresee / Embody) as a redundant second framing of the phases: the vision is already carried by the long-term goal and the three phases. The proposal now runs on one spine, execution, across the phases. Foresee (the what-if advisor) is removed; embodiment (crowd-scale motion) is kept as one later direction and one project, not a co-equal job. The standalone "Competitive-efficiency study" project is dropped, aligning the inventory with the deck.
 

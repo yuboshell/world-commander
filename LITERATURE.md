@@ -1,6 +1,6 @@
 # World Commander — Literature Review
 
-Related-work survey for the World Commander program, compiled 2026-06-14; text-to-motion foundations added 2026-07-02.
+Related-work survey for the World Commander program, compiled 2026-06-14; text-to-motion foundations and the trajectory cluster added 2026-07-02.
 
 - **[N]** = new from this review; **[P]** = already cited in PROPOSAL.md.
 - **★** = read first.
@@ -9,7 +9,7 @@ Related-work survey for the World Commander program, compiled 2026-06-14; text-t
 
 **The program in one line.** A human commander gives **free-form natural-language
 commands**; an **LLM-based pipeline executes** them as **coordinated multi-agent
-behaviour** — *RTS game units* or *full-body crowd motion* — **in real time, under a
+behaviour** — discrete game actions, trajectories, or full-body crowd motion — **in real time, under a
 latency/memory budget** and a live clock. The research bet is the **budget-aware corner**
 of that space, measured closed-loop (e.g. by win rate), which prior work does not do.
 
@@ -19,42 +19,45 @@ The pipeline has a **domain-agnostic middle** and a **domain-specific edge**:
 
 ```mermaid
 flowchart LR
-  C["free-form / abstract<br/>command"] --> I["interpreter<br/>(LLM)"]
-  I --> K["coordination<br/>assignment / MARL"]
-  K --> U["RTS:<br/>game-unit commands"]
-  K --> M["crowd:<br/>full-body motion"]
-  classDef shared fill:#e8eefc,stroke:#5577bb,color:#111
-  classDef edge fill:#fdeeee,stroke:#bb5555,color:#111
+  C["Free-form / abstract<br/>command"] --> I["Interpreter<br/>(LLM)"]
+  I --> K["Coordination<br/>assignment / MARL"]
+  K --> U["Coarse: discrete actions<br/>(game API)"]
+  K --> T["Medium: trajectories<br/>(root paths)"]
+  K --> M["Fine: continuous motion<br/>(generated)"]
+  classDef shared fill:#ece2d3,stroke:#9c8569,color:#111
+  classDef edge fill:#edf0dd,stroke:#94a35a,color:#111
   class C,I,K shared
-  class U,M edge
+  class U,T,M edge
 ```
 
-*Blue = the domain-agnostic shared middle (the **budget** wedge sits on the interpreter;
-**coordination** is the multi-agent layer). Red = the domain-specific **executor** edge.*
+*Trunk (brown) = the domain-agnostic shared middle (the **budget** wedge sits on the interpreter;
+**coordination** is the multi-agent layer). Branches (olive) = the executors, split by the level of
+detail of their output: discrete actions → trajectories → full-body motion.*
 
-— only the **executor** is domain-specific: *coarse* discrete actions (game API) or *fine*
-continuous motion (generated). So the 81-ref survey (`survey/command-crowds.csv`, tagged per
-row; text-to-motion foundations added 2026-07-02) groups under three shared **pillars** plus
+— only the **executor** is domain-specific, split by the level of detail of its output:
+*coarse* discrete actions (game API), *medium* trajectories (root paths), or *fine* continuous
+motion (generated). So the 89-ref survey (`survey/command-crowds.csv`, tagged per
+row; foundations and trajectory clusters added 2026-07-02) groups under three shared **pillars** plus
 a cross-cutting **budget** wedge:
 
 | Pillar | what it covers | refs | main themes |
 |---|---|---|---|
 | **Command** | the free-form / abstract NL command & interface | 7 | 1 |
 | **Executor** | goal → one agent's actions or motion (units / full-body / robot) | 41 | 2, 3, 5, 7, 9 |
-| **Coordination** | multi-agent assignment / MARL / crowd behaviour | 21 | 6, 8 |
+| **Coordination** | multi-agent assignment / MARL / crowd behaviour / trajectories | 29 | 6, 8, 10 |
 | *(Datasets)* | command / coaching corpora | 12 | 4 |
-| *cross-cutting:* **Budget** | latency / FPS / VRAM / tokens measured? (an attribute) | 17 of 81 | — |
+| *cross-cutting:* **Budget** | latency / FPS / VRAM / tokens measured? (an attribute) | 18 of 89 | — |
 
 *(Pillar is tagged per row by primary role, so it doesn't sum exactly by theme.)*
 
 **The open quadrant = the contribution.** Tag the four axes the program actually claims:
 
-| axis | "yes" / 81 |
+| axis | "yes" / 89 |
 |---|---|
-| free-form / abstract command | 51 |
-| real-time / streaming | 22 |
-| multi-agent / crowd | 31 |
-| budget-aware (measures compute) | 17 |
+| free-form / abstract command | 52 |
+| real-time / streaming | 23 |
+| multi-agent / crowd | 39 |
+| budget-aware (measures compute) | 18 |
 | **all four at once** | **0** |
 
 <img src="fig/lit-positioning.png" width="640" alt="Open quadrant — free-form-command papers by real-time × multi-agent; the target corner (multi-agent × real-time × budget-aware) is empty">
@@ -273,6 +276,42 @@ Applies diffusion forcing to streaming motion under time-varying text prompts, w
 Diffusion model for two-person interactive motion from text via weight-sharing cooperative transformers with mutual attention; introduces the InterHuman dataset.
 *Relevance:* the reference for interaction-aware multi-character motion (agents reacting to each other), relevant when commanded crowds must coordinate; its mutual-attention scheme goes beyond CrowdMoGen's independent-agent assumption.
 
+## 6. Trajectory generation and prediction (the middle rung; added 2026-07-02)
+
+The literature behind the detail ladder's middle level: continuous **root paths** (a few degrees of freedom per agent per frame) rather than articulated full-body motion. Three lines: classical crowd simulation, learned multi-agent trajectory prediction, and — most relevant to us — trajectory *generation* conditioned on tokens or language.
+
+**Social Force Model** — Social Force Model for Pedestrian Dynamics. Helbing, Molnár. *Phys. Rev. E 1995*. [arXiv cond-mat/9805244](https://arxiv.org/abs/cond-mat/9805244). **[N]**
+Agents as particles driven by goal attraction and repulsive social/obstacle forces; lane formation and bottleneck oscillations emerge from simple per-agent rules.
+*Relevance:* the classical, engine-friendly baseline for cheap multi-agent paths — what game crowd systems descend from; the null-hypothesis P4 must beat.
+
+**Social LSTM** — Human Trajectory Prediction in Crowded Spaces. Alahi et al. *CVPR 2016*. [CVF open access](https://openaccess.thecvf.com/content_cvpr_2016/html/Alahi_Social_LSTM_Human_CVPR_2016_paper.html). **[N]**
+Per-pedestrian LSTM with social pooling of neighbours' hidden states; introduced the learned-prediction line and the ADE/FDE displacement metrics.
+*Relevance:* the field's origin point, and the source of the ADE/FDE metrics any trajectory output of ours would be scored with.
+
+**Social GAN** — Socially Acceptable Trajectories with GANs. Gupta et al. *CVPR 2018*. [arXiv 1803.10892](https://arxiv.org/abs/1803.10892). **[N]**
+GAN with global pooling and a variety loss: a *distribution* over plausible futures; made k-sample minADE/minFDE the standard protocol.
+*Relevance:* multimodality — one order admits many valid path sets; P4's evaluation must score distributions, not single paths.
+
+**Trajectron++** — Dynamically-Feasible Trajectory Forecasting with Heterogeneous Data. Salzmann, Ivanovic et al. *ECCV 2020*. [arXiv 2001.03093](https://arxiv.org/abs/2001.03093). **[N]**
+Graph-structured recurrent CVAE over agent interactions with dynamics-integrated decoding; handles heterogeneous agents and map context.
+*Relevance:* the structured interaction-graph baseline; its dynamics integration is the template for making generated paths physically followable by game units.
+
+**MID** — Stochastic Trajectory Prediction via Motion Indeterminacy Diffusion. Gu et al. *CVPR 2022*. [arXiv 2203.13777](https://arxiv.org/abs/2203.13777). **[N]**
+Diffusion over future trajectories, progressively narrowing indeterminacy from noise to path — the diffusion branch of the prediction field.
+*Relevance:* the quality reference the fast variants accelerate (mirrors MDM's role in the motion field).
+
+**LED** — Leapfrog Diffusion Model for Stochastic Trajectory Prediction. Mao et al. *CVPR 2023*. [arXiv 2303.10895](https://arxiv.org/abs/2303.10895). **[N]**
+A learned leapfrog initializer skips most denoising steps: ~20× fewer steps at equal accuracy, with inference time measured — real-time diffusion prediction.
+*Relevance:* the budget-aware entry of the prediction line: speed as a first-class metric is exactly our evaluation posture, one rung down the detail ladder.
+
+**★ MotionLM** — Multi-Agent Motion Forecasting as Language Modeling. Seff et al. (Waymo). *ICCV 2023*. [arXiv 2309.16534](https://arxiv.org/abs/2309.16534). **[N]**
+Discretizes continuous trajectories into motion tokens and decodes joint multi-agent futures with an autoregressive language model.
+*Relevance:* the direct precedent for token-based trajectory generation — the same tokenize-then-LM move Motion BPE makes for full-body motion, and a natural substrate for a BPE layer at trajectory level.
+
+**★ LCTGen** — Language Conditioned Traffic Generation. Tan et al. *CoRL 2023*. [arXiv 2307.07947](https://arxiv.org/abs/2307.07947). **[N]**
+An LLM interprets a text description into a structured intermediate; a transformer generates the multi-agent traffic scene and its trajectories.
+*Relevance:* the closest existing "command → multi-agent trajectories" system — language in, coordinated paths out — but offline and in the driving domain; the real-time, game-domain version under budget is open, which is P4's trajectory option.
+
 ---
 
 ## Verification notes
@@ -282,4 +321,5 @@ Diffusion model for two-person interactive motion from text via weight-sharing c
 - **InterGen**: title, authors (Liang et al.), IJCV 2024, and the InterHuman dataset are confirmed; the arXiv id 2304.05684 is from the project-page lineage and should be double-checked before citing.
 - A candidate on discrete tokenization of tabular data (arXiv 2603.07448) surfaced but its authors/venue were not confirmed, so it is omitted here.
 - Several 2026 arXiv ids (e.g. Graph Tokenization 2603.x, SideQuest 2602.x, the DOOM model 2604.x) are recent; they were resolved against their abstract pages during the search but post-date the assistant's training data, so re-confirm before formal citation.
+- **Trajectory cluster (2026-07-02)**: six arXiv ids resolved against their abstract pages; Social-LSTM confirmed via CVF open access; the Social Force model's arXiv mirror (cond-mat/9805244) confirmed by title. Venues are the commonly cited proceedings (CVPR 2016/2018/2022/2023, ECCV 2020, ICCV 2023, CoRL 2023, Phys. Rev. E 1995).
 - **Text-to-motion foundations (2026-07-02)**: all seven arXiv ids were resolved against the arXiv API (titles matched); Guo CVPR 2022 was confirmed via CVF open access (author list includes Li Cheng). Venues are the commonly cited proceedings (TM2T/TEMOS ECCV 2022, MDM ICLR 2023, T2M-GPT CVPR 2023, MotionGPT NeurIPS 2023, MoMask CVPR 2024, MotionDiffuse TPAMI 2024); the arXiv pages do not all state them.
