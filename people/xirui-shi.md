@@ -1,4 +1,4 @@
-# Xirui Shi (Dalen)
+# Xirui Shi 施稀睿 (Dalen)
 
 Team member, *World Commander*. Ph.D. student in Computer Engineering at the
 University of Alberta and the Alberta Machine Intelligence Institute (Amii),
